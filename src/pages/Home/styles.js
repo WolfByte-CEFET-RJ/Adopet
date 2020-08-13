@@ -1,12 +1,12 @@
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  container: {
-      flex: 1,
-      backgroundColor: '#FFF',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-});
+export const Background= styled.SafeAreaView`
+  flex: 1;
+  background-color: #ffff;
+`;
 
-export default styles;
+export const Container= styled.KeyboardAvoidingView`
+  flex:1;
+
+`;

@@ -1,7 +1,19 @@
 import React from 'react';
-import {View,Text } from 'react-native';
+import { View,Text } from 'react-native';
 
-import { Background, Container, BG, Header, HeaderTitle, Person, PersonText, AreaInput, Input, BtCreate, BtCreateText } from './styles';
+import {
+  AreaInput,
+  Background,
+  BG,
+  BtCreate,
+  BtCreateText,
+  Container,
+  Header,
+  HeaderTitle,
+  Input,
+  Person,
+  PersonText,
+} from './styles';
 
 export default function Login(){
   return(

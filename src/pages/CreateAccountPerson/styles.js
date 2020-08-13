@@ -3,7 +3,7 @@ import Constants from 'expo-constants';
 
 const status_bar = Constants.statusBarHeight;
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
   flex: 1;
   background: #FFF;
   padding-top: 25;

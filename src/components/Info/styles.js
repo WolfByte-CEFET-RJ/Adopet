@@ -1,29 +1,27 @@
 import styled from 'styled-components/native';
 
-export const InfoText = styled.Text`
-  margin-left: 16;
-  margin-top: 16;
-  margin-bottom: 12;
-  font-size: 16;
-  color: #000;
-`
-
 export const CardInfo = styled.View`
-  height: 38;
+  height:40px;
+  width: 310px;
+
+  background: blue;
 
   flex-direction: row;
   align-items: center;
 
-  border-radius: 5;
+  border-radius: 5px;
   background: white;
 
   elevation: 5;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
 `
 
 export const InputImage = styled.View`
-  margin-left: 5;
+  margin-left: 5px;
 `
 
 export const InputText = styled.TextInput`
-  margin-left: 10;
+  margin-left: 10px;
 `

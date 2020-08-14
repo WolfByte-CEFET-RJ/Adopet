@@ -1,30 +1,27 @@
 import styled from 'styled-components/native';
-import Constants from 'expo-constants';
-
-const status_bar = Constants.statusBarHeight;
 
 export const Container = styled.SafeAreaView`
   flex: 1;
   background: #FFF;
-  padding-top: 25;
-  padding-left: 12;
-  padding-right: 12;
+  padding-top: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
 `
 
 export const BackGround = styled.Image`
   position: absolute;
-  left: 0;
+  left: 0%;
   top: 25%;
 `
 
 export const Header = styled.View`
-  margin-left: 16;
+  margin-left: 16px;
 `
 
 export const HeaderTitle = styled.Text`
-  font-size: 24;
+  font-size: 24px;
   color: #1B262C;
-  margin-bottom: 10;
+  margin-bottom: 10px;
 `
 
 export const Person = styled.View`
@@ -35,21 +32,26 @@ export const PersonText = styled.Text`
   color: #12947F;
 `
 
+export const Forms = styled.View`
+  justify-content: center;
+  align-items: center;
+`
+
 export const PlaceImage = styled.View`
-  height: 88;
+  height: 88px;
 
   align-items: center;
   justify-content: center;
 
-  margin-top: 24;
+  margin-top: 24px;
 `
 
 export const PlaceImageOpacity = styled.TouchableOpacity`
   background: #E2E2E2;
-  height: 88;
-  width: 88;
+  height: 88px;
+  width: 88px;
 
-  border-radius: 44;
+  border-radius: 44px;
 
   justify-content: center;
   align-items: center;
@@ -72,27 +74,16 @@ export const Orange = styled.Text`
   color: #F17808;
 `
 
-export const BtCreate = styled.TouchableOpacity`
-  border-radius: 5;
-
-  justify-content: center;
-  align-items: center;
-
-  height: 50;
-`
-
-export const BtCreateText = styled.Text`
-  font-size: 15;
-  color: #FFF;
-`
-
 export const Footer = styled.View`
-  align-items: center;
-  margin-top: 10;
+  height: 140px;
+
   flex-direction: column;
+
+  align-items: center;
   justify-content: space-between;
-  height: 140;
-  padding-bottom: 10;
+
+  padding-bottom: 10px;
+  margin-top: 10px;
 `
 
 export const Page = styled.View`
@@ -101,11 +92,11 @@ export const Page = styled.View`
 `
 
 export const Points = styled.View`
-  margin-top: 20;
-  margin-bottom: 20;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
-  width: 50;
-  height: 15;
+  width: 50px;
+  height: 15px;
 
   flex-direction: row;
   justify-content: space-around;

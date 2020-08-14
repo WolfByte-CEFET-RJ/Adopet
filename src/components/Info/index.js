@@ -3,7 +3,6 @@ import React from 'react';
 import { Feather } from '@expo/vector-icons';
 
 import {
-  InfoText,
   CardInfo,
   InputImage,
   InputText
@@ -12,7 +11,6 @@ import {
 export default function Info(props) {
   return (
     <>
-      <InfoText>{props.text}</InfoText>
       <CardInfo>
         <InputImage>
           <Feather name={props.image} size={26} color='#F17808' />
@@ -20,6 +18,7 @@ export default function Info(props) {
         <InputText
           placeholder={props.placeholder}
           secureTextEntry={props.password? true : false}
+          maxLength={props.length}
         />
       </CardInfo>
     </>

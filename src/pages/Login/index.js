@@ -1,12 +1,13 @@
 import React from 'react';
 import { View,Text } from 'react-native';
+import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
+import LoginBG from '../../assets/images/LoginBG.png';
+import Button from '../../components/Button';
 
 import {
   AreaInput,
-  Background,
-  BG,
-  BtCreate,
-  BtCreateText,
+  BGPata,
+  BGLogin,
   Container,
   Header,
   HeaderTitle,
@@ -17,9 +18,9 @@ import {
 
 export default function Login(){
   return(
-    <Background>
       <Container>
-        <BG source={require('../../assets/images/LoginBG.png')}/>
+        <BGPata source={PatasTransparentes}/>
+        <BGLogin source={LoginBG}/>
 
         <Header>
           <HeaderTitle>Bem Vindo,{'\n'}ao Adopet</HeaderTitle>
@@ -45,11 +46,12 @@ export default function Login(){
           />
         </AreaInput>
 
-        <BtCreate>
-            <BtCreateText>Criar Minha Conta</BtCreateText>
-        </BtCreate>
+        <Button
+              height={50}
+              text='Ong'
+              colors={['#F17808','#FF8A00']}
+        />
 
       </Container>
-    </Background>
   )
 }

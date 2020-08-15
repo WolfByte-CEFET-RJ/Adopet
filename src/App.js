@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Inicial from './pages/Inicial';
 
 export default function App() {
-  return <Inicial/>
+  return <Login/>
 }
 
 

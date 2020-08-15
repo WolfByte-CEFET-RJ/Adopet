@@ -5,7 +5,7 @@ import CreateAccountPerson from './pages/CreateAccountPerson';
 import Login from './pages/Login';
 
 export default function App() {
-  return <CreateAccountPerson/>
+  return <Login/>
 }
 
 

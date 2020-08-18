@@ -41,12 +41,20 @@ export default function CreateAccountPerson() {
   const [check1Select, setCheck1Select] = useState(false);
   const [check2Select, setCheck2Select] = useState(false);
 
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [CPF, setCPF] = useState('');
+
   return (
     <ScrollView>
       <Container>
         <BackGround source={BG} />
 
-        <Text>Is CheckBox1 selected: {check1Select ? "👍" : "👎"}</Text>
+        <Text>{userName}</Text>
+        <Text>{password}</Text>
+        <Text>{email}</Text>
+        <Text>{CPF}</Text>
 
         <Feather
           name='chevron-left'
@@ -58,7 +66,7 @@ export default function CreateAccountPerson() {
           <HeaderTitle>Crie sua conta{'\n'}no Adopet</HeaderTitle>
           <Person>
             <Text>Este cadastro se refere a </Text>
-            <PersonText>{teste}</PersonText>
+            <PersonText>Pessoa Física</PersonText>
           </Person>
         </Header>
 
@@ -74,20 +82,31 @@ export default function CreateAccountPerson() {
           <Info
             image='user'
             placeholder='Digite seu nome'
+            onChangeText={userName => setUserName(userName)}
+            defaultValue={userName}
+            length={40}
           />
           <Info
             image='mail'
             placeholder='Digite seu E-mail'
+            onChangeText={email => setEmail(email)}
+            defaultValue={email}
+            length={40}
           />
           <Info
             image='lock'
             placeholder='Digite sua senha'
+            onChangeText={password => setPassword(password)}
+            defaultValue={password}
             password={1}
             length={15}
           />
           <Info
             image='users'
             placeholder='Digite seu CPF'
+            onChangeText={CPF => setCPF(CPF)}
+            defaultValue={CPF}
+            length={40}
           />
         </Forms>
 
@@ -102,9 +121,13 @@ export default function CreateAccountPerson() {
                 <Text>Ao clicar em Cadastre-se, você concorda com </Text>
                   <CheckBoxText>
                     <Text>nossos</Text>
-                    <Orange>Termos</Orange>
+                    <Orange
+                      onPress={() => {}}
+                    >Termos</Orange>
                     <Text> e </Text>
-                    <Orange>Política de Dados.</Orange>
+                    <Orange
+                      onPress={() => {}}
+                    >Política de Dados.</Orange>
                   </CheckBoxText>
               </View>
             </CheckBoxContainer>

@@ -19,6 +19,9 @@ export default function Info(props) {
           placeholder={props.placeholder}
           secureTextEntry={props.password? true : false}
           maxLength={props.length}
+          onValueChange={props.onValueChange}
+          onChangeText={props.onChangeText}
+          defaultValue={props.defaultValue}
         />
       </CardInfo>
     </>

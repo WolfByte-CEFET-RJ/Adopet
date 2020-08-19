@@ -8,7 +8,10 @@ export const BtCreate = styled.TouchableOpacity`
 
   height: 50px;
   width: 300px;
+
+  elevation: 20;
 `
+// Prestar atenção no Elevation
 
 export const BtCreateText = styled.Text`
   font-size: 15px;

@@ -50,3 +50,27 @@ export const Description= styled.Text`
   font-size: 14px;
   color:#7B7F9E;
 `;
+
+export const Button1= styled.TouchableOpacity`
+  position: absolute;
+
+  left: 8.06%;
+  top: 68.59%;
+  width: 83.88%;
+  border-radius: 10px;
+
+  align-Items: center;
+
+`
+
+export const Button2= styled.TouchableOpacity`
+  position: absolute;
+
+  left: 8.06%;
+  top: 77.97%;
+  width: 83.88%;
+  border-radius: 10px;
+
+  align-Items: center;
+
+`

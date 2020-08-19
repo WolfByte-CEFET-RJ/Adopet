@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Feather } from '@expo/vector-icons';
 
-import BG from '../../assets/images/BG.png';
+import BG from '../../assets/images/BGOrange.png';
 
 import {
   CheckBox,
@@ -27,10 +27,10 @@ import {
   Forms,
   Header,
   HeaderTitle,
-  Orange,
+  Green,
   Page,
   Person,
-  PersonText,
+  ONGText,
   PlaceImage,
   PlaceImageOpacity,
   Points
@@ -43,8 +43,9 @@ export default function CreateAccountPerson() {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [CPF, setCPF] = useState('');
+  const [email, setEmail]       = useState('');
+  const [CNPJ, setCNPJ]         = useState('');
+  const [local, setLocal]       = useState('');
 
   return (
     <ScrollView>
@@ -54,7 +55,8 @@ export default function CreateAccountPerson() {
         <Text>{userName}</Text>
         <Text>{password}</Text>
         <Text>{email}</Text>
-        <Text>{CPF}</Text>
+        <Text>{CNPJ}</Text>
+        <Text>{local}</Text>
 
         <Feather
           name='chevron-left'
@@ -66,7 +68,7 @@ export default function CreateAccountPerson() {
           <HeaderTitle>Crie sua conta{'\n'}no Adopet</HeaderTitle>
           <Person>
             <Text>Este cadastro se refere a </Text>
-            <PersonText>Pessoa Física</PersonText>
+            <ONGText>Ongs</ONGText>
           </Person>
         </Header>
 
@@ -74,7 +76,7 @@ export default function CreateAccountPerson() {
           <PlaceImageOpacity
             onPress={() => {}}
           >
-            <Feather name='camera' color='#F17808' size={30}/>
+            <Feather name='camera' color='#12947F' size={30}/>
           </PlaceImageOpacity>
         </PlaceImage>
 
@@ -85,7 +87,7 @@ export default function CreateAccountPerson() {
             onChangeText={userName => setUserName(userName)}
             defaultValue={userName}
             length={40}
-            color='#F17808'
+            color='#12947F'
           />
           <Info
             image='mail'
@@ -93,7 +95,7 @@ export default function CreateAccountPerson() {
             onChangeText={email => setEmail(email)}
             defaultValue={email}
             length={40}
-            color='#F17808'
+            color='#12947F'
           />
           <Info
             image='lock'
@@ -102,15 +104,23 @@ export default function CreateAccountPerson() {
             defaultValue={password}
             password={1}
             length={15}
-            color='#F17808'
+            color='#12947F'
           />
           <Info
             image='users'
-            placeholder='Digite seu CPF'
-            onChangeText={CPF => setCPF(CPF)}
-            defaultValue={CPF}
+            placeholder='Digite seu CNPJ da Ong'
+            onChangeText={CNPJ => setCNPJ(CNPJ)}
+            defaultValue={CNPJ}
             length={40}
-            color='#F17808'
+            color='#12947F'
+          />
+          <Info
+            image='map-pin'
+            placeholder='Digite o local da Ong'
+            onChangeText={local => setLocal(local)}
+            defaultValue={local}
+            length={40}
+            color='#12947F'
           />
         </Forms>
 
@@ -125,13 +135,13 @@ export default function CreateAccountPerson() {
                 <Text>Ao clicar em Cadastre-se, você concorda com </Text>
                   <CheckBoxText>
                     <Text>nossos</Text>
-                    <Orange
+                    <Green
                       onPress={() => {}}
-                    >Termos</Orange>
+                    >Termos</Green>
                     <Text> e </Text>
-                    <Orange
+                    <Green
                       onPress={() => {}}
-                    >Política de Dados.</Orange>
+                    >Política de Dados.</Green>
                   </CheckBoxText>
               </View>
             </CheckBoxContainer>
@@ -148,7 +158,7 @@ export default function CreateAccountPerson() {
           <Button
             height={50}
             text='Criar Minha Conta'
-            colors={['#12947F','#0AB599']}
+            colors={['#F17808','#FF8A00']}
           />
 
         </Footer>
@@ -156,9 +166,9 @@ export default function CreateAccountPerson() {
 
       <Page>
         <Points>
-          <Feather name='square' size={10} color='#F17808' />
-          <Feather name='square' size={10} color='#F17808' />
-          <Feather name='square' size={10} color='#F17808' />
+          <Feather name='square' size={10} color='#12947F' />
+          <Feather name='square' size={10} color='#12947F' />
+          <Feather name='square' size={10} color='#12947F' />
         </Points>
       </Page>
 

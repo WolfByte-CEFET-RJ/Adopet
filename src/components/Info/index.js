@@ -13,7 +13,7 @@ export default function Info(props) {
     <>
       <CardInfo>
         <InputImage>
-          <Feather name={props.image} size={26} color='#F17808' />
+          <Feather name={props.image} size={26} color={props.color} />
         </InputImage>
         <InputText
           placeholder={props.placeholder}

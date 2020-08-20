@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 
 import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
-import GatoHome from '../../assets/images/GatoHome.png';
+import ColarAfter from '../../assets/images/ColarAfter.png';
 
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
@@ -10,26 +10,22 @@ import * as Font from 'expo-font';
 import Button from '../../components/Button';
 
 import {
-  Background,
-  ImagePatas,
-  ImageGato,
-  Header,
   AdopetTitle,
-  Description,
+  Background,
   Button1,
-  Button2,
-
+  Description,
+  Icon,
+  ImagePatas,
 } from './styles';
 
 const fetchFonts = () => {
     return Font.loadAsync({
-      'GilroyLight': require('../../assets/fonts/Gilroy-Light.ttf'),
       'GilroyBold':require('../../assets/fonts/Gilroy-Bold.ttf'),
     });
   };
 
 
-export default function Inicial() {
+export default function AfterCreate2() {
       const [dataLoaded, setDataLoaded] = useState(false);
       if (!dataLoaded){
       return(
@@ -51,31 +47,23 @@ export default function Inicial() {
     <Background>
 
       <ImagePatas source={PatasTransparentes}/>
-      <ImageGato source={GatoHome}/>
 
-      <Header style={{fontFamily:'GilroyLight'}}>Bem-Vindo ao</Header>
-      <AdopetTitle style={{fontFamily:'GilroyBold'}}>Adopet</AdopetTitle>
+      <AdopetTitle style={{fontFamily:'GilroyBold'}}>Chegou sua Hora!
+      </AdopetTitle>
 
-      <Description>O aplicativo feito para facilitar{"\n"}a sua busca por um animal para adotar{"\n"}ou uma pessoa para adotar seu animal.{"\n"}{"\n"}Aproveite!</Description>
+      <Description>Agora, você já pode usar nosso{"\n"}querido aplicativo. Adote e coloque {"\n"}para adoção!!</Description>
+
+      <Icon source={ColarAfter}/>
 
 
       <Button1>
         <Button
         height={50}
         width={300}
-        text='Cadastro'
+        text='Vamos lá!'
         colors={['#F17808','#FF8A00']}
         />
       </Button1>
-
-      <Button2>
-        <Button
-        height={50}
-        width={300}
-        text='Login'
-        colors={['#12947F','#0AB599']}
-      />
-      </Button2>
 
     </Background>
   );

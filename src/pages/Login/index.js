@@ -1,56 +1,66 @@
-import React from 'react';
-import { View,Text } from 'react-native';
+import React, { useState } from 'react';
+import { Text } from 'react-native';
+
 import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
 import LoginBG from '../../assets/images/LoginBG.png';
+import Icone from '../../assets/images/Icone.png';
+
 import Button from '../../components/Button';
+import Info from '../../components/Info';
 
 import {
-  AreaInput,
   BGPata,
   BGLogin,
   Container,
-  Header,
-  HeaderTitle,
-  Input,
-  Person,
-  PersonText,
+  Forms,
+  Icon,
+  Button1
 } from './styles';
 
 export default function Login(){
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
   return(
       <Container>
         <BGPata source={PatasTransparentes}/>
         <BGLogin source={LoginBG}/>
 
-        <Header>
-          <HeaderTitle>Bem Vindo,{'\n'}ao Adopet</HeaderTitle>
-          <Person>
-          <Text> Você não possui Conta? </Text>
-            <PersonText>Cria sua Conta</PersonText>
-          </Person>
-        </Header>
+        <Text>{userName}</Text>
+        <Text>{password}</Text>
 
-        <AreaInput>
-          <Input
-          placeholder="Email"
-          autoCorret={false}
-          autoCapitalize="none"
+        <Icon source={Icone}/>
+
+        <Forms>
+          <Info
+            image='user'
+            placeholder='Digite seu nome'
+            onChangeText={userName => setUserName(userName)}
+            defaultValue={userName}
+            length={40}
+            color='#12947F'
           />
-        </AreaInput>
 
-        <AreaInput>
-          <Input
-          placeholder="Senha"
-          autoCorret={false}
-          autoCapitalize="none"
+          <Info
+            image='lock'
+            placeholder='Digite sua senha'
+            onChangeText={password => setPassword(password)}
+            defaultValue={password}
+            password={1}
+            length={15}
+            color='#12947F'
           />
-        </AreaInput>
+        </Forms>
 
-        <Button
-              height={50}
-              text='Ong'
-              colors={['#F17808','#FF8A00']}
-        />
+        <Button1>
+          <Button
+          height={40}
+          width={300}
+          text='Entrar'
+          colors={['#F17808','#FF8A00']}
+          />
+        </Button1>
+
 
       </Container>
   )

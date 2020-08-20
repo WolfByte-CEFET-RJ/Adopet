@@ -5,6 +5,8 @@ import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
 import LoginBG from '../../assets/images/LoginBG.png';
 import Icone from '../../assets/images/Icone.png';
 
+import { Feather } from '@expo/vector-icons';
+
 import Button from '../../components/Button';
 import Info from '../../components/Info';
 
@@ -14,7 +16,8 @@ import {
   Container,
   Forms,
   Icon,
-  Button1
+  Recup,
+  Button1,
 } from './styles';
 
 export default function Login(){
@@ -23,6 +26,13 @@ export default function Login(){
 
   return(
       <Container>
+
+        <Feather
+          name='chevron-left'
+          size={26}
+          color='#A1A1A1'
+        />
+
         <BGPata source={PatasTransparentes}/>
         <BGLogin source={LoginBG}/>
 
@@ -51,6 +61,8 @@ export default function Login(){
             color='#12947F'
           />
         </Forms>
+
+        <Recup onPress={() => {}}>Esqueceu sua Senha?</Recup>
 
         <Button1>
           <Button

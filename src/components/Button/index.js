@@ -8,7 +8,7 @@ import {
 
 export default function Button(props) {
   return (
-    <BtCreate>
+    <BtCreate onPress={props.onPress}>
       <LinearGradient
           colors={props.colors}
           style={{height: props.height, width: props.width,

@@ -5,6 +5,7 @@ import ColarAfter from '../../assets/images/ColarAfter.png';
 
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
+import { Feather } from '@expo/vector-icons';
 // import { useNavigation} from '@react-navigation/native';
 
 import Button from '../../components/Button';
@@ -16,6 +17,8 @@ import {
   Description,
   Icon,
   ImagePatas,
+  Page,
+  Points,
 } from './styles';
 
 const fetchFonts = () => {
@@ -48,6 +51,12 @@ export default function AfterCreate2() {
 
       <ImagePatas source={PatasTransparentes}/>
 
+      <Feather
+          name='chevron-left'
+          size={26}
+          color='#A1A1A1'
+        />
+
       <AdopetTitle style={{fontFamily:'GilroyBold'}}>Chegou sua Hora!
       </AdopetTitle>
 
@@ -64,6 +73,14 @@ export default function AfterCreate2() {
         colors={['#F17808','#FF8A00']}
         />
       </Button1>
+
+      <Page>
+        <Points>
+          <Feather name='square' size={10} color='#12947F' />
+          <Feather name='square' size={10} color='#12947F' />
+          <Feather name='square' size={10} color='#12947F' />
+        </Points>
+      </Page>
 
     </Background>
   );

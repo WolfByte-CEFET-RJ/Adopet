@@ -19,9 +19,8 @@ export const BGLogin= styled.Image`
 
 export const Icon= styled.Image`
   position: absolute;
-
-  justify-content: center;
-  align-items: center;
+  width: 204px;
+  height: 217px;
 
   left: 22.5%;
   top: 10.0%;
@@ -36,6 +35,13 @@ export const Forms = styled.View`
   left: 8.06%;
   top: 45.0%;
   width: 83.88%;
+`
+export const Recup = styled.Text`
+  position: absolute;
+  right: 15%;
+  top: 64.0%;
+
+  text-decoration: underline;
 `
 
 export const Button1= styled.TouchableOpacity`

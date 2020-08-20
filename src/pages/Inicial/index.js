@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text } from 'react-native';
+import { Text } from 'react-native';
 import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
 import FotoCachorro from '../../assets/images/FotoCachorro.png';
 import Button from '../../components/Button';

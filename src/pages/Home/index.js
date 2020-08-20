@@ -5,7 +5,7 @@ import GatoHome from '../../assets/images/GatoHome.png';
 
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
-// import { useNavigation} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
 
 import Button from '../../components/Button';
 
@@ -39,13 +39,13 @@ export default function Inicial() {
           />
        );
       }
-      // const navigation= useNavigation();
-      // function IrparaLogin(){
-      //   navigation.navigate('Login');
-      // }
-      // function IrparaRegistro(){
-      //   navigation.navigate('Registro')
-      // }
+      const navigation= useNavigation();
+      function IrparaLogin(){
+        navigation.navigate('Login');
+      }
+      function IrparaInicial(){
+        navigation.navigate('Inicial')
+      }
 
   return (
     <Background>
@@ -61,6 +61,7 @@ export default function Inicial() {
 
       <Button1>
         <Button
+        onPress={() => {IrparaInicial()}}
         height={50}
         width={300}
         text='Cadastro'
@@ -70,6 +71,7 @@ export default function Inicial() {
 
       <Button2>
         <Button
+        onPress={() => {IrparaLogin()}}
         height={50}
         width={300}
         text='Login'

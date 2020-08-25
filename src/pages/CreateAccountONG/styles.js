@@ -85,21 +85,3 @@ export const Footer = styled.View`
   padding-bottom: 10px;
   margin-top: 10px;
 `
-
-export const Page = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-`
-
-export const Points = styled.View`
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  width: 50px;
-  height: 15px;
-
-  flex-direction: row;
-  justify-content: space-around;
-
-  align-items: center;
-`

@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 
 import { Feather } from '@expo/vector-icons';
 
+import { useNavigation } from '@react-navigation/native';
+
 import BG from '../../assets/images/BGOrange.png';
 
 import {
   CheckBox,
   ScrollView,
-  Image,
   Text,
-  TextInput,
   View,
-  TouchableOpacity
 } from 'react-native';
 
 import Button from '../../components/Button';
 import Info from '../../components/Info';
+import ThreePoints from '../../components/ThreePoints'
 
 import {
   BackGround,
@@ -25,14 +25,15 @@ import {
   Container,
   Footer,
   Forms,
+  Green,
   Header,
   HeaderTitle,
-  Green,
+  ONGText,
   Page,
   Person,
-  ONGText,
   PlaceImage,
   PlaceImageOpacity,
+  Point,
   Points
 } from './styles';
 
@@ -43,25 +44,22 @@ export default function CreateAccountPerson() {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail]       = useState('');
-  const [CNPJ, setCNPJ]         = useState('');
-  const [local, setLocal]       = useState('');
+  const [email   ,    setEmail] = useState('');
+  const [CNPJ    ,     setCNPJ] = useState('');
+  const [local   ,    setLocal] = useState('');
+
+  const navigation= useNavigation();
 
   return (
     <ScrollView>
       <Container>
         <BackGround source={BG} />
 
-        <Text>{userName}</Text>
-        <Text>{password}</Text>
-        <Text>{email}</Text>
-        <Text>{CNPJ}</Text>
-        <Text>{local}</Text>
-
         <Feather
           name='chevron-left'
           size={26}
           color='#A1A1A1'
+          onPress={() => {navigation.goBack()}}
         />
 
         <Header>
@@ -86,7 +84,7 @@ export default function CreateAccountPerson() {
             placeholder='Digite seu nome'
             onChangeText={userName => setUserName(userName)}
             defaultValue={userName}
-            length={40}
+            length={30}
             color='#12947F'
           />
           <Info
@@ -94,7 +92,7 @@ export default function CreateAccountPerson() {
             placeholder='Digite seu E-mail'
             onChangeText={email => setEmail(email)}
             defaultValue={email}
-            length={40}
+            length={30}
             color='#12947F'
           />
           <Info
@@ -111,7 +109,7 @@ export default function CreateAccountPerson() {
             placeholder='Digite seu CNPJ da Ong'
             onChangeText={CNPJ => setCNPJ(CNPJ)}
             defaultValue={CNPJ}
-            length={40}
+            length={30}
             color='#12947F'
           />
           <Info
@@ -119,7 +117,7 @@ export default function CreateAccountPerson() {
             placeholder='Digite o local da Ong'
             onChangeText={local => setLocal(local)}
             defaultValue={local}
-            length={40}
+            length={30}
             color='#12947F'
           />
         </Forms>
@@ -159,18 +157,15 @@ export default function CreateAccountPerson() {
             height={50}
             text='Criar Minha Conta'
             colors={['#F17808','#FF8A00']}
+            onPress={() => {navigation.navigate('CreateAccountPerson')}}
           />
 
         </Footer>
 
-
-      <Page>
-        <Points>
-          <Feather name='square' size={10} color='#12947F' />
-          <Feather name='square' size={10} color='#12947F' />
-          <Feather name='square' size={10} color='#12947F' />
-        </Points>
-      </Page>
+        <ThreePoints
+          points={[1,0,0]}
+          color={'#F17808'}
+        />
 
       </Container>
     </ScrollView>

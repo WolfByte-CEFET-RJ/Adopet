@@ -1,17 +1,19 @@
 import styled from 'styled-components/native';
 
+export const BackGround = styled.ImageBackground`
+
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 80%;
+`
+
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background: #FFF;
   padding-top: 20px;
   padding-left: 12px;
   padding-right: 12px;
-`
-
-export const BackGround = styled.Image`
-  position: absolute;
-  left: 0%;
-  top: 25%;
 `
 
 export const Header = styled.View`
@@ -84,22 +86,4 @@ export const Footer = styled.View`
 
   padding-bottom: 10px;
   margin-top: 10px;
-`
-
-export const Page = styled.View`
-  flex-direction: row;
-  justify-content: space-around;
-`
-
-export const Points = styled.View`
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  width: 50px;
-  height: 15px;
-
-  flex-direction: row;
-  justify-content: space-around;
-
-  align-items: center;
 `

@@ -11,8 +11,8 @@ export default function Button(props) {
     <BtCreate onPress={props.onPress}>
       <LinearGradient
           colors={props.colors}
-          style={{height: props.height,
-                  width: props.width,
+          style={{height: props.height ? props.height : 50,
+                  width: props.width ? props.height : 300,
                   borderRadius: props.radius ? props.radius : 5,
                   justifyContent: 'center',
                   alignItems: 'center'}}

@@ -6,7 +6,7 @@ export const BackGround = styled.ImageBackground`
   align-items: center;
 
   width: 100%;
-  height: 80%;
+  height: 100%;
 `
 
 export const Container = styled.SafeAreaView`
@@ -30,7 +30,7 @@ export const Person = styled.View`
   flex-direction: row;
 `
 
-export const PersonText = styled.Text`
+export const Green = styled.Text`
   color: #12947F;
 `
 

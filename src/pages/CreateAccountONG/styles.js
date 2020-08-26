@@ -1,17 +1,18 @@
 import styled from 'styled-components/native';
 
+export const BackGround = styled.ImageBackground`
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+`
+
 export const Container = styled.SafeAreaView`
   flex: 1;
-  background: #FFF;
   padding-top: 20px;
   padding-left: 12px;
   padding-right: 12px;
-`
-
-export const BackGround = styled.Image`
-  position: absolute;
-  left: 0%;
-  top: 25%;
 `
 
 export const Header = styled.View`
@@ -28,7 +29,7 @@ export const Person = styled.View`
   flex-direction: row;
 `
 
-export const ONGText = styled.Text`
+export const Orange = styled.Text`
   color: #F17808;
 `
 

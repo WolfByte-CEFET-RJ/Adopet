@@ -25,16 +25,13 @@ import {
   Container,
   Footer,
   Forms,
+  Green,
   Header,
   HeaderTitle,
   Orange,
-  Page,
   Person,
-  PersonText,
   PlaceImage,
   PlaceImageOpacity,
-  Point,
-  Points
 } from './styles';
 
 
@@ -44,8 +41,8 @@ export default function CreateAccountPerson() {
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [CPF, setCPF] = useState('');
+  const [email   ,    setEmail] = useState('');
+  const [CPF     ,      setCPF] = useState('');
 
   const navigation = useNavigation();
 
@@ -64,8 +61,7 @@ export default function CreateAccountPerson() {
           <Header>
             <HeaderTitle>Crie sua conta{'\n'}no Adopet</HeaderTitle>
             <Person>
-              <Text>Este cadastro se refere a </Text>
-              <PersonText>Pessoa Física</PersonText>
+              <Text>Este cadastro se refere à <Green>Pessoa Física</Green></Text>
             </Person>
           </Header>
 

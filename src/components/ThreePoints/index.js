@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -12,11 +12,12 @@ export default function ThreePoints(props) {
   return (
     <Page>
       <Points>
-        {props.points.map(point => (
-          point ?
-            <Point background={props.color}/> :
-            <Feather name='square' size={10} color={props.color} />
-        ))}
+        {props.points.map((point, index) => (
+            point ?
+              <Point key={index} background={props.color}/> :
+              <Feather key={index} name='square' size={10} color={props.color} />
+          )
+        )}
       </Points>
     </Page>
   )

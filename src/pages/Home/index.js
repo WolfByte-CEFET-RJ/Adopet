@@ -62,8 +62,6 @@ export default function Inicial() {
       <Button1>
         <Button
         onPress={() => {IrparaInicial()}}
-        height={50}
-        width={300}
         text='Cadastro'
         colors={['#F17808','#FF8A00']}
         />
@@ -72,8 +70,6 @@ export default function Inicial() {
       <Button2>
         <Button
         onPress={() => {IrparaLogin()}}
-        height={50}
-        width={300}
         text='Login'
         colors={['#12947F','#0AB599']}
       />

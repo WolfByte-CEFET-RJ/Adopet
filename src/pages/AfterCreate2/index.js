@@ -6,7 +6,7 @@ import ColarAfter from '../../assets/images/ColarAfter.png';
 import {AppLoading} from 'expo';
 import * as Font from 'expo-font';
 import { Feather } from '@expo/vector-icons';
-// import { useNavigation} from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
 
 import Button from '../../components/Button';
 
@@ -38,13 +38,10 @@ export default function AfterCreate2() {
           />
        );
       }
-      // const navigation= useNavigation();
-      // function IrparaLogin(){
-      //   navigation.navigate('Login');
-      // }
-      // function IrparaRegistro(){
-      //   navigation.navigate('Registro')
-      // }
+      const navigation= useNavigation();
+      function IrparaHome(){
+        navigation.navigate('Home');
+      }
 
   return (
     <Background>
@@ -52,10 +49,11 @@ export default function AfterCreate2() {
       <ImagePatas source={PatasTransparentes}/>
 
       <Feather
-          name='chevron-left'
-          size={26}
-          color='#A1A1A1'
-        />
+        name='chevron-left'
+        size={26}
+        color='#A1A1A1'
+        onPress={() => {navigation.goBack()}}
+      />
 
       <AdopetTitle style={{fontFamily:'GilroyBold'}}>Chegou sua Hora!
       </AdopetTitle>
@@ -67,6 +65,7 @@ export default function AfterCreate2() {
 
       <Button1>
         <Button
+        onPress={() => {IrparaHome()}}
         height={50}
         width={300}
         text='Vamos lá!'

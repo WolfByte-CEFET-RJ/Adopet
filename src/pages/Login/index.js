@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
 import { Text } from 'react-native';
 
-import PatasTransparentes from '../../assets/images/PatasTransparentes.png';
-import LoginBG from '../../assets/images/LoginBG.png';
+import BGLogin from '../../assets/images/Login/BGLogin.png';
 import Icone from '../../assets/images/Icone.png';
 
 import { Feather } from '@expo/vector-icons';
+
+import { useNavigation } from '@react-navigation/native';
 
 import Button from '../../components/Button';
 import Info from '../../components/Info';
 
 import {
-  BGPata,
-  BGLogin,
+  Background,
   Container,
   Forms,
   Icon,
+  Line,
   Recup,
-  Button1,
+  Switch,
 } from './styles';
 
 export default function Login(){
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigation = useNavigation();
+
   return(
+    <Background source={BGLogin}>
+
+
       <Container>
 
         <Feather
           name='chevron-left'
           size={26}
           color='#A1A1A1'
+          onPress={() => {navigation.goBack()}}
         />
-
-        <BGPata source={PatasTransparentes}/>
-        <BGLogin source={LoginBG}/>
-
-        <Text>{userName}</Text>
-        <Text>{password}</Text>
 
         <Icon source={Icone}/>
 
@@ -62,18 +63,20 @@ export default function Login(){
           />
         </Forms>
 
-        <Recup onPress={() => {}}>Esqueceu sua Senha?</Recup>
+        <Line>
+          <Switch valeu={true} onValueChange={ () => '' } />
+          <Text>Manter Conectado    |    </Text>
+          <Recup onPress={() => {}}>Esqueceu sua Senha?</Recup>
+        </Line>
 
-        <Button1>
-          <Button
-          height={40}
-          width={300}
-          text='Entrar'
-          colors={['#F17808','#FF8A00']}
-          />
-        </Button1>
-
+        <Button
+        text='Entrar'
+        colors={['#F17808','#FF8A00']}
+        radius={10}
+        />
 
       </Container>
+
+    </Background>
   )
 }

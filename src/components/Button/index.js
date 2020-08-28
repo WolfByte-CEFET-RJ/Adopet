@@ -12,7 +12,7 @@ export default function Button(props) {
       <LinearGradient
           colors={props.colors}
           style={{height: props.height ? props.height : 50,
-                  width: props.width ? props.height : 300,
+                  width: props.width ? props.width : 300,
                   borderRadius: props.radius ? props.radius : 5,
                   justifyContent: 'center',
                   alignItems: 'center'}}

@@ -152,7 +152,7 @@ export default function CreateAccountPerson() {
               height={50}
               text='Criar Minha Conta'
               colors={['#F17808','#FF8A00']}
-              onPress={() => {navigation.navigate('CreateAccountPerson')}}
+              onPress={() => {navigation.navigate('AfterCreate1')}}
             />
 
           </Footer>

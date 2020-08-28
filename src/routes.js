@@ -17,7 +17,7 @@ export default function Routes() {
     return (
         <NavigationContainer>
 
-            <AppStack.Navigator headerMode='none' initialRouteName='CreateAccountPerson' screenOptions={{ headerShown: false}}>
+            <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
 
                 <AppStack.Screen name='Home' component={Home} />
                 <AppStack.Screen name='Inicial' component={Inicial} />

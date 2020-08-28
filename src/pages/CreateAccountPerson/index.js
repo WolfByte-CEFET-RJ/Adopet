@@ -100,8 +100,8 @@ export default function CreateAccountPerson() {
               color='#F17808'
             />
             <Info
-              image='users'
-              placeholder='Digite seu CPF'
+              image='phone'
+              placeholder='Digite seu telefone'
               onChangeText={CPF => setCPF(CPF)}
               defaultValue={CPF}
               length={30}
@@ -144,7 +144,7 @@ export default function CreateAccountPerson() {
               height={50}
               text='Criar Minha Conta'
               colors={['#12947F','#0AB599']}
-              onPress={() => {navigation.navigate('CreateAccountONG')}}
+              onPress={() => {navigation.navigate('AfterCreate1')}}
             />
 
           </Footer>

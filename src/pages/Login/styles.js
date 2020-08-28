@@ -1,60 +1,39 @@
 import styled from 'styled-components/native';
 
+export const Background= styled.ImageBackground`
+  flex: 1;
+`;
+
 export const Container= styled.SafeAreaView`
-  background: #FAFBFD;
-  height: 100%;
-  width:100%;
-`;
-
-export const BGPata= styled.Image`
-  position: absolute;
-  height:100%;
-  width: 100%;
-`;
-
-export const BGLogin= styled.Image`
-  width: 100%;
-  height: 100%;
+  flex: 1;
+  align-items: center;
+  padding-top: 30px;
 `;
 
 export const Icon= styled.Image`
-  position: absolute;
   width: 204px;
   height: 217px;
-
-  left: 22.5%;
-  top: 10.0%;
+  margin-bottom: 18px;
 `;
 
 export const Forms = styled.View`
-  position: absolute;
-
   justify-content: center;
   align-items: center;
+  margin-bottom: 25px;
+`;
 
-  left: 8.06%;
-  top: 45.0%;
-  width: 83.88%;
-`
 export const Recup = styled.Text`
-  position: absolute;
-  right: 15%;
-  top: 64.0%;
-
   text-decoration: underline;
-`
+`;
 
-export const Button1= styled.TouchableOpacity`
-  position: absolute;
+export const Switch= styled.Switch`
+`;
 
-  left: 8.06%;
-  top: 70.0%;
-  width: 83.88%;
-  border-radius: 10px;
-
-  align-Items: center;
-
-`
+export const Line= styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 25px;
+`;
 
 
 

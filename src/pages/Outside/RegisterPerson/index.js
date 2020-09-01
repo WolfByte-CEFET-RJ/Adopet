@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
-import BG from '../../assets/images/BG.png';
+import BG from '../../../assets/images/RegisterPerson/BG.png';
 
 import {
   CheckBox,
@@ -13,9 +13,9 @@ import {
   View,
 } from 'react-native';
 
-import Button from '../../components/Button';
-import Info from '../../components/Info';
-import ThreePoints from '../../components/ThreePoints'
+import Button from '../../../components/Button';
+import Info from '../../../components/Info';
+import ThreePoints from '../../../components/ThreePoints';
 
 import {
   BackGround,
@@ -34,15 +34,16 @@ import {
   PlaceImageOpacity,
 } from './styles';
 
+export default function RegisterPerson() {
 
-export default function CreateAccountPerson() {
   const [check1Select, setCheck1Select] = useState(false);
   const [check2Select, setCheck2Select] = useState(false);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [email   ,    setEmail] = useState('');
-  const [CPF     ,      setCPF] = useState('');
+  const [phone   ,    setPhone] = useState('');
+  const [local   ,    setLocal] = useState('');
 
   const navigation = useNavigation();
 
@@ -102,8 +103,16 @@ export default function CreateAccountPerson() {
             <Info
               image='phone'
               placeholder='Digite seu telefone'
-              onChangeText={CPF => setCPF(CPF)}
-              defaultValue={CPF}
+              onChangeText={phone => setPhone(phone)}
+              defaultValue={phone}
+              length={30}
+              color='#F17808'
+            />
+            <Info
+              image='map-pin'
+              placeholder='Digite o local da Ong'
+              onChangeText={local => setLocal(local)}
+              defaultValue={local}
               length={30}
               color='#F17808'
             />
@@ -144,7 +153,7 @@ export default function CreateAccountPerson() {
               height={50}
               text='Criar Minha Conta'
               colors={['#12947F','#0AB599']}
-              onPress={() => {navigation.navigate('AfterCreate1')}}
+              onPress={() => {navigation.navigate('Tutorial1')}}
             />
 
           </Footer>

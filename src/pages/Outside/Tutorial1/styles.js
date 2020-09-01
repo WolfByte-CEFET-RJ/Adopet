@@ -54,22 +54,4 @@ export const Button1= styled.TouchableOpacity`
   border-radius: 10px;
 
   align-Items: center;
-
-`
-
-export const Page = styled.View`
-  position: absolute;
-  justify-content: space-around;
-  top: 90%;
-  left: 43%;
-`
-
-export const Points = styled.View`
-  width: 50px;
-  height: 15px;
-
-  flex-direction: row;
-  justify-content: space-around;
-
-  align-items: center;
-`
+`;

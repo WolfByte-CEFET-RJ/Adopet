@@ -5,30 +5,30 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const AppStack = createStackNavigator();
 
-import Home from './pages/Home';
-import CreateAccountPerson from './pages/CreateAccountPerson';
-import CreateAccountONG from './pages/CreateAccountONG';
-import Login from './pages/Login';
-import Inicial from './pages/Inicial';
-import AfterCreate1 from './pages/AfterCreate1';
-import AfterCreate2 from './pages/AfterCreate2';
+import Home           from './pages/Outside/Home';
+import Login          from './pages/Outside/Login';
+import Register       from './pages/Outside/Register';
+import RegisterOng    from './pages/Outside/RegisterOng';
+import RegisterPerson from './pages/Outside/RegisterPerson';
+import Tutorial1      from './pages/Outside/Tutorial1';
+import Tutorial2      from './pages/Outside/Tutorial2';
 
 export default function Routes() {
-    return (
-        <NavigationContainer>
+  return (
+    <NavigationContainer>
 
-            <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
+      <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
 
-                <AppStack.Screen name='Home' component={Home} />
-                <AppStack.Screen name='Inicial' component={Inicial} />
-                <AppStack.Screen name='Login' component={Login} />
-                <AppStack.Screen name='CreateAccountPerson' component={CreateAccountPerson} />
-                <AppStack.Screen name='CreateAccountONG' component={CreateAccountONG} />
-                <AppStack.Screen name='AfterCreate1' component={AfterCreate1} />
-                <AppStack.Screen name='AfterCreate2' component={AfterCreate2} />
+        <AppStack.Screen name='Home' component={Home} />
+        <AppStack.Screen name='Login' component={Login} />
+        <AppStack.Screen name='Register' component={Register} />
+        <AppStack.Screen name='RegisterOng' component={RegisterOng} />
+        <AppStack.Screen name='RegisterPerson' component={RegisterPerson} />
+        <AppStack.Screen name='Tutorial1' component={Tutorial1} />
+        <AppStack.Screen name='Tutorial2' component={Tutorial2} />
 
-            </AppStack.Navigator>
+      </AppStack.Navigator>
 
-        </NavigationContainer>
-    );
+    </NavigationContainer>
+  );
 }

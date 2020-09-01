@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
-import BG from '../../assets/images/BGOrange.png';
+import BG from '../../../assets/images/RegisterOng/BG.png';
 
 import {
   CheckBox,
@@ -13,9 +13,9 @@ import {
   View,
 } from 'react-native';
 
-import Button from '../../components/Button';
-import Info from '../../components/Info';
-import ThreePoints from '../../components/ThreePoints'
+import Button from '../../../components/Button';
+import Info from '../../../components/Info';
+import ThreePoints from '../../../components/ThreePoints';
 
 import {
   BackGround,
@@ -35,14 +35,15 @@ import {
 } from './styles';
 
 
-export default function CreateAccountPerson() {
+export default function RegisterOng() {
+
   const [check1Select, setCheck1Select] = useState(false);
   const [check2Select, setCheck2Select] = useState(false);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const [email   ,    setEmail] = useState('');
-  const [CNPJ    ,     setCNPJ] = useState('');
+  const [phone   ,    setPhone] = useState('');
   const [local   ,    setLocal] = useState('');
 
   const navigation= useNavigation();
@@ -100,10 +101,10 @@ export default function CreateAccountPerson() {
               color='#12947F'
             />
             <Info
-              image='users'
-              placeholder='Digite seu CNPJ da Ong'
-              onChangeText={CNPJ => setCNPJ(CNPJ)}
-              defaultValue={CNPJ}
+              image='phone'
+              placeholder='Digite o telefone da Ong'
+              onChangeText={phone => setPhone(phone)}
+              defaultValue={phone}
               length={30}
               color='#12947F'
             />
@@ -152,7 +153,7 @@ export default function CreateAccountPerson() {
               height={50}
               text='Criar Minha Conta'
               colors={['#F17808','#FF8A00']}
-              onPress={() => {navigation.navigate('AfterCreate1')}}
+              onPress={() => {navigation.navigate('Tutorial1')}}
             />
 
           </Footer>

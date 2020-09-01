@@ -12,12 +12,13 @@ import RegisterOng    from './pages/Outside/RegisterOng';
 import RegisterPerson from './pages/Outside/RegisterPerson';
 import Tutorial1      from './pages/Outside/Tutorial1';
 import Tutorial2      from './pages/Outside/Tutorial2';
+import ForgetPassword from './pages/Outside/ForgetPassword';
 
 export default function Routes() {
   return (
     <NavigationContainer>
 
-      <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
+      <AppStack.Navigator headerMode='none' initialRouteName='ForgetPassword' screenOptions={{ headerShown: false}}>
 
         <AppStack.Screen name='Home' component={Home} />
         <AppStack.Screen name='Login' component={Login} />
@@ -26,6 +27,7 @@ export default function Routes() {
         <AppStack.Screen name='RegisterPerson' component={RegisterPerson} />
         <AppStack.Screen name='Tutorial1' component={Tutorial1} />
         <AppStack.Screen name='Tutorial2' component={Tutorial2} />
+        <AppStack.Screen name='ForgetPassword' component={ForgetPassword} />
 
       </AppStack.Navigator>
 

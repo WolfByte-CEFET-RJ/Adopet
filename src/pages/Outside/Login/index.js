@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import Button from '../../../components/Button';
 import Info from '../../../components/Info';
+import ForgetPassword from '../../../components/ForgetPassword';
 
 import {
   Background,
@@ -22,6 +23,8 @@ import {
 } from './styles';
 
 export default function Login(){
+
+  const [modalVisible, setModalvisible] = useState(false);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -69,7 +72,7 @@ export default function Login(){
         <Line>
           <Switch valeu={true} onValueChange={ () => '' } />
           <Text>Manter Conectado    |    </Text>
-          <Recup onPress={() => {}}>Esqueceu sua Senha?</Recup>
+          <Recup onPress={() => {setModalvisible(true)}}>Esqueceu sua Senha?</Recup>
         </Line>
 
         <Button
@@ -80,6 +83,11 @@ export default function Login(){
         />
 
       </Container>
+
+      <ForgetPassword
+        visible={modalVisible}
+        fechar={() => {setModalvisible(false)}}
+      />
 
     </Background>
   )

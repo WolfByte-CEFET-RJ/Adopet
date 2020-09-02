@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Modal } from 'react-native';
+
 import Button from '../Button';
 import Info   from '../Info';
 
@@ -11,8 +13,6 @@ import {
   Title,
   Subtitle,
 } from './styles';
-
-import { Modal } from 'react-native';
 
 export default function ForgetPassword(props){
   return(

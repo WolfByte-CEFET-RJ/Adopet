@@ -4,6 +4,8 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation } from '@react-navigation/native';
 
+import api from '../../../services/api';
+
 import BG from '../../../assets/images/RegisterOng/BG.png';
 
 import {
@@ -13,8 +15,8 @@ import {
   View,
 } from 'react-native';
 
-import Button from '../../../components/Button';
-import Info from '../../../components/Info';
+import Button      from '../../../components/Button';
+import Info        from '../../../components/Info';
 import ThreePoints from '../../../components/ThreePoints';
 
 import {
@@ -34,7 +36,6 @@ import {
   PlaceImageOpacity,
 } from './styles';
 
-
 export default function RegisterOng() {
 
   const [check1Select, setCheck1Select] = useState(false);
@@ -47,6 +48,31 @@ export default function RegisterOng() {
   const [local   ,    setLocal] = useState('');
 
   const navigation= useNavigation();
+
+  async function handleRegister() {
+    const data = {
+      userName,
+      password,
+      email,
+      phone,
+      local
+    }
+
+    // Lógica para verificar se algum item está vazio
+    const isEmpty = data.map(item => {
+      return item.length();
+    })
+
+    try {
+      // Adicionar a requisição da rota post de envio de dados
+      await api.post('', data);
+
+      navigation.navigate('Tutorial1');
+    } catch (err) {
+      //Criar um alerta aqui
+      alert('Pane no sistema alguém me desconfigurou')
+    }
+  }
 
   return (
     <ScrollView>
@@ -153,7 +179,7 @@ export default function RegisterOng() {
               height={50}
               text='Criar Minha Conta'
               colors={['#F17808','#FF8A00']}
-              onPress={() => {navigation.navigate('Tutorial1')}}
+              onPress={handleRegister}
             />
 
           </Footer>

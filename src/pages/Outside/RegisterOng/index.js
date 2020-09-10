@@ -49,6 +49,12 @@ export default function RegisterOng() {
 
   const navigation= useNavigation();
 
+  function irParaTutorial() {
+    navigation.reset({
+      routes:[{name:'Tutorial1'}]
+    })
+  }
+
   async function handleRegister() {
     const data = {
       userName,
@@ -58,20 +64,23 @@ export default function RegisterOng() {
       local
     }
 
-    // Lógica para verificar se algum item está vazio
-    const isEmpty = data.map(item => {
-      return item.length();
+    let isEmpty = 0;
+    Object.values(data).map(item => {
+      console.log(item)
+      if (item == '') {
+        isEmpty = 1;
+      }
     })
 
-    try {
-      // Adicionar a requisição da rota post de envio de dados
-      await api.post('', data);
-
-      navigation.navigate('Tutorial1');
-    } catch (err) {
-      //Criar um alerta aqui
-      alert('Pane no sistema alguém me desconfigurou')
+    if (isEmpty) {
+      alert('Por favor, preencha todos os campos.');
+      return
     }
+
+    //await api.post('api/user', data)
+    //  .then()
+    //  .catch(err)
+    irParaTutorial();
   }
 
   return (

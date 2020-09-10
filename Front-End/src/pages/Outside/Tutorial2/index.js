@@ -22,7 +22,7 @@ export default function Tutorial2() {
 
   const navigation= useNavigation();
   function IrparaHome(){
-    navigation.navigate('Home');
+    navigation.navigate('IHome');
   }
 
   return (

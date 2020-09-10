@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 
 import {
+  Back,
   Background,
   Container,
   Buttons,
@@ -31,14 +32,18 @@ export default function Register(){
 
       <Container>
 
-        <TextInicial>
+        <Back>
 
           <Feather
             name='chevron-left'
-            size={26}
+            size={30}
             color='#A1A1A1'
             onPress={() => {navigation.goBack()}}
           />
+
+        </Back>
+
+        <TextInicial>
 
           <Header
             title={'Bem-Vindo ao'}

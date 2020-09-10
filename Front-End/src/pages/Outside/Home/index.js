@@ -43,12 +43,14 @@ export default function Home() {
             onPress={() => {IrparaRegister()}}
             text='Cadastro'
             colors={['#F17808','#FF8A00']}
+            radius={10}
           />
 
           <Button
             onPress={() => {IrparaLogin()}}
             text='Login'
             colors={['#12947F','#0AB599']}
+            radius={10}
           />
 
         </Buttons>

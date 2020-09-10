@@ -57,12 +57,13 @@ export default function RegisterOng() {
 
   async function handleRegister() {
     const data = {
-      userName,
-      password,
-      email,
-      phone,
-      local
+      fullName: userName,
+      password: password,
+      email: email,
+      // phone,
+      local: local
     }
+    console.log(data)
 
     let isEmpty = 0;
     Object.values(data).map(item => {
@@ -77,10 +78,15 @@ export default function RegisterOng() {
       return
     }
 
-    //await api.post('api/user', data)
-    //  .then()
-    //  .catch(err)
-    irParaTutorial();
+    try {
+      await api.post('/api/ong', data)
+        irParaTutorial();
+    }
+
+    catch (err) {
+      alert("Erro ao cadastrar caso, tente novamente.")
+      console.log(err)
+    }
   }
 
   return (

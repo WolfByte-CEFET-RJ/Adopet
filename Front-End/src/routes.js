@@ -12,6 +12,7 @@ import RegisterOng    from './pages/Outside/RegisterOng';
 import RegisterPerson from './pages/Outside/RegisterPerson';
 import Tutorial1      from './pages/Outside/Tutorial1';
 import Tutorial2      from './pages/Outside/Tutorial2';
+import IHome          from './pages/Inside/IHome';
 
 export default function Routes() {
   return (
@@ -26,6 +27,7 @@ export default function Routes() {
         <AppStack.Screen name='RegisterPerson' component={RegisterPerson} />
         <AppStack.Screen name='Tutorial1' component={Tutorial1} />
         <AppStack.Screen name='Tutorial2' component={Tutorial2} />
+        <AppStack.Screen name='IHome' component={IHome} />
 
       </AppStack.Navigator>
 

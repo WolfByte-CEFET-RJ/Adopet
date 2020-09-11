@@ -77,7 +77,7 @@ export default function RegisterPerson() {
           <Forms>
             <Info
               image='user'
-              placeholder='Digite seu nome'
+              placeholder='Digite seu Nome'
               onChangeText={userName => setUserName(userName)}
               defaultValue={userName}
               length={30}
@@ -93,7 +93,7 @@ export default function RegisterPerson() {
             />
             <Info
               image='lock'
-              placeholder='Digite sua senha'
+              placeholder='Digite sua Senha'
               onChangeText={password => setPassword(password)}
               defaultValue={password}
               password={1}
@@ -102,7 +102,7 @@ export default function RegisterPerson() {
             />
             <Info
               image='phone'
-              placeholder='Digite seu telefone'
+              placeholder='Digite seu Telefone'
               onChangeText={phone => setPhone(phone)}
               defaultValue={phone}
               length={30}

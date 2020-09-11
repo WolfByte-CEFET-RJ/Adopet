@@ -4,10 +4,15 @@ export const Background= styled.ImageBackground`
   flex: 1;
 `;
 
+export const Back= styled.View`
+  width: 60px;
+  padding: 50px 0px 0px 20px;
+  height: 100px;
+`;
+
 export const Container= styled.SafeAreaView`
   flex: 1;
   align-items: center;
-  padding-top: 30px;
 `;
 
 export const Icon= styled.Image`

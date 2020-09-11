@@ -16,7 +16,7 @@ export const Back= styled.View`
 
 export const TextInicial= styled.View`
   justify-content: center;
-  margin: 20px 30px 100px 30px;
+  margin: 0px 30px 100px 30px;
 `;
 
 export const Buttons = styled.View`

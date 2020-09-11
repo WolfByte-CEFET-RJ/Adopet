@@ -58,16 +58,14 @@ export default function RegisterOng() {
   async function handleRegister() {
     const data = {
       fullName: userName,
-      password: password,
-      email: email,
+      password,
+      email,
       // phone,
-      local: local
+      local,
     }
-    console.log(data)
 
     let isEmpty = 0;
     Object.values(data).map(item => {
-      console.log(item)
       if (item == '') {
         isEmpty = 1;
       }
@@ -118,7 +116,7 @@ export default function RegisterOng() {
           <Forms>
             <Info
               image='user'
-              placeholder='Digite seu nome'
+              placeholder='Digite seu Nome'
               onChangeText={userName => setUserName(userName)}
               defaultValue={userName}
               length={30}
@@ -134,7 +132,7 @@ export default function RegisterOng() {
             />
             <Info
               image='lock'
-              placeholder='Digite sua senha'
+              placeholder='Digite sua Senha'
               onChangeText={password => setPassword(password)}
               defaultValue={password}
               password={1}

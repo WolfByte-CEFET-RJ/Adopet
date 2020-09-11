@@ -80,7 +80,7 @@ module.exports = {
       template: 'forgot-password-email',
       subject: 'Password help has arrived!',
       context: {
-        url: 'http://localhost:3000/auth/reset_password?token=' + token,
+        url: 'http://localhost:4000/auth/reset_password?token=' + token,
         name: envFullName.split(' ')[0]
       }
     };
@@ -89,7 +89,8 @@ module.exports = {
       if (!err) {
         return res.json({ message: 'Kindly check your email for further instructions' });
       } else {
-        return done(err);
+        return console.log(err);
+        
       }
     })
   },

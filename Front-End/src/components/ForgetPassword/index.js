@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import api from '../../services/api';
 
 import { Modal } from 'react-native';
 
@@ -15,6 +17,36 @@ import {
 } from './styles';
 
 export default function ForgetPassword(props){
+
+  const [email, setEmail] = useState('');
+
+  async function handlePassword() {
+    const data = {
+      email,
+    }
+
+    let isEmpty = 0;
+    Object.values(data).map(item => {
+      if (item == '') {
+        isEmpty = 1;
+      }
+    })
+
+    if (isEmpty) {
+      alert('Por favor, preencha todos os campos.');
+      return
+    }
+
+    try {
+      await api.post('/api/forgetpassword', data)
+    }
+
+    catch (err) {
+      alert("Erro na recuperação de Senha.")
+      console.log(err)
+    }
+  }
+
   return(
     <Modal transparent={true} animationType='fade' visible={props.visible}>
         <Container>
@@ -29,13 +61,13 @@ export default function ForgetPassword(props){
               <Info
                 image='mail'
                 placeholder='Digite o seu E-mail'
-                onChangeText={ () => ''}
+                onChangeText={email => setEmail(email)}
                 length={30}
                 color='#F17808'
               />
 
               <Button
-                onPress={props.fechar}
+                onPress={() => {handlePassword()} }
                 text='Enviar'
                 colors={['#12947F','#0AB599']}
                 height={40}

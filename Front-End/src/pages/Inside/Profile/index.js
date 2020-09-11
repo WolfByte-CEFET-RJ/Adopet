@@ -10,7 +10,7 @@ import {
   Container
 } from './styles';
 
-export default function IHome() {
+export default function Profile() {
   const navigation= useNavigation();
   return(
     <Container>
@@ -21,7 +21,7 @@ export default function IHome() {
       onPress={() => {navigation.goBack()}}
       />
 
-      <Text> CALMA RAPAZIADA </Text>
+      <Text> Profile </Text>
     </Container>
   )
 

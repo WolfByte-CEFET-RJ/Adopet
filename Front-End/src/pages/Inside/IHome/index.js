@@ -29,5 +29,4 @@ export default function IHome() {
       </Container>
     </Background>
   )
-
 }

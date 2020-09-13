@@ -29,6 +29,7 @@ import {
 export default function Login(){
 
   const [modalVisible, setModalvisible] = useState(false);
+  const [keepConnect, setKeepConnect] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,7 +48,6 @@ export default function Login(){
 
     let isEmpty = 0;
     Object.values(data).map(item => {
-      console.log(item)
       if (item == '') {
         isEmpty = 1;
       }
@@ -60,15 +60,19 @@ export default function Login(){
 
     try {
       const token = await api.post('/api/login', data)
-      console.log(token.data)
-      // await AsyncStorage.setItem('token', token.data)
-      // console.log(AsyncStorage.getItem('token'))
-      IrparaHome();
-    }
 
-    catch (err) {
-      alert("Erro ao fazer o Login, tente novamente.")
-      console.log(err)
+      if (keepConnect) {
+        await AsyncStorage.setItem('token', token.data)
+      } else {
+        console.log('login não salvo')
+      }
+
+      IrparaHome();
+
+    } catch (err) {
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
     }
   }
 
@@ -76,18 +80,15 @@ export default function Login(){
     <Background source={BG}>
 
       <Back>
-
         <Feather
           name='chevron-left'
           size={30}
           color='#A1A1A1'
           onPress={() => {navigation.goBack()}}
         />
-
       </Back>
 
       <Container>
-
 
         <Icon source={Icone}/>
 
@@ -113,13 +114,17 @@ export default function Login(){
         </Forms>
 
         <Line>
-          <Switch valeu={true} onValueChange={ () => '' } />
+          <Switch
+            valeu={true}
+            onValueChange={keepConnect => setKeepConnect(keepConnect)}
+            value={keepConnect}
+          />
           <Text>Manter Conectado    |    </Text>
           <Recup onPress={() => {setModalvisible(true)}}>Esqueceu sua Senha?</Recup>
         </Line>
 
         <Button
-        onPress={() => {handleLogin()}}
+        onPress={handleLogin}
         text='Entrar'
         colors={['#F17808','#FF8A00']}
         radius={10}

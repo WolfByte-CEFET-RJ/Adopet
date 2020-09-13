@@ -4,6 +4,8 @@ import api from '../../services/api';
 
 import { Modal } from 'react-native';
 
+import { Feather } from '@expo/vector-icons';
+
 import Button from '../Button';
 import Info   from '../Info';
 
@@ -12,6 +14,7 @@ import {
   BodyText,
   Container,
   ContainerModal,
+  Exit,
   Title,
   Subtitle,
 } from './styles';
@@ -21,29 +24,21 @@ export default function ForgetPassword(props){
   const [email, setEmail] = useState('');
 
   async function handlePassword() {
-    const data = {
-      email,
-    }
 
-    let isEmpty = 0;
-    Object.values(data).map(item => {
-      if (item == '') {
-        isEmpty = 1;
-      }
-    })
-
-    if (isEmpty) {
-      alert('Por favor, preencha todos os campos.');
+    if (!email) {
+      alert('Por favor, digite seu e-mail.');
       return
     }
 
     try {
-      await api.post('/api/forgetpassword', data)
-    }
+      await api.post('/api/forgetpassword', {email})
+      console.log('Alteração de senha enviada, verifique seu e-mail.')
+      props.fechar();
 
-    catch (err) {
-      alert("Erro na recuperação de Senha.")
-      console.log(err)
+    } catch (err) {
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
     }
   }
 
@@ -51,6 +46,16 @@ export default function ForgetPassword(props){
     <Modal transparent={true} animationType='fade' visible={props.visible}>
         <Container>
           <ContainerModal>
+
+            <Exit>
+              <Feather
+                name='x'
+                size={30}
+                color='#A1A1A1'
+                onPress={props.fechar}
+              />
+            </Exit>
+
             <Title>Esqueceu a</Title>
             <Subtitle>senha?</Subtitle>
 
@@ -67,7 +72,7 @@ export default function ForgetPassword(props){
               />
 
               <Button
-                onPress={() => {handlePassword()} }
+                onPress={handlePassword}
                 text='Enviar'
                 colors={['#12947F','#0AB599']}
                 height={40}

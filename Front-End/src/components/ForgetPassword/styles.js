@@ -19,6 +19,12 @@ export const ContainerModal = styled.View`
   height: 280px;
 `
 
+export const Exit = styled.View`
+  position: absolute;
+  right: 20px;
+  top: 20px;
+`
+
 export const Title = styled.Text`
   color: #FFF;
   font-size: 28px;

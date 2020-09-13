@@ -24,7 +24,7 @@ import Profile        from './pages/Inside/Profile';
 
 function MainTab() {
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props}/>}>
+    <Tab.Navigator tabBar={props => <CustomTabBar {...props}/>} >
       <Tab.Screen name="IHome" component={IHome} />
       <Tab.Screen name="Chat" component={Chat} />
       <Tab.Screen name="WantAdopt" component={WantAdopt} />

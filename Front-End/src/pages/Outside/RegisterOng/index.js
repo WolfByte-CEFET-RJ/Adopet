@@ -76,14 +76,20 @@ export default function RegisterOng() {
       return
     }
 
+    if (!check1Select) {
+      alert('Termos de uso não aceitos.');
+      return
+    }
+
     try {
       await api.post('/api/ong', data)
         irParaTutorial();
     }
 
     catch (err) {
-      alert("Erro ao cadastrar caso, tente novamente.")
-      console.log(err)
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
     }
   }
 

@@ -9,7 +9,7 @@ export const Points = styled.View`
   margin-top: 20px;
   margin-bottom: 20px;
 
-  width: 50px;
+  width: ${props => `${((2 * props.tamanho) - 1) * 10}px`};
   height: 15px;
 
   flex-direction: row;

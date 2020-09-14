@@ -57,7 +57,7 @@ export default function ForgetPassword(props){
             </Exit>
 
             <Title>Esqueceu a</Title>
-            <Subtitle>senha?</Subtitle>
+            <Subtitle>Senha?</Subtitle>
 
             <Body>
 

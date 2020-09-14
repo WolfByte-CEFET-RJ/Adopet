@@ -63,8 +63,9 @@ export default function Login(){
 
       if (keepConnect) {
         await AsyncStorage.setItem('token', token.data)
+        console.log('Login Salvo!')
       } else {
-        console.log('login não salvo')
+        console.log('Login não Salvo!')
       }
 
       IrparaHome();

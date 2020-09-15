@@ -23,8 +23,8 @@ export default function Register(){
   function IrparaPerson(){
     navigation.navigate('RegisterPerson');
   }
-  function IrparaOng(){
-    navigation.navigate('RegisterOng')
+  function IrparaRegister(isOng){
+    navigation.navigate('RegisterOng', { isOng });
   }
 
   return (
@@ -55,7 +55,7 @@ export default function Register(){
 
         <Buttons>
           <Button
-            onPress={() => {IrparaPerson()}}
+            onPress={() => {IrparaRegister(false)}}
             height={55}
             width={325}
             text='Pessoa Física'
@@ -66,7 +66,7 @@ export default function Register(){
           <Text>OU</Text>
 
           <Button
-            onPress={() => {IrparaOng()}}
+            onPress={() => {IrparaRegister(true)}}
             height={55}
             width={325}
             text='Ong'

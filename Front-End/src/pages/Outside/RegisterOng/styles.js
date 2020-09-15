@@ -58,6 +58,13 @@ export const PlaceImageOpacity = styled.TouchableOpacity`
   align-items: center;
 `
 
+export const ImageAvatar = styled.Image`
+  height: 88px;
+  width: 88px;
+
+  border-radius: 44px;
+`
+
 export const CheckBoxes = styled.View`
   justify-content: space-between;
 `
@@ -71,8 +78,8 @@ export const CheckBoxText = styled.View`
   flex-direction: row;
 `
 
-export const Green = styled.Text`
-  color: #12947F;
+export const TextColor = styled.Text`
+  color: ${props => props.color};
 `
 
 export const Footer = styled.View`

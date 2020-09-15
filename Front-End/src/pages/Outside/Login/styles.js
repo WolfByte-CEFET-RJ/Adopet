@@ -39,10 +39,3 @@ export const Line= styled.View`
   align-items: center;
   margin-bottom: 25px;
 `;
-
-
-
-
-
-
-

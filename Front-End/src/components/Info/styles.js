@@ -23,5 +23,6 @@ export const InputImage = styled.View`
 `
 
 export const InputText = styled.TextInput`
+  flex: 1;
   margin-left: 10px;
 `

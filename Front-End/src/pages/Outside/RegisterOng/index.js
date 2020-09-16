@@ -4,6 +4,8 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { StatusBar } from 'expo-status-bar';
+
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -35,7 +37,6 @@ import {
   Header,
   HeaderTitle,
   ImageAvatar,
-  Orange,
   Person,
   PlaceImage,
   PlaceImageOpacity,
@@ -52,7 +53,7 @@ export default function RegisterOng() {
   const [email   ,    setEmail] = useState('');
   const [phone   ,    setPhone] = useState('');
   const [local   ,    setLocal] = useState('');
-  const [avatar  ,   setAvatar] = useState('');
+  const [avatar  ,   setAvatar] = useState();
 
   const navigation= useNavigation();
   const route = useRoute();
@@ -86,20 +87,34 @@ export default function RegisterOng() {
       }
     }
 
-    const data = await ImagePicker.launchImageLibraryAsync({
+    const imgAvatar = await ImagePicker.launchImageLibraryAsync({
+      base64: true,
+      exif: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
-    if (data.cancelled || !data.uri) {
-      setAvatar('');
+    if (imgAvatar.cancelled || !imgAvatar.uri) {
+      setAvatar();
       return;
     }
 
-    setAvatar(data.uri);
-    console.log(avatar);
+    setAvatar(imgAvatar);
   }
 
   async function handleRegister() {
+    // const file = new FormData();
+
+    // let localUri = avatar.uri;
+    // let filename = localUri.split('/').pop();
+    // let match = /\.(\w+)$/.exec(filename);
+    // let type = match ? `image/${match[1]}` : `image`;
+
+    // await file.append({
+    //   uri: localUri,
+    //   name: filename,
+    //   type
+    // })
+
     const data = {
       fullName: userName,
       password,
@@ -126,8 +141,15 @@ export default function RegisterOng() {
     }
 
     try {
-      await api.post('/api/ong', data)
-        irParaTutorial();
+      await api.post('/api/ong', data);
+      irParaTutorial();
+
+      // await api.post('/api/ong', file, {
+      //   headers: {
+      //     'content-type': 'multipart/form-data',
+      //   }
+      // });
+      //irParaTutorial();
     }
 
     catch (err) {
@@ -138,7 +160,8 @@ export default function RegisterOng() {
   }
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <StatusBar style='light' backgroundColor='#ffffff'/>
       <BackGround source={isOng ? BGOng : BGPerson} >
         <Container>
           <Feather
@@ -167,7 +190,7 @@ export default function RegisterOng() {
           <PlaceImage>
             <PlaceImageOpacity onPress={UploadImage} >
               { avatar ?
-                <ImageAvatar source={{uri: avatar}} /> :
+                <ImageAvatar source={{uri: avatar.uri}} /> :
                 <Feather name='camera' color={secundary} size={30}/>}
             </PlaceImageOpacity>
           </PlaceImage>

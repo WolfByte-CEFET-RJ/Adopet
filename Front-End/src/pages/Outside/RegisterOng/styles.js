@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 
 export const BackGround = styled.ImageBackground`
   justify-content: center;
@@ -10,7 +11,7 @@ export const BackGround = styled.ImageBackground`
 
 export const Container = styled.SafeAreaView`
   flex: 1;
-  padding-top: 20px;
+  padding-top: ${Constants.statusBarHeight}px;
   padding-left: 12px;
   padding-right: 12px;
 `

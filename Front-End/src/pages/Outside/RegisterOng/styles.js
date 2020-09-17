@@ -9,7 +9,7 @@ export const BackGround = styled.ImageBackground`
   height: 100%;
 `
 
-export const Container = styled.SafeAreaView`
+export const Container = styled.View`
   flex: 1;
   padding-top: ${Constants.statusBarHeight}px;
   padding-left: 12px;
@@ -24,6 +24,10 @@ export const HeaderTitle = styled.Text`
   font-size: 24px;
   color: #1B262C;
   margin-bottom: 10px;
+`
+
+export const Strong = styled.Text`
+  font-weight: bold;
 `
 
 export const Person = styled.View`
@@ -81,6 +85,7 @@ export const CheckBoxText = styled.View`
 
 export const TextColor = styled.Text`
   color: ${props => props.color};
+  font-weight: bold;
 `
 
 export const Footer = styled.View`

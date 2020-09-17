@@ -40,6 +40,7 @@ import {
   Person,
   PlaceImage,
   PlaceImageOpacity,
+  Strong,
   TextColor,
 } from './styles';
 
@@ -179,10 +180,10 @@ export default function RegisterOng() {
           />
 
           <Header>
-            <HeaderTitle>Crie sua conta{'\n'}no Adopet</HeaderTitle>
+            <HeaderTitle>Crie sua conta{'\n'}no <Strong>Adopet</Strong></HeaderTitle>
             <Person>
               <Text>Este cadastro se refere a
-                <TextColor color={primary}>{isOng ? ' Ongs' : ' Pessoa física'}</TextColor>
+                <TextColor color={primary}>{isOng ? ' Ongs' : ' Pessoa Física'}</TextColor>
               </Text>
             </Person>
           </Header>
@@ -249,7 +250,7 @@ export default function RegisterOng() {
                 <View>
                   <Text>Ao clicar em Cadastre-se, você concorda com </Text>
                     <CheckBoxText>
-                      <Text>nossos</Text>
+                      <Text>nossos </Text>
                       <TextColor color={primary}>Termos</TextColor>
                       <Text> e </Text>
                       <TextColor color={primary}>Política de Dados.</TextColor>

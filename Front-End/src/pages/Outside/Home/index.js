@@ -4,6 +4,8 @@ import BG from '../../../assets/images/Home/BG.png';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { StatusBar } from 'expo-status-bar';
+
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 
@@ -26,7 +28,7 @@ export default function Home() {
 
   return (
     <Background source={BG}>
-
+    <StatusBar backgroundColor={'#ffffffef'}/>
       <Container>
 
         <TextInicial>

@@ -4,8 +4,6 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { StatusBar } from 'expo-status-bar';
-
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -24,9 +22,9 @@ import {
 
 import Button      from '../../../components/Button';
 import Info        from '../../../components/Info';
-import ThreePoints from '../../../components/ThreePoints';
 
 import {
+  Back,
   BackGround,
   CheckBoxContainer,
   CheckBoxText,
@@ -56,19 +54,19 @@ export default function RegisterOng() {
   const [local   ,    setLocal] = useState('');
   const [avatar  ,   setAvatar] = useState();
 
+  const [primary   ,    setPrimary] = useState('#F17808');
+  const [secundary ,  setSecundary] = useState('#12947F');
+  const [gradient  ,   setGradient] = useState(['#F17808','#FF8A00']);
+
   const navigation= useNavigation();
   const route = useRoute();
   const isOng = route.params.isOng;
 
-  let primary = '#F17808'
-  let gradient = ['#F17808','#FF8A00']
-  let secundary = '#12947F'
-
   useEffect(() => {
     if (!isOng) {
-      primary = '#12947F'
-      gradient = ['#12947F','#0AB599']
-      secundary = '#F17808'
+      setPrimary('#12947F');
+      setSecundary('#F17808');
+      setGradient(['#12947F','#0AB599']);
     }
   }, [])
 
@@ -162,22 +160,24 @@ export default function RegisterOng() {
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <StatusBar style='light' backgroundColor='#ffffff'/>
-      <BackGround source={isOng ? BGOng : BGPerson} >
-        <Container>
-          <Feather
-            name='chevron-left'
-            size={26}
-            color='#A1A1A1'
-            onPress={() => {navigation.goBack()}}
-          />
+
+      <Back>
+        <Feather
+          name='chevron-left'
+          size={26}
+          color='#A1A1A1'
+          onPress={() => {navigation.goBack()}}
+        />
 
         <Feather
-            name='x'
-            size={26}
-            color='#FF0000'
-            onPress={() => {navigation.navigate('Tutorial1')}}
-          />
+          name='x'
+          size={26}
+          color={'#ff0000cb'}
+          onPress={() => navigation.navigate('Tutorial1')}
+        />
+      </Back>
+      <BackGround source={isOng ? BGOng : BGPerson} >
+        <Container>
 
           <Header>
             <HeaderTitle>Crie sua conta{'\n'}no <Strong>Adopet</Strong></HeaderTitle>
@@ -192,7 +192,7 @@ export default function RegisterOng() {
             <PlaceImageOpacity onPress={UploadImage} >
               { avatar ?
                 <ImageAvatar source={{uri: avatar.uri}} /> :
-                <Feather name='camera' color={secundary} size={30}/>}
+                <Feather name='camera' color={secundary} size={60}/>}
             </PlaceImageOpacity>
           </PlaceImage>
 
@@ -251,19 +251,11 @@ export default function RegisterOng() {
                   <Text>Ao clicar em Cadastre-se, você concorda com </Text>
                     <CheckBoxText>
                       <Text>nossos </Text>
-                      <TextColor color={primary}>Termos</TextColor>
+                      <TextColor color={secundary}>Termos</TextColor>
                       <Text> e </Text>
-                      <TextColor color={primary}>Política de Dados.</TextColor>
+                      <TextColor color={secundary}>Política de Dados.</TextColor>
                     </CheckBoxText>
                 </View>
-              </CheckBoxContainer>
-
-              <CheckBoxContainer>
-                <CheckBox
-                  value={check2Select}
-                  onValueChange={setCheck2Select}
-                />
-                <Text>I accept the terms and privacy policy</Text>
               </CheckBoxContainer>
             </CheckBoxes>
 
@@ -275,12 +267,6 @@ export default function RegisterOng() {
             />
 
           </Footer>
-
-          <ThreePoints
-            points={[1,0,0]}
-            color={primary}
-          />
-
         </Container>
       </BackGround>
     </ScrollView>

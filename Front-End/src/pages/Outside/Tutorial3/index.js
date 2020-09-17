@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PatasTransparentes from '../../../assets/images/Tutorials/PatasTransparentes.png';
-import Coleira from '../../../assets/images/Tutorials/Coleira.png';
 
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -18,11 +17,11 @@ import {
   ImagePatas,
 } from './styles';
 
-export default function Tutorial2() {
+export default function Tutorial3() {
 
   const navigation= useNavigation();
   function IrparaHome(){
-    navigation.navigate('Tutorial3');
+    navigation.navigate('MainTab');
   }
 
   return (
@@ -39,22 +38,20 @@ export default function Tutorial2() {
 
       <AdopetTitle>Chegou sua Hora!</AdopetTitle>
 
-      <Description>Agora, você já pode usar nosso{"\n"}querido aplicativo. Adote e coloque {"\n"}para adoção!!</Description>
-
-      <Icon source={Coleira}/>
+      <Icon/>
 
       <Button1>
         <Button
         onPress={() => {IrparaHome()}}
         height={50}
         width={300}
-        text='Vamos lá!'
+        text='Vamos!'
         colors={['#F17808','#FF8A00']}
         />
       </Button1>
 
       <ThreePoints
-        points={[0,1,0]}
+        points={[0,0,1]}
         color={'#F17808'}
       />
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PatasTransparentes from '../../../assets/images/PatasTransparentes.png';
+import PatasTransparentes from '../../../assets/images/Tutorials/PatasTransparentes.png';
 import Coleira from '../../../assets/images/Tutorials/Coleira.png';
 
 import { Feather } from '@expo/vector-icons';
@@ -54,7 +54,7 @@ export default function Tutorial1() {
       </Button1>
 
       <ThreePoints
-        points={[0,1,0]}
+        points={[1,0,0]}
         color={'#F17808'}
       />
 

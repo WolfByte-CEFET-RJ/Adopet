@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import api from '../../../services/api';
 
 import BG from '../../../assets/images/PasswordRecover/BG.png';
 import CatPassword from '../../../assets/images/PasswordRecover/CatPassword.png';
+
+import { ScrollView } from 'react-native';
 
 import Button from '../../../components/Button';
 import Info   from '../../../components//Info';
@@ -19,21 +21,34 @@ import {
   Subtitle,
 } from './styles';
 
-export default function PasswordRecover(props){
-
+export default function PasswordRecover(){
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isEqual, setIsEqual] = useState();
+
+  useEffect(() => {
+    if (!password) {
+      setIsEqual(false)
+      return
+    }
+    setIsEqual(password == confirmPassword)
+  }, [password, confirmPassword])
 
   async function handlePassword() {
 
-    if (!password) {
-      alert('Por favor, digite seu Senha.');
+    if (!password || !confirmPassword) {
+      alert('Por favor, preencha todos os campos.');
+      return
+    }
+
+    if (!isEqual) {
+      alert('As senhas não são iguais.');
       return
     }
 
     try {
-      await api.post('/api/forgetpassword', {password})
+      await api.post('', {password})
       console.log('Alteração de Senha feita.')
-      props.fechar();
 
     } catch (err) {
       alert(err.response.data)
@@ -43,50 +58,54 @@ export default function PasswordRecover(props){
   }
 
   return(
-    <Background source={BG}>
-      <Container>
+    <ScrollView >
+      <Background source={BG}>
+        <Container>
 
-        <Header>
+          <Header>
 
-          <Title>Esqueceu a</Title>
-          <Subtitle>Senha?</Subtitle>
+            <Title>Esqueceu a</Title>
+            <Subtitle>Senha?</Subtitle>
 
-        </Header>
+          </Header>
 
-        <Icon source={CatPassword}/>
+          <Icon source={CatPassword}/>
 
-        <BodyText>Insira o seu E-mail no campo abaixo {'\n'} para receber uma nova senha e as {'\n'} instruções para poder trocar.</BodyText>
+          <BodyText>Insira o seu E-mail no campo abaixo {'\n'} para receber uma nova senha e as {'\n'} instruções para poder trocar.</BodyText>
 
-        <Forms>
+          <Forms>
 
-          <Info
-            image='mail'
-            placeholder='Digite o sua Nova Senha'
-            onChangeText={password => setPassword(password)}
-            length={30}
-            color='#F17808'
+            <Info
+              image='lock'
+              placeholder='Digite o sua Nova Senha'
+              onChangeText={password => setPassword(password)}
+              length={20}
+              color='#F17808'
+              password={1}
+            />
+
+            <Info
+              image={isEqual ? 'check' : 'x'}
+              placeholder='Confirme sua Nova Senha'
+              onChangeText={confirmPassword => setConfirmPassword(confirmPassword)}
+              length={20}
+              color={isEqual ? '#12947F' : '#FF0000'}
+              password={1}
+            />
+
+          </Forms>
+
+          <Button
+            onPress={handlePassword}
+            text='Enviar'
+            colors={['#F17808','#F17808']}
+            height={50}
+            width={300}
+            radius={10}
           />
 
-          <Info
-            image='mail'
-            placeholder='Confirme sua Nova Senha'
-            onChangeText={password => setPassword(password)}
-            length={30}
-            color='#F17808'
-          />
-
-        </Forms>
-
-        <Button
-          onPress={handlePassword}
-          text='Enviar'
-          colors={['#F17808','#F17808']}
-          height={50}
-          width={300}
-          radius={10}
-        />
-
-      </Container>
-    </Background>
+        </Container>
+      </Background>
+    </ScrollView>
   );
 }

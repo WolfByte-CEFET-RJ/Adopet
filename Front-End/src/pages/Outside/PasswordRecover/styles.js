@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 
 export const Background= styled.ImageBackground`
   flex: 1;
@@ -6,6 +7,7 @@ export const Background= styled.ImageBackground`
 
 export const Container = styled.View`
   align-items: center;
+  margin-bottom: 20px;
 `;
 
 export const Header = styled.View`
@@ -17,7 +19,7 @@ export const Header = styled.View`
 `;
 
 export const Title = styled.Text`
-  margin-top: 30px;
+  margin-top:  ${Constants.statusBarHeight + 10}px;
   color: #FFF;
   font-size: 28px;
 `;

@@ -1,30 +1,30 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 
 export const Background= styled.ImageBackground`
   flex: 1;
 `;
 
 export const Back= styled.View`
-  width: 60px;
-  padding: 50px 0px 0px 20px;
-  height: 100px;
+  position: absolute;
+  top: 7%;
+  left: 5%;
+  z-index: 10;
 `;
 
-export const Container= styled.SafeAreaView`
+export const Container= styled.View`
   flex: 1;
   align-items: center;
+  padding-top: ${Constants.statusBarHeight + 60}px;
 `;
 
 export const Icon= styled.Image`
   width: 204px;
   height: 217px;
-  margin-bottom: 18px;
 `;
 
 export const Forms = styled.View`
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 25px;
+  margin: 30px 30px 30px 30px;
 `;
 
 export const Recup = styled.Text`
@@ -37,5 +37,5 @@ export const Switch= styled.Switch`
 export const Line= styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 `;

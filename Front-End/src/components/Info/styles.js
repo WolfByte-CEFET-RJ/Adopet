@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const CardInfo = styled.View`
   height:40px;
-  width: 310px;
+  width: 100%;
 
   background: blue;
 

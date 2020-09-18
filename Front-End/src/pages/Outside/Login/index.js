@@ -120,7 +120,7 @@ export default function Login(){
             onValueChange={keepConnect => setKeepConnect(keepConnect)}
             value={keepConnect}
           />
-          <Text>Manter Conectado    |    </Text>
+          <Text>  Manter Conectado   |   </Text>
           <Recup onPress={() => {setModalvisible(true)}}>Esqueceu sua Senha?</Recup>
         </Line>
 

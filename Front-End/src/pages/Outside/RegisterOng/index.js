@@ -10,7 +10,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import api from '../../../services/api';
 
-import BGOng from '../../../assets/images/RegisterOng/BG.png';
+import BGOng    from '../../../assets/images/RegisterOng/BG.png';
 import BGPerson from '../../../assets/images/RegisterPerson/BG.png';
 
 import {
@@ -45,7 +45,6 @@ import {
 export default function RegisterOng() {
 
   const [check1Select, setCheck1Select] = useState(false);
-  const [check2Select, setCheck2Select] = useState(false);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -87,8 +86,6 @@ export default function RegisterOng() {
     }
 
     const imgAvatar = await ImagePicker.launchImageLibraryAsync({
-      base64: true,
-      exif: true,
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
@@ -101,30 +98,32 @@ export default function RegisterOng() {
   }
 
   async function handleRegister() {
-    // const file = new FormData();
-
-    // let localUri = avatar.uri;
-    // let filename = localUri.split('/').pop();
-    // let match = /\.(\w+)$/.exec(filename);
-    // let type = match ? `image/${match[1]}` : `image`;
-
-    // await file.append({
-    //   uri: localUri,
-    //   name: filename,
-    //   type
-    // })
-
-    const data = {
-      fullName: userName,
-      password,
-      email,
-      // phone,
-      local,
+    if (!avatar) {
+      alert('Coloque uma foto, por favor.');
+      return
     }
 
+    let localUri = avatar.uri;
+    let filename = localUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(filename);
+    let type = match ? `image/${match[1]}` : `image`;
+
+    const img = {
+      uri: avatar.uri,
+      name: filename,
+      type: type
+    }
+
+    const data = new FormData();
+    data.append('fullName', userName);
+    data.append('password', password);
+    data.append('email'   ,    email);
+    data.append('local'   ,    local);
+    data.append('img'     ,      img);
+
     let isEmpty = 0;
-    Object.values(data).map(item => {
-      if (item == '') {
+    Object.values(data)[0].map(item => {
+      if (item[1] == '') {
         isEmpty = 1;
       }
     })
@@ -140,15 +139,13 @@ export default function RegisterOng() {
     }
 
     try {
-      await api.post('/api/ong', data);
+      await api.post('/api/ong', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log('Cadastro feito com sucesso.');
       irParaTutorial();
-
-      // await api.post('/api/ong', file, {
-      //   headers: {
-      //     'content-type': 'multipart/form-data',
-      //   }
-      // });
-      //irParaTutorial();
     }
 
     catch (err) {

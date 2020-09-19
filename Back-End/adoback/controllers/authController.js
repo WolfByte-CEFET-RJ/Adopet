@@ -13,8 +13,8 @@ module.exports = {
         }
 
         const user = await connection('users').where('email', req.body.email).select(['users.hash_password', 'users.id']).first();
-        const ong = await connection('ongs').where('email', req.body.email).select(['ongs.hash_password', 'ongs.id']).first();
-        if (!user & !ong) {
+    
+        if (!user) {
             return res.status(400).send('Incorrect email or password.');
         }
 
@@ -25,21 +25,14 @@ module.exports = {
             }
             const token = jwt.sign({ _id: user._id }, secret);
             res.send(token);
-        } else {
-            const validPassword = await bcrypt.compare(req.body.password, ong.hash_password).catch(error);
-            if (!validPassword) {
-                return res.status(400).send('Incorrect email or password.');
-            }
-            const token = jwt.sign({ _id: ong._id }, secret);
-            res.send(token);
-        }
+        } 
     }
 }
 
 function validate(req) {
     const schema = {
         email: Joi.string().min(5).max(255).required().email(),
-        password: Joi.string().min(5).max(255).required()
+        password: Joi.string().min(8).max(255).required()
     };
 
     return Joi.validate(req, schema);

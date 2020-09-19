@@ -46,8 +46,8 @@ module.exports = {
       return res.status(400).send(error.details[0].message)
     }
     const user = await connection('users').where('email', req.body.email).select('*').first()
-    const ong = await connection('ongs').where('email', req.body.email).select('*').first()
-    if (!user & !ong) {
+    
+    if (!user) {
       return res.status(400).send({ message: "User or Ong not Found" })
     }
 
@@ -63,13 +63,7 @@ module.exports = {
           reset_password_token: token,
           reset_password_expires: data_token
         })
-      } else {
-        var envEmail = ong.email, envFullName = ong.fullName
-        await connection('ongs').where('id', ong.id).update({
-          reset_password_token: token,
-          reset_password_expires: data_token
-        })
-      }
+      } 
     } catch (error) {
       return res.status(400).send({ message: err })
     }
@@ -102,15 +96,14 @@ module.exports = {
     }
 
     const user = await connection('users').where('reset_password_token', req.body.token).select('*').first()
-    const ong = await connection('ongs').where('reset_password_token', req.body.token).select('*').first()
-    if (!user & !ong) {
+
+    if (!user) {
       return res.status(400).send({ message: "password reset token is a invalid or has expired" })
     }
 
     if (req.body.newPassword === req.body.verifyPassword) {
       try {
         if (user) {
-
           if (!validateToken(user)) {
             return res.status(400).send({ message: "password reset token has expired" })
           }
@@ -121,19 +114,7 @@ module.exports = {
             reset_password_expires: null
           })
 
-        } else {
-
-          if (!validateToken(ong)) {
-            return res.status(400).send({ message: "password reset token has expired" })
-          }
-          var envEmail = ong.email, envFullName = ong.fullName
-          await connection('ongs').where('email', ong.email).update({
-            hash_password: bcrypt.hashSync(req.body.newPassword, 10),
-            reset_password_token: null,
-            reset_password_expires: null
-          })
-
-        }
+        } 
       } catch (err) {
         return res.status(422).send({
           massage: "not possible locate user or ong"
@@ -183,7 +164,8 @@ function validateForgot(request) {
 function validateReset(request) {
   const schema = {
     token: Joi.string().required(),
-    newPassword: Joi.string().required(),
-    verifyPassword: Joi.string().required()
+    newPassword: Joi.string().min(8).max(60).required(),
+    verifyPassword: Joi.string().min(8).max(60).required()
   }
+  return Joi.validate(request, schema)
 }

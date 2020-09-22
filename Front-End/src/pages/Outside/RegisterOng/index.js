@@ -63,7 +63,7 @@ export default function RegisterOng() {
   const [selectedCity , setSelectedCity] = useState('0');
   const [enableCity   ,   setEnableCity] = useState(false);
 
-  const [coords, setCoords] = useState();
+  const [coords, setCoords] = useState('');
 
   const [avatar  ,   setAvatar] = useState();
 
@@ -98,10 +98,7 @@ export default function RegisterOng() {
 
       const { latitude, longitude } = location.coords;
 
-      setCoords({
-        latitude,
-        longitude
-      });
+      setCoords(`{\"latitude\":\"${latitude}\", \"longitude\":\"${longitude}\"}`);
     }
 
     loadPosition();
@@ -191,7 +188,7 @@ export default function RegisterOng() {
     data.append('email'       ,    email);
     data.append('phone'       ,    phone);
     data.append('local'       ,    local);
-    //data.append('local_coords',   String(coords));
+    data.append('local_coords',   coords);
     data.append('type'        ,     type);
     data.append('img'         ,      img);
 

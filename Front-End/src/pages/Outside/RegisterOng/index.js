@@ -4,10 +4,15 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { Picker } from '@react-native-community/picker';
+
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 
+import * as Location from 'expo-location';
+
+import axios from 'axios';
 import api from '../../../services/api';
 
 import BGOng    from '../../../assets/images/RegisterOng/BG.png';
@@ -20,8 +25,8 @@ import {
   View,
 } from 'react-native';
 
-import Button      from '../../../components/Button';
-import Info        from '../../../components/Info';
+import Button from '../../../components/Button';
+import Info   from '../../../components/Info';
 
 import {
   Back,
@@ -36,6 +41,7 @@ import {
   HeaderTitle,
   ImageAvatar,
   Person,
+  PickerView,
   PlaceImage,
   PlaceImageOpacity,
   Strong,
@@ -50,12 +56,21 @@ export default function RegisterOng() {
   const [password, setPassword] = useState('');
   const [email   ,    setEmail] = useState('');
   const [phone   ,    setPhone] = useState('');
-  const [local   ,    setLocal] = useState('');
+  const [ufs     ,      setUfs] = useState([]);
+  const [cities  ,   setCities] = useState([]);
+
+  const [selectedUf   ,   setSelectedUf] = useState('0');
+  const [selectedCity , setSelectedCity] = useState('0');
+  const [enableCity   ,   setEnableCity] = useState(false);
+
+  const [coords, setCoords] = useState();
+
   const [avatar  ,   setAvatar] = useState();
 
   const [primary   ,    setPrimary] = useState('#F17808');
   const [secundary ,  setSecundary] = useState('#12947F');
   const [gradient  ,   setGradient] = useState(['#F17808','#FF8A00']);
+  const [type      ,       setType] = useState('user');
 
   const navigation= useNavigation();
   const route = useRoute();
@@ -66,8 +81,57 @@ export default function RegisterOng() {
       setPrimary('#12947F');
       setSecundary('#F17808');
       setGradient(['#12947F','#0AB599']);
+      setType('ong');
     }
   }, [])
+
+  useEffect(() => {
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync();
+
+      if (status !== 'granted') {
+        Alert.alert('Por favor', 'Precisamos de sua permissão para obter a localização');
+        return;
+      }
+
+      const location = await Location.getCurrentPositionAsync();
+
+      const { latitude, longitude } = location.coords;
+
+      setCoords({
+        latitude,
+        longitude
+      });
+    }
+
+    loadPosition();
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+      .then(response => {
+        const ufInitials = response.data.map(uf => uf.sigla);
+        setUfs(ufInitials);
+      })
+  }, [])
+
+  useEffect(() => {
+    if (selectedUf === '0') {
+      setEnableCity(false);
+      return setCities([]);
+    }
+
+    setEnableCity(false);
+    axios
+      .get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${selectedUf}/municipios`)
+      .then(response => {
+        const cityNames = response.data.map(city => city.nome);
+        setCities(cityNames);
+        setEnableCity(true);
+      })
+
+  }, [selectedUf]);
 
   function irParaTutorial() {
     navigation.reset({
@@ -103,23 +167,33 @@ export default function RegisterOng() {
       return
     }
 
+    if (selectedUf === '0' || selectedCity === '0') {
+      alert('Por favor, selecione uma cidade e estado.');
+      return
+    }
+
     let localUri = avatar.uri;
     let filename = localUri.split('/').pop();
     let match = /\.(\w+)$/.exec(filename);
-    let type = match ? `image/${match[1]}` : `image`;
+    let imageType = match ? `image/${match[1]}` : `image`;
 
     const img = {
       uri: avatar.uri,
       name: filename,
-      type: type
+      type: imageType
     }
 
+    const local = `${selectedUf}, ${selectedCity}`;
+
     const data = new FormData();
-    data.append('fullName', userName);
-    data.append('password', password);
-    data.append('email'   ,    email);
-    data.append('local'   ,    local);
-    data.append('img'     ,      img);
+    data.append('fullName'    , userName);
+    data.append('password'    , password);
+    data.append('email'       ,    email);
+    data.append('phone'       ,    phone);
+    data.append('local'       ,    local);
+    //data.append('local_coords',   String(coords));
+    data.append('type'        ,     type);
+    data.append('img'         ,      img);
 
     let isEmpty = 0;
     Object.values(data)[0].map(item => {
@@ -139,7 +213,7 @@ export default function RegisterOng() {
     }
 
     try {
-      await api.post('/api/ong', data, {
+      await api.post('api/user/register', data, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -227,14 +301,33 @@ export default function RegisterOng() {
               length={30}
               color={secundary}
             />
-            <Info
-              image='map-pin'
-              placeholder='Digite o local da Ong'
-              onChangeText={local => setLocal(local)}
-              defaultValue={local}
-              length={30}
-              color={secundary}
-            />
+
+            <PickerView>
+              <Feather name="map-pin" size={26} color={secundary}/>
+
+              <Picker style={{height: 50, width: 100, flex: 1,
+                              color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
+                selectedValue={selectedUf}
+                onValueChange={uf => {setSelectedUf(uf)}}
+              >
+                <Picker.Item label="UF" value="0" />
+                {ufs.map(uf => (
+                  <Picker.Item key={uf} label={uf} value={uf} />
+                ))}
+              </Picker>
+
+              <Picker style={{height: 50, width: 100, flex: 2,
+                              color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
+                selectedValue={selectedCity}
+                onValueChange={city => {setSelectedCity(city)}}
+                enabled={enableCity}
+              >
+                <Picker.Item label="Cidade" value="0" />
+                {cities.map(city => (
+                  <Picker.Item key={city} label={city} value={city} />
+                ))}
+              </Picker>
+            </PickerView>
           </Forms>
 
           <Footer>

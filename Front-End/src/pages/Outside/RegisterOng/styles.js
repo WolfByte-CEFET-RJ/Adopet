@@ -46,6 +46,25 @@ export const Forms = styled.View`
   align-items: center;
 `
 
+export const PickerView = styled.View`
+  background: white;
+  flex-direction: row;
+
+  align-items: center;
+
+  width: 100%;
+  height: 40px;
+
+  border-radius: 5px;
+
+  padding-left: 5px;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  elevation: 5;
+`
+
 export const PlaceImage = styled.View`
   height: 150px;
 

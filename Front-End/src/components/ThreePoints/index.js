@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Feather } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'; 
 
 import {
   Page,
@@ -14,8 +14,8 @@ export default function ThreePoints(props) {
       <Points tamanho={props.points.length} >
         {props.points.map((point, index) => (
             point ?
-              <Point key={index} background={props.color}/> :
-              <Feather key={index} name='square' size={10} color={props.color} />
+              <Point key={index} background={props.color} borderRadius={props.radius}/> :
+              <FontAwesome key={index} name="circle" size={11} color="#D9D9D9" />
           )
         )}
       </Points>

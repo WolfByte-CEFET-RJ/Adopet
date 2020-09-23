@@ -1,59 +1,58 @@
 import React from 'react';
 
-import PatasTransparentes from '../../../assets/images/Tutorials/PatasTransparentes.png';
+import BackgroundTutorial from '../../../assets/images/Tutorials/bgTutorial3.jpg';
+import CatImg from '../../../assets/images/Tutorials/catTutorial3.png'
 
 import { Feather } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-import Button from '../../../components/Button';
 import ThreePoints from '../../../components/ThreePoints';
 
 import {
   AdopetTitle,
   Background,
-  Button1,
-  Description,
   Icon,
-  ImagePatas,
+  Container,
+  ConatinerPoints,
+  NextPage,
+  ImageBG,
+  Skip
 } from './styles';
 
-export default function Tutorial3() {
+export default function Tutorial2() {
 
   const navigation= useNavigation();
   function IrparaHome(){
-    navigation.navigate('MainTab');
+    navigation.navigate('Tutorial3');
   }
 
   return (
     <Background>
 
-      <ImagePatas source={PatasTransparentes}/>
-
+      <ImageBG source={BackgroundTutorial}/>
       <Feather
         name='chevron-left'
         size={26}
         color='#A1A1A1'
         onPress={() => {navigation.goBack()}}
       />
+    <Container>
 
-      <AdopetTitle>Chegou sua Hora!</AdopetTitle>
+      <Icon source={CatImg}/>
 
-      <Icon/>
+      <AdopetTitle>Pronto! Está preparado {`\n`} para conhecer o seu {`\n`} mais novo amigo?</AdopetTitle>
 
-      <Button1>
-        <Button
-        onPress={() => {IrparaHome()}}
-        height={50}
-        width={300}
-        text='Vamos!'
-        colors={['#F17808','#FF8A00']}
-        />
-      </Button1>
-
-      <ThreePoints
-        points={[0,0,1]}
-        color={'#F17808'}
-      />
+      <ConatinerPoints>
+        <ThreePoints
+          points={[0,0,1]}
+          color={'#12947F'}
+          radius={20}
+        />  
+       <NextPage onPress={() => {IrparaHome()}}>Vamos Lá!</NextPage>
+      </ConatinerPoints>
+      
+    </Container>
+   
 
     </Background>
   );

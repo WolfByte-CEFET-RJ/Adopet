@@ -24,5 +24,5 @@ export const Point = styled.TouchableOpacity`
   width: 10px;
   height: 10px;
 
-  border-radius: 2px;
+  border-radius: ${props => `${props.borderRadius ? props.borderRadius : 2}px`};
 `

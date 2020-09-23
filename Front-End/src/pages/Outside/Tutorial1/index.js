@@ -56,6 +56,8 @@ export default function Tutorial1() {
       <ThreePoints
         points={[1,0,0]}
         color={'#F17808'}
+        radius={5}
+        
       />
 
     </Background>

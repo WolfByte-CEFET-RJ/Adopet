@@ -2,12 +2,14 @@ const connection = require('./../models/connection')
 const bcrypt = require('bcryptjs')
 const Joi = require('joi')
 const crypto = require('crypto')
+const fs = require('fs')
 const { imageUpload } = require('./../Google Drive api/gdrive')
 
 module.exports = {
     async create(req, res) {
         const { error } = validateOng(req.body) //validação do body da requisição
         if (error) {
+            Deleteimg(req.file.path) //apaga a imagem que foi upada na pasta uploads no caso de erro no cadastro
             return res.status(400).send(error.details[0].message)
         }
 
@@ -23,11 +25,6 @@ module.exports = {
 
         var img_profile = null
 
-        if (req.file) {
-            img_profile = await imageUpload(id+email, req.file.path).then() // faz o upload da imagem para o google drive
-            .catch((error) => res.status(422).send(error)) 
-        }
-
         if(!use) {
             try {
                 await connection('users').insert({
@@ -42,11 +39,23 @@ module.exports = {
                     phone
                 })
 
+                if (req.file) { // faz o upload da imagem para o google drive
+                    img_profile = await imageUpload(id+email, req.file.path).then() 
+                    .catch((error) => res.status(422).send(error)) 
+
+                    await connection('users').where('email', email).update({img_profile})
+                }
+                
                 res.status(201).send('User was created')
+
             } catch (error) {
+                Deleteimg(req.file.path)
                 return res.status(422).send(error)
+
             }
+
         } else {
+            Deleteimg(req.file.path)
             return res.status(400).send('this ong or user is already registered')
         }
     }
@@ -63,4 +72,10 @@ function validateOng(user) {
         type: Joi.string().min(3).max(4).required(),
     }
     return Joi.validate(user, schema)
+}
+
+function Deleteimg(filePath) { //apaga a imagem que foi upada na pasta uploads no caso de erro no cadastro
+    fs.unlink(filePath, () => (err) => { 
+        if (err) throw err
+      })
 }

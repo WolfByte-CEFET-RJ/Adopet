@@ -1,6 +1,8 @@
 const express = require('express')
 const routes  = express.Router()
 
+const gmailApi = require('./../Google Drive api/gGmail') 
+
 const newUserController = require('../controllers/newUserController')
 const passwordController = require('../controllers/passwordController')
 const petController = require('./../controllers/petController')
@@ -26,13 +28,9 @@ routes.put('/api/petadopted', authMiddleware, petController.adoptionAproved) //r
 
 routes.delete('/api/deletepet', authMiddleware, petController.delete) //deleta um pet do bd
 
-// routes.post('/teste', uploadPet , async (req, res) => {
-//     var links = [req.files.length - 1]
-//     for (var i = 0; i < req.files.length; i++) {
-//         links[i] =  await gdrive.imageUpload('teste'+i, req.files[i].path).then()
-//         .catch( (error) => res.send(error) )
-//     }
-//     res.send(JSON.stringify(links))
-// })
+routes.post('/teste', uploadPet , async (req, res) => { //to, from, subject, message
+    gmailApi.sendEmail('2000fellipe@gmail.com', 'adopet.suporte@gmail.com', 'Hello', 'STRIKE')
+    res.send('email time')
+})
 
 module.exports = routes

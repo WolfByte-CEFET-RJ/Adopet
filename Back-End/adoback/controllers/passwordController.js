@@ -48,7 +48,7 @@ module.exports = {
     const user = await connection('users').where('email', req.body.email).select('*').first()
     
     if (!user) {
-      return res.status(400).send({ message: "User or Ong not Found" })
+      return res.status(404).send("User not Found")
     }
 
     // create the random token - Data_req= data atual - Data_token= data do token

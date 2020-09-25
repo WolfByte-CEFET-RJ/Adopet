@@ -24,6 +24,8 @@ import Chat            from './pages/Inside/Chat';
 import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 
+import PetProfile      from './pages/Inside/PetProfile';
+
 function MainTab() {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props}/>} >
@@ -51,6 +53,8 @@ export default function Routes() {
         <AppStack.Screen name='Tutorial2' component={Tutorial2} />
         <AppStack.Screen name='Tutorial3' component={Tutorial3} />
         <AppStack.Screen name='MainTab' component={MainTab} />
+
+        <AppStack.Screen name='PetProfile' component={PetProfile} />
 
       </AppStack.Navigator>
 

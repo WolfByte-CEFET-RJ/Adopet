@@ -99,6 +99,7 @@ export default function RegisterOng() {
       const { latitude, longitude } = location.coords;
 
       setCoords(`{\"latitude\":\"${latitude}\", \"longitude\":\"${longitude}\"}`);
+      console.log(location);
     }
 
     loadPosition();
@@ -302,8 +303,7 @@ export default function RegisterOng() {
             <PickerView>
               <Feather name="map-pin" size={26} color={secundary}/>
 
-              <Picker style={{height: 50, width: 100, flex: 1,
-                              color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
+              <Picker style={{flex: 1, color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
                 selectedValue={selectedUf}
                 onValueChange={uf => {setSelectedUf(uf)}}
               >
@@ -313,8 +313,7 @@ export default function RegisterOng() {
                 ))}
               </Picker>
 
-              <Picker style={{height: 50, width: 100, flex: 2,
-                              color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
+              <Picker style={{flex: 2, color:`${selectedCity === '0' ? '#BEBDC2' : '#000'}`}}
                 selectedValue={selectedCity}
                 onValueChange={city => {setSelectedCity(city)}}
                 enabled={enableCity}

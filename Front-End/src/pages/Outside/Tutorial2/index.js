@@ -48,12 +48,12 @@ export default function Tutorial2() {
           points={[0,1,0]}
           color={'#12947F'}
           radius={20}
-        />  
+        />
        <NextPage onPress={() => {IrparaHome()}}>Próximo</NextPage>
       </ConatinerPoints>
-      
+
     </Container>
-   
+
 
     </Background>
   );

@@ -18,13 +18,13 @@ export default function IHome() {
     <Background source={IHomeBG}>
       <Container>
         <Feather
-        name='chevron-left'
-        size={26}
-        color='#A1A1A1'
-        onPress={() => {navigation.goBack()}}
+          name='chevron-right'
+          size={26}
+          color='#FFF'
+          onPress={() => {navigation.navigate('PetProfile')}}
         />
 
-        <Text> CALMA RAPAZIADA </Text>
+        <Text> Ligação com a tela PetProfile </Text>
 
       </Container>
     </Background>

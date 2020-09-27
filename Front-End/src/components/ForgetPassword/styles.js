@@ -3,20 +3,26 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   flex: 1;
 
-  margin: 15px;
-
   align-items: center;
   justify-content: center;
+`
+
+export const ClickView = styled.TouchableOpacity`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 `
 
 export const ContainerModal = styled.View`
   background: #292929;
 
+  width: 90%;
+  height: 280px;
+
   border-radius: 30px;
   align-items: center;
-
-  width: 100%;
-  height: 280px;
 `
 
 export const Exit = styled.View`
@@ -31,15 +37,12 @@ export const Title = styled.Text`
   text-align: center;
 `
 
-export const Subtitle = styled.Text`
-  color: #FFF;
+export const TitleStrong = styled(Title)`
   font-size: 38px;
   font-weight: bold;
 
   padding-bottom: 5px;
   margin-top: -10px;
-
-  text-align: center;
 `
 
 export const Body = styled.View`
@@ -48,6 +51,8 @@ export const Body = styled.View`
 
   width: 100%;
   height: 235px;
+
+  padding: 0 10px;
 
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;

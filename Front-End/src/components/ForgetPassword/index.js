@@ -12,11 +12,12 @@ import Info   from '../Info';
 import {
   Body,
   BodyText,
+  ClickView,
   Container,
   ContainerModal,
   Exit,
   Title,
-  Subtitle,
+  TitleStrong,
 } from './styles';
 
 export default function ForgetPassword(props){
@@ -44,7 +45,8 @@ export default function ForgetPassword(props){
 
   return(
     <Modal transparent={true} animationType='fade' visible={props.visible}>
-        <Container>
+        <Container >
+          <ClickView onPress={props.fechar} activeOpacity={1}/>
           <ContainerModal>
 
             <Exit>
@@ -57,7 +59,7 @@ export default function ForgetPassword(props){
             </Exit>
 
             <Title>Esqueceu a</Title>
-            <Subtitle>Senha?</Subtitle>
+            <TitleStrong>Senha?</TitleStrong>
 
             <Body>
 

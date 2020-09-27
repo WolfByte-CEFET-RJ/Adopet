@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const Joi = require('joi')
 const crypto = require('crypto')
 const fs = require('fs')
-const { imageUpload } = require('./../Google Drive api/gdrive')
+const { imageUpload } = require('./../Google api/gdrive')
 
 module.exports = {
     async create(req, res) {

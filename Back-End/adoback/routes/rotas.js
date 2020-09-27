@@ -1,7 +1,9 @@
 const express = require('express')
-const routes  = express.Router()
+const routes = express.Router()
 
-const gmailApi = require('./../Google Drive api/gGmail') 
+const gmailApi = require('./../Google api/gGmail')
+const fs = require('fs')
+const path = require('path')
 
 const newUserController = require('../controllers/newUserController')
 const passwordController = require('../controllers/passwordController')
@@ -10,8 +12,6 @@ const authController = require('./../controllers/authController')
 
 const { uploadProfile, uploadPet } = require('./middleware/multerConfig') //é middleware multer para o upload de imagens
 const authMiddleware = require('./middleware/authToken') // é um middleware que autentica o token 
-
-const gdrive = require('./../Google Drive api/gdrive')
 
 routes.post('/api/user/register', uploadProfile, newUserController.create) //cria uma nova conta de usuario
 routes.post('/api/forgetpassword', passwordController.forgot_password) //rota que cria o token de reset de senha
@@ -28,9 +28,15 @@ routes.put('/api/petadopted', authMiddleware, petController.adoptionAproved) //r
 
 routes.delete('/api/deletepet', authMiddleware, petController.delete) //deleta um pet do bd
 
-routes.post('/teste', uploadPet , async (req, res) => { //to, from, subject, message
-    gmailApi.sendEmail('2000fellipe@gmail.com', 'adopet.suporte@gmail.com', 'Hello', 'STRIKE')
+routes.post('/teste', uploadPet, async (req, res) => { //to, from, subject, message
+    // const msg = fs.readFile(path.dirname('') + '/templates/reset-password-email.html', 'utf-8', (err, data) => {
+    //     if (err) throw err;
+    //     console.log(data);
+    // }) 
+
+    gmailApi.sendEmail('2000fellipe@gmail.com', 'Hello', '<h1>Strike</h1>')
     res.send('email time')
+
 })
 
 module.exports = routes

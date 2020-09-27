@@ -15,7 +15,7 @@ const TOKEN_PATH = 'token.json';
 
 function logon (callback) {
   // Load client secrets from a local file.
-  fs.readFile('./Google Drive api/credentials.json', (err, content) => {
+  fs.readFile('./Google api/credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Drive API.
     if (callback)

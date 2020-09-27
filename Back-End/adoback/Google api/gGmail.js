@@ -7,21 +7,22 @@ function sendEmail (to, from, subject, message) {
         gmail.users.messages.send({
             auth: auth,
             userId: 'me',
-            raw
+            resource: {
+                raw
+            }
     })
 })
 }
 
-function makeBody(to, from, subject, message) {
-    var str = ["Content-Type: text/plain; charset=\"UTF-8\"\n",
+function makeBody(to, subject, message) {
+    var str = ["Content-Type: text/html; charset=\"UTF-8\"\n",
         "MIME-Version: 1.0\n",
         "Content-Transfer-Encoding: 7bit\n",
         "to: ", to, "\n",
-        "from: ", from, "\n",
+        "from: adopet.suporte@gmail.com\n",
         "subject: ", subject, "\n\n",
         message
     ].join('');
-
     var encodedMail = new Buffer(str).toString("base64").replace(/\+/g, '-').replace(/\//g, '_');
         return encodedMail;
 }

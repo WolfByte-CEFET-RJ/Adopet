@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useNavigation } from '@react-navigation/native';
+
 import { ScrollView, FlatList, View } from 'react-native';
 
 import { StatusBar } from 'expo-status-bar';
@@ -54,6 +56,8 @@ export default function PetProfile() {
   const data = [{key:'1'},{key:'2'},{key:'3'},{key:'4'},{key:'5'},{key:'6'},{key:'7'},{key:'8'},{key:'9'}]
 
   const [favorite, setFavorite] = useState(false);
+
+  const navigation = useNavigation();
 
   return (
     <Background source={ProfileBG}>
@@ -120,7 +124,7 @@ export default function PetProfile() {
               </FeaturesGrid>
             </FeaturesArea>
 
-            <UserArea>
+            <UserArea onPress={() => navigation.navigate('UserProfile')} activeOpacity={1}>
               <Title>SOBRE O DONO</Title>
               <UserAbout
                 colors={['#F99D47', '#FB7A2D80']}

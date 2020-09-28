@@ -25,6 +25,7 @@ import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 
 import PetProfile      from './pages/Inside/PetProfile';
+import UserProfile      from './pages/Inside/UserProfile';
 
 function MainTab() {
   return (
@@ -55,6 +56,7 @@ export default function Routes() {
         <AppStack.Screen name='MainTab' component={MainTab} />
 
         <AppStack.Screen name='PetProfile' component={PetProfile} />
+        <AppStack.Screen name='UserProfile' component={UserProfile} />
 
       </AppStack.Navigator>
 

@@ -158,7 +158,7 @@ export const ItemText = styled.Text`
   font-size: 12px;
 `
 
-export const UserArea = styled.View`
+export const UserArea = styled.TouchableOpacity`
   margin-bottom: 20px;
 `
 

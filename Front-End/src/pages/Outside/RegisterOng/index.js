@@ -242,7 +242,7 @@ export default function RegisterOng() {
           name='x'
           size={26}
           color={'#ff0000cb'}
-          onPress={() => navigation.navigate('MainTab')}
+          onPress={() => navigation.navigate('Tutorial1')}
         />
       </Back>
       <BackGround source={isOng ? BGOng : BGPerson} >

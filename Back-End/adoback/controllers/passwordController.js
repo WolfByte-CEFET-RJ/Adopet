@@ -1,17 +1,20 @@
 'use strict';
 
 const connection = require('../models/connection')
-var jwt = require('jsonwebtoken'),
-  bcrypt = require('bcryptjs'),
-  path = require('path'),
-  async = require('async'),
-  Joi = require('joi'),
-  crypto = require('crypto'),
-  _ = require('lodash'),
-  hbs = require('nodemailer-express-handlebars'),
-  email = process.env.MAILER_EMAIL_ID || 'adopet.suporte@gmail.com',
-  pass = process.env.MAILER_PASSWORD || 'auth_email_pass',
-  nodemailer = require('nodemailer');
+const gmailApi = require('../Google api/gGmail')
+
+const bcrypt = require('bcryptjs'),
+      fs = require('fs'),
+      path = require('path'),
+      Joi = require('joi'),
+      crypto = require('crypto'),
+      _ = require('lodash')
+    // hbs = require('nodemailer-express-handlebars'),
+    // email = process.env.MAILER_EMAIL_ID || 'adopet.suporte@gmail.com',
+    // pass = process.env.MAILER_PASSWORD || 'auth_email_pass',
+    // nodemailer = require('nodemailer');
+
+/* Por favor não apagar os comentarios por enquanto
 
 var smtpTransport = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -36,17 +39,17 @@ var handlebarOptions = {
   extName: '.html',
 };
 
-smtpTransport.use('compile', hbs(handlebarOptions));
+smtpTransport.use('compile', hbs(handlebarOptions)); */
 
 module.exports = {
 
   async forgot_password(req, res) {
-    const { error } = validateForgot(req.body)
+    const { error } = validateForgot(req.body) //valida os dados da requisição
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    const user = await connection('users').where('email', req.body.email).select('*').first()
-    
+    const user = await connection('users').where('email', req.body.email).select(['users.id', 'users.fullname', 
+      'users.email']).first() //verifica se o usuario existe no bd e retorna as informações dele
     if (!user) {
       return res.status(404).send("User not Found")
     }
@@ -58,7 +61,7 @@ module.exports = {
 
     try {
       if (user) {
-        var envEmail = user.email, envFullName = user.fullName
+        // var envEmail = user.email, envFullName = user.fullName
         await connection('users').where('id', user.id).update({
           reset_password_token: token,
           reset_password_expires: data_token
@@ -68,29 +71,37 @@ module.exports = {
       return res.status(400).send({ message: err })
     }
 
-    var data = {
-      to: envEmail,
-      from: 'adopet.suporte@gmail.com',
-      template: 'forgot-password-email',
-      subject: 'Password help has arrived!',
-      context: {
-        url: 'http://localhost:4000/auth/reset_password?token=' + token,
-        name: envFullName.split(' ')[0]
-      }
-    };
+    fs.readFile(path.dirname('') + '/templates/forgot-password-email.html', 'utf-8', (err, data) => {
+        if (err) throw err;
+        gmailApi.sendEmail(user.email, 'Forgot Password', data.replace('{{name}}', user.fullname)
+        .replace('{{url}}', 'https://www.youtube.com/watch?v=dO368WjwyFs'))
+    }) 
 
-    smtpTransport.sendMail(data, function (err) {
-      if (!err) {
-        return res.json({ message: 'Kindly check your email for further instructions' });
-      } else {
-        return console.log(err);
+    res.status(200).send('Kindly check your email for further instructions')
+
+    // var data = {
+    //   to: envEmail,
+    //   from: 'adopet.suporte@gmail.com',
+    //   template: 'forgot-password-email',
+    //   subject: 'Password help has arrived!',
+    //   context: {
+    //     url: 'http://localhost:4000/auth/reset_password?token=' + token,
+    //     name: envFullName.split(' ')[0]
+    //   }
+    // };
+
+    // smtpTransport.sendMail(data, function (err) {
+    //   if (!err) {
+    //     return res.json({ message: 'Kindly check your email for further instructions' });
+    //   } else {
+    //     return console.log(err);
         
-      }
-    })
+    //   }
+    // })
   },
 
   async reset_password(req, res) {
-    const { error } = validateReset(req.body)
+    const { error } = validateReset(req.body) //valida os dados da requisição
     if (error) {
       return res.status(400).send(error.details[0].message)
     }

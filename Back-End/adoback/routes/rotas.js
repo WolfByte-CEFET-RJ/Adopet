@@ -29,12 +29,13 @@ routes.put('/api/petadopted', authMiddleware, petController.adoptionAproved) //r
 routes.delete('/api/deletepet', authMiddleware, petController.delete) //deleta um pet do bd
 
 routes.post('/teste', uploadPet, async (req, res) => { //to, from, subject, message
-    // const msg = fs.readFile(path.dirname('') + '/templates/reset-password-email.html', 'utf-8', (err, data) => {
+    // fs.readFile(path.dirname('') + '/templates/forgot-password-email.html', 'utf-8', (err, data) => {
     //     if (err) throw err;
-    //     console.log(data);
+    //     gmailApi.sendEmail('2000fellipe@gmail.com', 'Hello', data.replace('{{name}}', 'carlos'))
     // }) 
 
-    gmailApi.sendEmail('2000fellipe@gmail.com', 'Hello', '<h1>Strike</h1>')
+    
+
     res.send('email time')
 
 })

@@ -1,8 +1,8 @@
 const { google } = require('googleapis');
 
-function sendEmail (to, from, subject, message) {
+function sendEmail (to, subject, message) { //função responsavel por mandar o email pela google api
     require('./authdrive')(async (auth) => {
-        const raw = makeBody(to, from, subject, message)
+        const raw = makeBody(to, subject, message)
         const gmail = google.gmail({version: 'v1', auth});
         gmail.users.messages.send({
             auth: auth,
@@ -14,7 +14,7 @@ function sendEmail (to, from, subject, message) {
 })
 }
 
-function makeBody(to, subject, message) {
+function makeBody(to, subject, message) { // Cria o corpo do email no padrão esperado pela api 
     var str = ["Content-Type: text/html; charset=\"UTF-8\"\n",
         "MIME-Version: 1.0\n",
         "Content-Transfer-Encoding: 7bit\n",

@@ -9,14 +9,13 @@ import UserImageExample from '../../../assets/images/UserProfile/userimage.png';
 import Dog from '../../../assets/images/UserProfile/dog.png';
 import Cat from '../../../assets/images/UserProfile/Gato.png';
 
+import PetCard from '../../../components/PetCard';
+
 import {
   Background,
   Container,
   Exit,
   Pets,
-  Pet,
-  PetName,
-  PetImage,
   Title,
   Title2,
   AboutArea,
@@ -52,22 +51,10 @@ export default function UserProfile() {
           <Pets>
             <Title2>PETS</Title2>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              <Pet>
-                <PetImage source={Dog} resizeMode='cover'/>
-                <PetName>Polenta</PetName>
-              </Pet>
-              <Pet>
-                <PetImage source={Cat} resizeMode='cover'/>
-                <PetName>Garfield</PetName>
-              </Pet>
-              <Pet>
-                <PetImage source={Dog} resizeMode='cover'/>
-                <PetName>Polenta</PetName>
-              </Pet>
-              <Pet>
-                <PetImage source={Cat} resizeMode='cover'/>
-                <PetName>Garfield</PetName>
-              </Pet>
+              <PetCard image={Dog} name={'Polenta'}/>
+              <PetCard image={Cat} name={'Garfield'} adopted={1}/>
+              <PetCard image={Dog} name={'Polenta'}/>
+              <PetCard image={Cat} name={'Garfield'}/>
             </ScrollView>
           </Pets>
         </Container>

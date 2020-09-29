@@ -99,7 +99,6 @@ export default function RegisterOng() {
       const { latitude, longitude } = location.coords;
 
       setCoords(`{\"latitude\":\"${latitude}\", \"longitude\":\"${longitude}\"}`);
-      console.log(location);
     }
 
     loadPosition();

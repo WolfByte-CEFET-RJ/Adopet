@@ -75,30 +75,3 @@ export const Pets = styled.View`
 
   margin-bottom: 20px;
 `;
-
-export const Pet = styled.View`
-  width: 165px;
-  height: 220px;
-
-  margin-right: 15px;
-  margin-left: 10px;
-
-  align-items: center;
-  justify-content: center;
-`;
-
-export const PetImage = styled.Image`
-  flex: 1;
-
-  border-radius: 10px;
-`;
-
-export const PetName = styled.Text`
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-`;

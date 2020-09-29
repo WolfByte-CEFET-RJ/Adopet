@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
-import { LinearGradient } from 'expo-linear-gradient';
 
 export const Background = styled.ImageBackground`
   flex: 1;
@@ -128,69 +127,8 @@ export const FeaturesArea = styled.View`
   margin-bottom: 10px;
 `
 
-export const FeaturesGrid = styled.View`
-  align-items: center;
-  justify-content: center;
-`
-
-export const Item = styled.View`
-  background: white;
-
-  width: 100px;
-  height: 72px;
-
-  align-items: center;
-  justify-content: center;
-
-  margin: 5px;
-
-  border-radius: 5px;
-
-  elevation: 5;
-`
-
-export const ItemTitle = styled.Text`
-  font-size: 10px;
-  color: #F17808;
-`
-
-export const ItemText = styled.Text`
-  font-size: 12px;
-`
-
-export const UserArea = styled.TouchableOpacity`
+export const UserArea = styled.View`
   margin-bottom: 20px;
-`
-
-export const UserAbout = styled(LinearGradient)`
-  align-items: center;
-  justify-content: center;
-
-  flex-direction: row;
-
-  padding: 10px;
-`
-
-export const UserImage = styled.Image`
-  height: 60px;
-  width: 60px;
-
-  margin-right: 10px;
-
-  border-radius: 30px;
-`
-export const UserTextArea = styled.View`
-  flex: 1;
-`
-
-export const UserText = styled.Text`
-  color: #1B262C;
-  font-size: 10px;
-`
-
-export const UserName = styled(UserText)`
-  font-size: 14px;
-  margin-bottom: 5px;
 `
 
 export const Footer = styled.View`

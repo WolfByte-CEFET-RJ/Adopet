@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 
-import { ScrollView, FlatList, View } from 'react-native';
-
-import { StatusBar } from 'expo-status-bar';
+import { ScrollView, View } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 
@@ -18,6 +16,9 @@ import PetImage3 from '../../../assets/images/PetProfile/pet_example3.png';
 import UserImageExample from '../../../assets/images/PetProfile/user_example.png';
 
 import Buttom from '../../../components/Button';
+import UserCard from '../../../components/UserCard';
+import PetGrid from '../../../components/PetGrid';
+import PetTag from '../../../components/PetTag';
 
 import {
   AboutArea,
@@ -28,11 +29,7 @@ import {
   Container,
   Dots,
   FeaturesArea,
-  FeaturesGrid,
   Footer,
-  Item,
-  ItemText,
-  ItemTitle,
   PetImageArea,
   PetInfo,
   PetInfoArea,
@@ -44,16 +41,19 @@ import {
   Tags,
   TagText,
   Title,
-  UserAbout,
   UserArea,
-  UserImage,
-  UserName,
-  UserText,
-  UserTextArea,
 } from './styles';
 
 export default function PetProfile() {
-  const data = [{key:'1'},{key:'2'},{key:'3'},{key:'4'},{key:'5'},{key:'6'},{key:'7'},{key:'8'},{key:'9'}]
+  const data = [{key:'1', title: 'TIPO DE ANIMAL', text: 'CACHORRO'},
+                {key:'2', title: 'IDADE', text: '2 ANOS'},
+                {key:'3', title: 'SEXO', text: 'FEMEA'},
+                {key:'4', title: 'TAMANHO/PESO', text: '56 CM E 30 KG'},
+                {key:'5', title: 'VACINAS', text: '-'},
+                {key:'6', title: 'TREINADO', text: 'SIM'},
+                {key:'7', title: 'CASTRADO', text: 'SIM'},
+                {key:'8', title: 'VERMIFUGADO', text: 'NÃO'},
+                {key:'9', title: 'CHIPADO', text: 'NÃO'}]
 
   const [favorite, setFavorite] = useState(false);
 
@@ -61,7 +61,6 @@ export default function PetProfile() {
 
   return (
     <Background source={ProfileBG}>
-      <StatusBar backgroundColor={'#ffffffef'}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Container>
           <PetImageArea>
@@ -97,48 +96,34 @@ export default function PetProfile() {
               <Title>SOBRE</Title>
               <AboutText>Sou uma cadela muito alegre e feliz.</AboutText>
             </AboutArea>
+
             <TagArea>
               <Title>CARACTERISTICAS DO PET</Title>
               <Tags horizontal={true} showsHorizontalScrollIndicator={false}>
-                {Array.apply(0, Array(8)).map((_, k) => (
-                  <Tag key={k}>
-                    <TagText>Dócil</TagText>
-                  </Tag>
+                {Array.apply(0, Array(3)).map((_, k) => (
+                  <>
+                    <PetTag key={k} tag={'docil'}/>
+                    <PetTag tag={'amigavel'}/>
+                    <PetTag tag={'brincalhao'}/>
+                  </>
                 ))}
+
               </Tags>
             </TagArea>
+
             <FeaturesArea>
               <Title>CARACTERISTICAS ADICIONAIS</Title>
-              <FeaturesGrid>
-                <FlatList
-                  data={data}
-                  keyExtractor={Info => String(Info.key)}
-                  numColumns={3}
-                  renderItem={() => (
-                    <Item>
-                      <ItemTitle>TESTE</ItemTitle>
-                      <ItemText>TextTeste</ItemText>
-                    </Item>
-                  )}
-                />
-              </FeaturesGrid>
+              <PetGrid data={data}/>
             </FeaturesArea>
 
-            <UserArea onPress={() => navigation.navigate('UserProfile')} activeOpacity={1}>
+            <UserArea>
               <Title>SOBRE O DONO</Title>
-              <UserAbout
-                colors={['#F99D47', '#FB7A2D80']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-              >
-                <UserImage source={UserImageExample} resizeMode="cover"/>
-                <UserTextArea>
-                  <UserName>Eric Merge</UserName>
-                  <UserText>Depois de muitos merges na vida acabei vendo que era necessário fazer mais cursos
-                    de programação, por isso me vejo sem capacidades de cuidar do meu Pet e estou o doando.
-                  </UserText>
-                </UserTextArea>
-              </UserAbout>
+              <UserCard
+                onPress={() => navigation.navigate('UserProfile')}
+                image={UserImageExample}
+                name={'Eric Merge'}
+                text={'Depois de muitos merges na vida acabei vendo que era necessário fazer mais cursos de programação, por isso me vejo sem capacidades de cuidar do meu Pet e estou o doando.'}
+              />
             </UserArea>
 
           </Body>
@@ -148,7 +133,6 @@ export default function PetProfile() {
                 <Buttom
                   text='Ir para o Chat'
                   colors={['#12947F','#0AB599']}
-                  onPress={() => {}}
                   radius={10}
                 />
               </ButtonView>
@@ -159,8 +143,8 @@ export default function PetProfile() {
             <Buttom
               text='Ver outros Animais'
               colors={['#F17808','#FF9A00']}
-              onPress={() => {}}
               radius={10}
+              onPress={() => navigation.goBack()}
             />
           </Footer>
         </Container>

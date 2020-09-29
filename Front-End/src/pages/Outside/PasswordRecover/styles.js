@@ -49,4 +49,5 @@ export const BodyText = styled.Text`
 
 export const Forms = styled.View`
   margin-bottom: 25px;
+  padding: 0 20px;
 `;

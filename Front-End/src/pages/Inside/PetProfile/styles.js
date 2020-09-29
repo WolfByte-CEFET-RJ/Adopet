@@ -96,25 +96,6 @@ export const Tags = styled.ScrollView`
   flex-direction: row;
 `
 
-export const Tag = styled.View`
-  background: #FFE9E6;
-
-  width: 60px;
-  height: 20px;
-
-  align-items: center;
-  justify-content: center;
-
-  margin-right: 15px;
-
-  border-radius: 50px;
-`
-
-export const TagText = styled.Text`
-  font-size: 16px;
-  color: #FF6F59;
-`
-
 export const Title = styled.Text`
   font-size: 16px;
   color: white;

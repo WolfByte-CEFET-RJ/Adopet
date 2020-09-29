@@ -36,10 +36,8 @@ import {
   PetName,
   PetTextArea,
   SwipeImage,
-  Tag,
   TagArea,
   Tags,
-  TagText,
   Title,
   UserArea,
 } from './styles';

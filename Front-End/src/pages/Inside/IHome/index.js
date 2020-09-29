@@ -15,15 +15,15 @@ import PetImageExample from '../../../assets/images/PetProfile/pet_example.png';
 
 import {
   Background,
-  Container,
-  PetImage,
-  Header,
   Body,
+  Container,
+  Header,
   Info,
-  PetName,
-  PetInfo,
   Pet,
-  TextClick
+  PetImage,
+  PetInfo,
+  PetName,
+  TextClick,
 } from './styles';
 
 export default function IHome() {

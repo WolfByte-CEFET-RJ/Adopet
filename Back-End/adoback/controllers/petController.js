@@ -41,7 +41,7 @@ module.exports = {
     async index(req, res) {
         try {
             const pets = await connection('pets').where('adotado', 0).select(['pets.id_doador',
-                'pets.localização', 'pets.nome', 'pets.tipo',
+                'pets.imagem','pets.localização', 'pets.nome', 'pets.tipo',
                 'pets.sexo', 'pets.idade', 'tamanho', 'pets.vacinação',
                 'pets.Treinado', 'pets.castrado', 'pets.vermifugado',
                 'pets.chipado', 'pets.caracteristicas'])

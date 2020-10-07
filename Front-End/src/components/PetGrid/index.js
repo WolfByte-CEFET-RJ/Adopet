@@ -14,7 +14,7 @@ export default function PetGrid({data}) {
     <FeaturesGrid>
       <FlatList
         data={data}
-        keyExtractor={Info => String(Info.key)}
+        keyExtractor={Info => String(Info.title)}
         numColumns={3}
         renderItem={ ({item}) => (
           <Item>

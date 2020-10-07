@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
+
+import api from '../../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // import { Dimensions, StyleSheet } from 'react-native';
 
@@ -63,7 +66,36 @@ export default function IHome() {
   //   ],
   // };
 
-  const navigation= useNavigation();
+  const [pets       ,        setPets] = useState([]);
+  const [petSelected, setPetSelected] = useState({nome: '', idade: '', localização: ''});
+  const [loading    ,     setLoading] = useState(false);
+
+  const navigation = useNavigation();
+
+  function goPetProfile() {
+    navigation.navigate('PetProfile', { petSelected });
+  }
+
+  async function loadPets() {
+    if (loading) return;
+    setLoading(true);
+
+    const token = await AsyncStorage.getItem('token');
+
+    const response = await api.get('api/pets', {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    })
+
+    setPets(response.data);
+    setPetSelected(response.data[0]);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    loadPets();
+  }, [])
 
   return(
     <Background source={IHomeBG}>
@@ -82,7 +114,7 @@ export default function IHome() {
           />
         </Header>
         <Body>
-          <Pet onPress={() => {navigation.navigate('PetProfile')}} activeOpacity={1}>
+          <Pet onPress={goPetProfile} activeOpacity={1}>
             {/* <Interactable.View
               // animatedValueX={x}
               // animatedValueY={y}
@@ -90,10 +122,11 @@ export default function IHome() {
               // style={StyleSheet.absoluteFill}
             > */}
               {/* <Animated.View {...{ style }}> */}
+                {/* <PetImage source={{uri: petSelected.imagem.split('"')[1]}} resizeMode="cover" /> */}
                 <PetImage source={PetImageExample} resizeMode="cover" />
                 <Info >
-                  <PetName>Polenta</PetName>
-                  <PetInfo>2 anos, Rio de Janeiro, Brasil</PetInfo>
+                  <PetName>{petSelected.nome}</PetName>
+                  <PetInfo>{`${petSelected.idade} anos, ${petSelected.localização}`}</PetInfo>
                   <TextClick>Clique na foto para mais informações!</TextClick>
                 </Info>
               {/* </Animated.View> */}

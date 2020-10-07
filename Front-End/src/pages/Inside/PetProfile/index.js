@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { ScrollView, View } from 'react-native';
 
@@ -43,19 +43,26 @@ import {
 } from './styles';
 
 export default function PetProfile() {
-  const data = [{key:'1', title: 'TIPO DE ANIMAL', text: 'CACHORRO'},
-                {key:'2', title: 'IDADE', text: '2 ANOS'},
-                {key:'3', title: 'SEXO', text: 'FEMEA'},
-                {key:'4', title: 'TAMANHO/PESO', text: '56 CM E 30 KG'},
-                {key:'5', title: 'VACINAS', text: '-'},
-                {key:'6', title: 'TREINADO', text: 'SIM'},
-                {key:'7', title: 'CASTRADO', text: 'SIM'},
-                {key:'8', title: 'VERMIFUGADO', text: 'NÃO'},
-                {key:'9', title: 'CHIPADO', text: 'NÃO'}]
-
   const [favorite, setFavorite] = useState(false);
 
   const navigation = useNavigation();
+  const route      = useRoute();
+  const data       = route.params.petSelected;
+  const userId     = data.id_doador;
+
+  function goToUserProfile() {
+    navigation.navigate('UserProfile', { userId })
+  }
+
+  const petInfos = [{title: 'TIPO DE ANIMAL', text: data.tipo.toUpperCase()},
+                    {title: 'IDADE',          text: `${data.idade} ANOS`},
+                    {title: 'SEXO',           text: data.sexo.toUpperCase()},
+                    {title: 'TAMANHO/PESO',   text: data.tamanho.toUpperCase()},
+                    {title: 'VACINAS',        text: data.vacinação.toUpperCase()},
+                    {title: 'TREINADO',       text: data.Treinado ? 'SIM' : 'NÃO'},
+                    {title: 'CASTRADO',       text: data.castrado ? 'SIM' : 'NÃO'},
+                    {title: 'VERMIFUGADO',    text: data.vermifugado ? 'SIM' : 'NÃO'},
+                    {title: 'CHIPADO',        text: data.chipado ? 'SIM' : 'NÃO'}]
 
   return (
     <Background source={ProfileBG}>
@@ -76,8 +83,8 @@ export default function PetProfile() {
 
             <PetInfoArea>
               <PetTextArea>
-                <PetName>Polenta</PetName>
-                <PetInfo>2 anos, Rio de Janeiro, Brasil</PetInfo>
+                <PetName>{data.nome}</PetName>
+                <PetInfo>{`${data.idade} anos, ${data.localização}`}</PetInfo>
               </PetTextArea>
               <FontAwesome
                 name={favorite ? 'heart' : 'heart-o'}
@@ -92,7 +99,7 @@ export default function PetProfile() {
           <Body>
             <AboutArea>
               <Title>SOBRE</Title>
-              <AboutText>Sou uma cadela muito alegre e feliz.</AboutText>
+              <AboutText>{data.caracteristicas}</AboutText>
             </AboutArea>
 
             <TagArea>
@@ -111,13 +118,13 @@ export default function PetProfile() {
 
             <FeaturesArea>
               <Title>CARACTERISTICAS ADICIONAIS</Title>
-              <PetGrid data={data}/>
+              <PetGrid data={petInfos}/>
             </FeaturesArea>
 
             <UserArea>
               <Title>SOBRE O DONO</Title>
               <UserCard
-                onPress={() => navigation.navigate('UserProfile')}
+                onPress={goToUserProfile}
                 image={UserImageExample}
                 name={'Eric Merge'}
                 text={'Depois de muitos merges na vida acabei vendo que era necessário fazer mais cursos de programação, por isso me vejo sem capacidades de cuidar do meu Pet e estou o doando.'}

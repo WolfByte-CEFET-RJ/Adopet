@@ -22,15 +22,18 @@ import {
 export default function Tutorial1() {
 
   const navigation= useNavigation();
-  function IrparaHome(){
+  function IrparaTutorail2(){
     navigation.navigate('Tutorial2');
+  }
+  function Pular(){
+    navigation.navigate('Tutorial3');
   }
 
   return (
     <Background>
 
       <ImageBG source={BackgroundTutorial}/>
-      <Skip onPress={() => {IrparaHome()}}>Pular</Skip>
+      <Skip onPress={() => {Pular()}}>Pular</Skip>
       <Feather
         name='chevron-left'
         size={26}
@@ -49,7 +52,7 @@ export default function Tutorial1() {
           color={'#12947F'}
           radius={20}
         />
-       <NextPage onPress={() => {IrparaHome()}}>Próximo</NextPage>
+       <NextPage onPress={() => {IrparaTutorail2()}}>Próximo</NextPage>
       </ConatinerPoints>
 
     </Container>

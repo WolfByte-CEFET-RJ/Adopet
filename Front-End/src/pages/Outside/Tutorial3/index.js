@@ -23,7 +23,7 @@ export default function Tutorial2() {
 
   const navigation= useNavigation();
   function IrparaHome(){
-    navigation.navigate('Tutorial3');
+    navigation.navigate('MainTab');
   }
 
   return (
@@ -47,12 +47,12 @@ export default function Tutorial2() {
           points={[0,0,1]}
           color={'#12947F'}
           radius={20}
-        />  
+        />
        <NextPage onPress={() => {IrparaHome()}}>Vamos Lá!</NextPage>
       </ConatinerPoints>
-      
+
     </Container>
-   
+
 
     </Background>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import api from '../../../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -17,11 +17,14 @@ import IHomeBG from '../../../assets/images/IHome/IHomeBG.png';
 import PetImageExample from '../../../assets/images/PetProfile/pet_example.png';
 
 import {
+  Adopt,
   Background,
   Body,
+  ButtonArea,
   Container,
   Header,
   Info,
+  Next,
   Pet,
   PetImage,
   PetInfo,
@@ -69,6 +72,9 @@ export default function IHome() {
   const [pets       ,        setPets] = useState([]);
   const [petSelected, setPetSelected] = useState({nome: '', idade: '', localização: ''});
   const [loading    ,     setLoading] = useState(false);
+  const [token      ,       setToken] = useState('');
+  const [count      ,       setCount] = useState(0);
+  const [petPage    ,     setPetPage] = useState(1);
 
   const navigation = useNavigation();
 
@@ -80,39 +86,50 @@ export default function IHome() {
     if (loading) return;
     setLoading(true);
 
-    const token = await AsyncStorage.getItem('token');
-
     const response = await api.get('api/pets', {
+      params: {page: petPage},
       headers: {
         'authorization': `Bearer ${token}`
       }
     })
 
+    setPetPage(petPage + 1);
+
     setPets(response.data);
     setPetSelected(response.data[0]);
+
+    setCount(0);
     setLoading(false);
   }
+
+  useEffect(() => {
+    async function handleToken() {
+      const userToken = await AsyncStorage.getItem('token');
+      setToken(userToken);
+    }
+
+    handleToken()
+  }, [])
 
   useEffect(() => {
     loadPets();
   }, [])
 
+  function NextPet() {
+    console.log(petSelected.imagem.split('"')[1]);
+
+    if (!pets.length == count + 1) {
+      setCount(count + 1);
+      setPetSelected(pets[count]);
+
+    } else {
+      loadPets()
+    }
+  }
+
   return(
     <Background source={IHomeBG}>
       <Container>
-        <Header>
-          <Feather
-            name="chevron-left"
-            size={30}
-            color='#FFF'
-            onPress={() => {navigation.goBack()}}
-          />
-          <Feather
-            name="search"
-            size={30}
-            color='#FFF'
-          />
-        </Header>
         <Body>
           <Pet onPress={goPetProfile} activeOpacity={1}>
             {/* <Interactable.View
@@ -122,8 +139,8 @@ export default function IHome() {
               // style={StyleSheet.absoluteFill}
             > */}
               {/* <Animated.View {...{ style }}> */}
-                {/* <PetImage source={{uri: petSelected.imagem.split('"')[1]}} resizeMode="cover" /> */}
-                <PetImage source={PetImageExample} resizeMode="cover" />
+                <PetImage source={{uri:petSelected.imagem.split('"')[1]}} resizeMode="cover" />
+                {/* <PetImage source={PetImageExample} resizeMode="cover" /> */}
                 <Info >
                   <PetName>{petSelected.nome}</PetName>
                   <PetInfo>{`${petSelected.idade} anos, ${petSelected.localização}`}</PetInfo>
@@ -132,6 +149,14 @@ export default function IHome() {
               {/* </Animated.View> */}
             {/* </Interactable.View> */}
           </Pet>
+          <ButtonArea>
+            <Next onPress={NextPet}>
+              <Feather name={'x'} size={35} color={'#FF0000'}/>
+            </Next>
+            <Adopt>
+              <Feather name={'heart'} size={35} color={'#00FF00'}/>
+            </Adopt>
+          </ButtonArea>
         </Body>
 
       </Container>

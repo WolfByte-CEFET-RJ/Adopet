@@ -65,3 +65,29 @@ export const TextClick = styled.Text`
   font-size: 12px;
   color: #ffffffdd;
 `
+
+export const ButtonArea = styled.View`
+  width: 100%;
+  flex-direction: row;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  padding: 10px 0;
+`
+
+export const Next = styled.TouchableOpacity`
+  height: 60px;
+  width: 60px;
+
+  border-radius: 30px;
+
+  background: white;
+
+  elevation: 10;
+
+  align-items: center;
+  justify-content: center;
+`
+
+export const Adopt = styled(Next)``

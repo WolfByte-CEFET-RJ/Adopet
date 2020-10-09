@@ -105,14 +105,9 @@ export default function PetProfile() {
             <TagArea>
               <Title>CARACTERISTICAS DO PET</Title>
               <Tags horizontal={true} showsHorizontalScrollIndicator={false}>
-                {Array.apply(0, Array(3)).map((_, k) => (
-                  <>
-                    <PetTag key={k} tag={'docil'}/>
-                    <PetTag tag={'amigavel'}/>
-                    <PetTag tag={'brincalhao'}/>
-                  </>
-                ))}
-
+                <PetTag tag={'docil'}/>
+                <PetTag tag={'amigavel'}/>
+                <PetTag tag={'brincalhao'}/>
               </Tags>
             </TagArea>
 

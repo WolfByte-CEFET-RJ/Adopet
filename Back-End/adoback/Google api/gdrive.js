@@ -29,7 +29,8 @@ function imageUpload(fileName, filePath, folder, callback) {
           fs.unlink(filePath, () => (err) => { //apaga a imagem que foi upada na pasta uploads
             if (err) throw err
           })
-          resolve('https://drive.google.com/file/d/'+file.data.id+'/view?usp=sharing') //retorna o link da imagem no drive
+          //retorna o link da imagem no drive
+          resolve('https://drive.google.com/thumbnail?id='+file.data.id) 
         }
       });
 })

@@ -56,8 +56,11 @@ export default function RegisterOng() {
   const [password, setPassword] = useState('');
   const [email   ,    setEmail] = useState('');
   const [phone   ,    setPhone] = useState('');
+  const [about   ,    setAbout] = useState('');
   const [ufs     ,      setUfs] = useState([]);
   const [cities  ,   setCities] = useState([]);
+
+  const [focus   ,    setFocus] = useState([0,0,0,0,0,0]);
 
   const [selectedUf   ,   setSelectedUf] = useState('0');
   const [selectedCity , setSelectedCity] = useState('0');
@@ -184,20 +187,28 @@ export default function RegisterOng() {
 
     const data = new FormData();
     data.append('fullName'    , userName);
-    data.append('password'    , password);
     data.append('email'       ,    email);
+    data.append('password'    , password);
     data.append('phone'       ,    phone);
+    data.append('about'       ,    about);
     data.append('local'       ,    local);
     data.append('local_coords',   "Coordenadas");
     data.append('type'        ,     type);
     data.append('img'         ,      img);
 
+    let inputFocus = [];
     let isEmpty = 0;
     Object.values(data)[0].map(item => {
       if (item[1] == '') {
+        inputFocus.push(1);
         isEmpty = 1;
+
+      } else {
+        inputFocus.push(0);
       }
     })
+
+    setFocus(inputFocus);
 
     if (isEmpty) {
       alert('Por favor, preencha todos os campos.');
@@ -272,6 +283,7 @@ export default function RegisterOng() {
               defaultValue={userName}
               length={30}
               color={secundary}
+              focus={focus[0]}
             />
             <Info
               image='mail'
@@ -280,6 +292,7 @@ export default function RegisterOng() {
               defaultValue={email}
               length={30}
               color={secundary}
+              focus={focus[1]}
             />
             <Info
               image='lock'
@@ -289,6 +302,7 @@ export default function RegisterOng() {
               password={1}
               length={15}
               color={secundary}
+              focus={focus[2]}
             />
             <Info
               image='phone'
@@ -297,10 +311,22 @@ export default function RegisterOng() {
               defaultValue={phone}
               length={30}
               color={secundary}
+              focus={focus[3]}
+              numeric={1}
+            />
+            <Info
+              image='message-square'
+              placeholder='Digite sobre Você'
+              onChangeText={about => setAbout(about)}
+              defaultValue={about}
+              length={100}
+              color={secundary}
+              multiline={1}
+              focus={focus[4]}
             />
 
             <PickerView>
-              <Feather name="map-pin" size={26} color={secundary}/>
+              <Feather name="map-pin" size={26} color={focus[5] ? 'red' : secundary}/>
 
               <Picker style={{flex: 1, color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
                 selectedValue={selectedUf}

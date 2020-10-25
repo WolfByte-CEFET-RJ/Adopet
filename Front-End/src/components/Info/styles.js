@@ -1,10 +1,7 @@
 import styled from 'styled-components/native';
 
 export const CardInfo = styled.View`
-  height:40px;
   width: 100%;
-
-  background: blue;
 
   flex-direction: row;
   align-items: center;
@@ -24,5 +21,5 @@ export const InputImage = styled.View`
 
 export const InputText = styled.TextInput`
   flex: 1;
-  margin-left: 10px;
+  padding: 5px 10px;
 `

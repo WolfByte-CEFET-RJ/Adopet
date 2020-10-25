@@ -116,8 +116,6 @@ export default function IHome() {
   }, [])
 
   function NextPet() {
-    console.log(petSelected.imagem.split('"')[1]);
-
     if (!pets.length == count + 1) {
       setCount(count + 1);
       setPetSelected(pets[count]);

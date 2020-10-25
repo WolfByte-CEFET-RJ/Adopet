@@ -13,7 +13,7 @@ export default function Info(props) {
     <>
       <CardInfo>
         <InputImage>
-          <Feather name={props.image} size={26} color={props.color} />
+          <Feather name={props.image} size={26} color={props.focus ? 'red' : props.color} />
         </InputImage>
         <InputText
           placeholder={props.placeholder}
@@ -22,6 +22,8 @@ export default function Info(props) {
           onValueChange={props.onValueChange}
           onChangeText={props.onChangeText}
           defaultValue={props.defaultValue}
+          multiline={props.multiline ? true : false}
+          keyboardType={props.numeric ? 'numeric' : 'default'}
         />
       </CardInfo>
     </>

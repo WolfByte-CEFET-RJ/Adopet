@@ -17,12 +17,12 @@ export default function Info(props) {
         </InputImage>
         <InputText
           placeholder={props.placeholder}
-          secureTextEntry={props.password? true : false}
+          secureTextEntry={props.password}
           maxLength={props.length}
           onValueChange={props.onValueChange}
           onChangeText={props.onChangeText}
           defaultValue={props.defaultValue}
-          multiline={props.multiline ? true : false}
+          multiline={props.multiline}
           keyboardType={props.numeric ? 'numeric' : 'default'}
         />
       </CardInfo>

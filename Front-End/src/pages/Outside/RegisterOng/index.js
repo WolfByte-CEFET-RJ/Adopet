@@ -4,8 +4,6 @@ import { Feather } from '@expo/vector-icons';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { Picker } from '@react-native-community/picker';
-
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
@@ -25,8 +23,9 @@ import {
   View,
 } from 'react-native';
 
-import Button from '../../../components/Button';
-import Info   from '../../../components/Info';
+import Button       from '../../../components/Button';
+import Info         from '../../../components/Info';
+import CustomPicker from '../../../components/CustomPicker';
 
 import {
   Back,
@@ -162,10 +161,6 @@ export default function RegisterOng() {
   }
 
   async function handleRegister() {
-    if (!avatar) {
-      alert('Coloque uma foto, por favor.');
-      return
-    }
 
     if (selectedUf === '0' || selectedCity === '0') {
       alert('Por favor, selecione uma cidade e estado.');
@@ -192,7 +187,7 @@ export default function RegisterOng() {
     data.append('phone'       ,    phone);
     data.append('about'       ,    about);
     data.append('local'       ,    local);
-    data.append('local_coords',   "Coordenadas");
+    data.append('local_coords',  "Coord");
     data.append('type'        ,     type);
     data.append('img'         ,      img);
 
@@ -212,6 +207,11 @@ export default function RegisterOng() {
 
     if (isEmpty) {
       alert('Por favor, preencha todos os campos.');
+      return
+    }
+
+    if (!avatar) {
+      alert('Coloque uma foto, por favor.');
       return
     }
 
@@ -299,7 +299,7 @@ export default function RegisterOng() {
               placeholder='Digite sua Senha'
               onChangeText={password => setPassword(password)}
               defaultValue={password}
-              password={1}
+              password={true}
               length={15}
               color={secundary}
               focus={focus[2]}
@@ -321,33 +321,29 @@ export default function RegisterOng() {
               defaultValue={about}
               length={100}
               color={secundary}
-              multiline={1}
+              multiline={true}
               focus={focus[4]}
             />
 
             <PickerView>
               <Feather name="map-pin" size={26} color={focus[5] ? 'red' : secundary}/>
 
-              <Picker style={{flex: 1, color:`${selectedUf === '0' ? '#BEBDC2' : '#000'}`}}
+              <CustomPicker
+                flex={1}
+                name={'UF'}
                 selectedValue={selectedUf}
                 onValueChange={uf => {setSelectedUf(uf)}}
-              >
-                <Picker.Item label="UF" value="0" />
-                {ufs.map(uf => (
-                  <Picker.Item key={uf} label={uf} value={uf} />
-                ))}
-              </Picker>
-
-              <Picker style={{flex: 2, color:`${selectedCity === '0' ? '#BEBDC2' : '#000'}`}}
+                values={ufs}
+              />
+              <CustomPicker
+                flex={2}
+                name={'Cidade'}
                 selectedValue={selectedCity}
                 onValueChange={city => {setSelectedCity(city)}}
+                values={cities}
                 enabled={enableCity}
-              >
-                <Picker.Item label="Cidade" value="0" />
-                {cities.map(city => (
-                  <Picker.Item key={city} label={city} value={city} />
-                ))}
-              </Picker>
+              />
+
             </PickerView>
           </Forms>
 

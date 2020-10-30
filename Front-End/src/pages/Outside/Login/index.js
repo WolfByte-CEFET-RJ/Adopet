@@ -108,7 +108,7 @@ export default function Login(){
             placeholder='Digite sua Senha'
             onChangeText={password => setPassword(password)}
             defaultValue={password}
-            password={1}
+            password={true}
             length={15}
             color='#12947F'
           />

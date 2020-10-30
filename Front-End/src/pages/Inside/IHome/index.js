@@ -70,7 +70,7 @@ export default function IHome() {
   // };
 
   const [pets       ,        setPets] = useState([]);
-  const [petSelected, setPetSelected] = useState({nome: '', idade: '', localização: ''});
+  const [petSelected, setPetSelected] = useState({nome: '', idade: '', localização: '', imagem: ''});
   const [loading    ,     setLoading] = useState(false);
   const [token      ,       setToken] = useState('');
   const [count      ,       setCount] = useState(0);
@@ -82,14 +82,21 @@ export default function IHome() {
     navigation.navigate('PetProfile', { petSelected });
   }
 
+  async function handleToken() {
+    const userToken = await AsyncStorage.getItem('token');
+    setToken(userToken);
+  }
+
   async function loadPets() {
     if (loading) return;
     setLoading(true);
 
+    const userToken = await AsyncStorage.getItem('token');
+
     const response = await api.get('api/pets', {
-      params: {page: petPage},
+      // params: {page: petPage},
       headers: {
-        'authorization': `Bearer ${token}`
+        'authorization': `Bearer ${userToken}`
       }
     })
 
@@ -102,19 +109,6 @@ export default function IHome() {
     setLoading(false);
   }
 
-  useEffect(() => {
-    async function handleToken() {
-      const userToken = await AsyncStorage.getItem('token');
-      setToken(userToken);
-    }
-
-    handleToken()
-  }, [])
-
-  useEffect(() => {
-    loadPets();
-  }, [])
-
   function NextPet() {
     if (!pets.length == count + 1) {
       setCount(count + 1);
@@ -124,6 +118,10 @@ export default function IHome() {
       loadPets()
     }
   }
+
+  useEffect(() => {
+    loadPets();
+  }, [])
 
   return(
     <Background source={IHomeBG}>
@@ -137,7 +135,7 @@ export default function IHome() {
               // style={StyleSheet.absoluteFill}
             > */}
               {/* <Animated.View {...{ style }}> */}
-                <PetImage source={{uri:petSelected.imagem.split('"')[1]}} resizeMode="cover" />
+                <PetImage source={{uri: petSelected.imagem.split('"')[1]}} resizeMode="cover" />
                 {/* <PetImage source={PetImageExample} resizeMode="cover" /> */}
                 <Info >
                   <PetName>{petSelected.nome}</PetName>

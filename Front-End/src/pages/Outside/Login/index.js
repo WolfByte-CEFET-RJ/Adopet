@@ -61,8 +61,8 @@ export default function Login(){
     try {
       const token = await api.post('/api/login', data)
 
+      await AsyncStorage.setItem('token', token.data)
       if (keepConnect) {
-        await AsyncStorage.setItem('token', token.data)
         console.log('Login Salvo!')
       } else {
         console.log('Login não Salvo!')

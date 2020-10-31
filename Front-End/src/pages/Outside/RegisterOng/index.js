@@ -134,7 +134,7 @@ export default function RegisterOng() {
 
   function irParaTutorial() {
     navigation.reset({
-      routes:[{name:'Tutorial1'}]
+      routes:[{name:'Tutorial'}]
     })
   }
 
@@ -252,7 +252,7 @@ export default function RegisterOng() {
           name='x'
           size={26}
           color={'#ff0000cb'}
-          onPress={() => navigation.navigate('Tutorial1')}
+          onPress={() => navigation.navigate('Tutorial')}
         />
       </Back>
       <BackGround source={isOng ? BGOng : BGPerson} >

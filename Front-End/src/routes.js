@@ -13,11 +13,8 @@ import Home            from './pages/Outside/Home';
 import Login           from './pages/Outside/Login';
 import Register        from './pages/Outside/Register';
 import RegisterOng     from './pages/Outside/RegisterOng';
-import RegisterPerson  from './pages/Outside/RegisterPerson';
 import PasswordRecover from './pages/Outside/PasswordRecover';
-import Tutorial1       from './pages/Outside/Tutorial1';
-import Tutorial2       from './pages/Outside/Tutorial2';
-import Tutorial3       from './pages/Outside/Tutorial3';
+import Tutorial        from './pages/Outside/Tutorial';
 
 import IHome           from './pages/Inside/IHome';
 import Chat            from './pages/Inside/Chat';
@@ -48,11 +45,8 @@ export default function Routes() {
         <AppStack.Screen name='Login' component={Login} />
         <AppStack.Screen name='Register' component={Register} />
         <AppStack.Screen name='RegisterOng' component={RegisterOng} />
-        <AppStack.Screen name='RegisterPerson' component={RegisterPerson} />
         <AppStack.Screen name='PasswordRecover' component={PasswordRecover} />
-        <AppStack.Screen name='Tutorial1' component={Tutorial1} />
-        <AppStack.Screen name='Tutorial2' component={Tutorial2} />
-        <AppStack.Screen name='Tutorial3' component={Tutorial3} />
+        <AppStack.Screen name='Tutorial' component={Tutorial} />
         <AppStack.Screen name='MainTab' component={MainTab} />
 
         <AppStack.Screen name='PetProfile' component={PetProfile} />

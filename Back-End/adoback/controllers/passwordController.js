@@ -4,15 +4,15 @@ const connection = require('../models/connection')
 const gmailApi = require('../Google api/gGmail')
 
 const bcrypt = require('bcryptjs'),
-      fs = require('fs'),
-      path = require('path'),
-      Joi = require('joi'),
-      crypto = require('crypto'),
-      _ = require('lodash')
-    // hbs = require('nodemailer-express-handlebars'),
-    // email = process.env.MAILER_EMAIL_ID || 'adopet.suporte@gmail.com',
-    // pass = process.env.MAILER_PASSWORD || 'auth_email_pass',
-    // nodemailer = require('nodemailer');
+  fs = require('fs'),
+  path = require('path'),
+  Joi = require('joi'),
+  crypto = require('crypto'),
+  _ = require('lodash')
+// hbs = require('nodemailer-express-handlebars'),
+// email = process.env.MAILER_EMAIL_ID || 'adopet.suporte@gmail.com',
+// pass = process.env.MAILER_PASSWORD || 'auth_email_pass',
+// nodemailer = require('nodemailer');
 
 /* Por favor não apagar os comentarios por enquanto
 
@@ -48,7 +48,7 @@ module.exports = {
     if (error) {
       return res.status(400).send(error.details[0].message)
     }
-    const user = await connection('users').where('email', req.body.email).select(['users.id', 'users.fullname', 
+    const user = await connection('users').where('email', req.body.email).select(['users.id', 'users.fullname',
       'users.email']).first() //verifica se o usuario existe no bd e retorna as informações dele
     if (!user) {
       return res.status(404).send("User not Found")
@@ -66,16 +66,12 @@ module.exports = {
           reset_password_token: token,
           reset_password_expires: data_token
         })
-      } 
+      }
     } catch (error) {
       return res.status(400).send({ message: err })
     }
 
-    fs.readFile(path.dirname('') + '/templates/forgot-password-email.html', 'utf-8', (err, data) => {
-        if (err) throw err;
-        gmailApi.sendEmail(user.email, 'Forgot Password', data.replace('{{name}}', user.fullname)
-        .replace('{{url}}', 'https://www.youtube.com/watch?v=dO368WjwyFs'))
-    }) 
+    sendEmail(user,'forgot')
 
     res.status(200).send('Kindly check your email for further instructions')
 
@@ -95,7 +91,7 @@ module.exports = {
     //     return res.json({ message: 'Kindly check your email for further instructions' });
     //   } else {
     //     return console.log(err);
-        
+
     //   }
     // })
   },
@@ -106,7 +102,8 @@ module.exports = {
       return res.status(400).send(error.details[0].message)
     }
 
-    const user = await connection('users').where('reset_password_token', req.body.token).select('*').first()
+    const user = await connection('users').where('reset_password_token', req.body.token).select(['users.fullname',
+    'users.email']).first()
 
     if (!user) {
       return res.status(400).send({ message: "password reset token is a invalid or has expired" })
@@ -118,36 +115,39 @@ module.exports = {
           if (!validateToken(user)) {
             return res.status(400).send({ message: "password reset token has expired" })
           }
-          var envEmail = user.email, envFullName = user.fullName
+          // var envEmail = user.email, envFullName = user.fullName
           await connection('users').where('email', user.email).update({
             hash_password: bcrypt.hashSync(req.body.newPassword, 10),
             reset_password_token: null,
             reset_password_expires: null
           })
 
-        } 
+        }
       } catch (err) {
         return res.status(422).send({
           massage: "not possible locate user or ong"
         })
       }
-      var data = {
-        to: envEmail,
-        from: email,
-        template: 'reset-password-email',
-        subject: 'Password Reset Confirmation',
-        context: {
-          name: envFullName.split(' ')[0]
-        }
-      };
 
-      smtpTransport.sendMail(data, function (err) {
-        if (!err) {
-          return res.json({ message: 'Password reset' });
-        } else {
-          return done(err);
-        }
-      });
+      sendEmail(user, 'reset')
+      res.status(200).send('Kindly check your email')
+      // var data = {
+      //   to: envEmail,
+      //   from: email,
+      //   template: 'reset-password-email',
+      //   subject: 'Password Reset Confirmation',
+      //   context: {
+      //     name: envFullName.split(' ')[0]
+      //   }
+      // };
+
+      // smtpTransport.sendMail(data, function (err) {
+      //   if (!err) {
+      //     return res.json({ message: 'Password reset' });
+      //   } else {
+      //     return done(err);
+      //   }
+      // });
     } else {
       return res.status(422).send({
         message: 'password do not match'
@@ -179,4 +179,11 @@ function validateReset(request) {
     verifyPassword: Joi.string().min(8).max(60).required()
   }
   return Joi.validate(request, schema)
+}
+
+function sendEmail(user, template) {
+  fs.readFile(path.dirname('') + '/templates/'+template+'-password-email.html', 'utf-8', (err, data) => {
+    if (err) throw err;
+    gmailApi.sendEmail(user.email, template+' password', data.replace('{{name}}', user.fullname))
+  })
 }

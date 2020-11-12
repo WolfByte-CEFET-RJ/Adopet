@@ -23,7 +23,7 @@ routes.get('/api/pets', authMiddleware, petController.index) //mostras todos os 
 routes.get('/api/myadopts', authMiddleware, petController.myAdopts) //mostra todos os animais que a pessoa mostrou interesse 
 routes.get('/api/mydonationsnotifications', authMiddleware, petController.myDonationsNotifications) //mostra todos os animais que tem alguem interessado para adotar
 
-routes.put('/api/resetpassword', passwordController.reset_password) //reseta as senha de um usuario ou ong
+routes.put('/api/user/resetpassword', passwordController.reset_password) //reseta as senha de um usuario ou ong
 routes.put('/api/petadopted', authMiddleware, petController.adoptionAproved) //rota de confirmação de adoção, é feita pelo doador 
 
 routes.delete('/api/deletepet', authMiddleware, petController.delete) //deleta um pet do bd

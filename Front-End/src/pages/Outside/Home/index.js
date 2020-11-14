@@ -23,7 +23,7 @@ export default function Home() {
     navigation.navigate('Login');
   }
   function IrparaRegister(){
-    navigation.navigate('Register')
+    navigation.navigate('RegisterPet')
   }
 
   return (

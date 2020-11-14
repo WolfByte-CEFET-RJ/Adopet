@@ -7,10 +7,10 @@ import {
   OptionName,
 } from './styles';
 
-export default function OptionButton({background, image, name}) {
+export default function OptionButton({background, image, name, onPress}) {
   return(
     <Option>
-      <OptionBackground background={background}>
+      <OptionBackground background={background} onPress={onPress}>
         <OptionImage source={image}/>
       </OptionBackground>
       <OptionName>{name}</OptionName>

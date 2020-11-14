@@ -26,7 +26,11 @@ import {
 } from './styles';
 
 export default function Profile() {
-  const navigate = useNavigation();
+  const navigation = useNavigation();
+
+  function goToRegisterPet() {
+    navigation.navigate('RegisterPet');
+  }
 
   return(
     <Background source={BG}>
@@ -55,6 +59,7 @@ export default function Profile() {
               background={'#F17808'}
               image={Icon1}
               name={'Pets'}
+              onPress={goToRegisterPet}
             />
             <OptionButton
               background={'#FFFFFF'}

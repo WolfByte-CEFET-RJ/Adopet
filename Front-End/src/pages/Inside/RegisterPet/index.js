@@ -51,9 +51,9 @@ export default function RegisterPet() {
   const [petName   ,    setPetName] = useState('');
   const [about     ,      setAbout] = useState('');
 
-  const [weight    ,     setWeight] = useState(0);
-  const [size      ,       setSize] = useState(0);
-  const [age       ,        setAge] = useState(0);
+  const [weight    ,     setWeight] = useState('');
+  const [size      ,       setSize] = useState('');
+  const [age       ,        setAge] = useState('');
   const [sex       ,        setSex] = useState('0');
 
   const [vacina    ,     setVacina] = useState('');
@@ -241,7 +241,7 @@ export default function RegisterPet() {
                   defaultValue={age}
                   length={30}
                   color={secundary}
-                  numeric={true}
+                  numeric={1}
                 />
               </Line>
 
@@ -252,7 +252,7 @@ export default function RegisterPet() {
                   defaultValue={weight}
                   length={30}
                   color={secundary}
-                  numeric={true}
+                  numeric={1}
                 />
                 <CustomInput
                   placeholder='Tamanho (cm)'
@@ -261,7 +261,7 @@ export default function RegisterPet() {
                   length={30}
                   color={secundary}
                   left={true}
-                  numeric={true}
+                  numeric={1}
                 />
               </Line>
             </TextArea>
@@ -313,6 +313,9 @@ export default function RegisterPet() {
                   <PetTag tag={'docil'}/>
                   <PetTag tag={'amigavel'}/>
                   <PetTag tag={'brincalhao'}/>
+                  <PetTag tag={'calmo'}/>
+                  <PetTag tag={'timido'}/>
+                  <PetTag tag={'apegado'}/>
                 </Tags>
               </TagArea>
 

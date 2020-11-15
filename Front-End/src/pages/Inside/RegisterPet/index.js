@@ -5,8 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
-
-import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-community/async-storage';
+import api from '../../../services/api';
 
 import { ScrollView } from 'react-native';
 
@@ -42,9 +42,7 @@ import {
 
 export default function RegisterPet() {
 
-  const [petImage0  , setPetImage0] = useState();
-  const [petImage1  , setPetImage1] = useState();
-  const [petImage2  , setPetImage2] = useState();
+  const [petImage  , setPetImage] = useState(['','','']);
 
   const [dog   ,  setDog] = useState(0);
   const [cat   ,  setCat] = useState(0);
@@ -53,9 +51,9 @@ export default function RegisterPet() {
   const [petName   ,    setPetName] = useState('');
   const [about     ,      setAbout] = useState('');
 
-  const [weight    ,     setWeight] = useState('');
-  const [size      ,       setSize] = useState('');
-  const [age       ,        setAge] = useState('');
+  const [weight    ,     setWeight] = useState(0);
+  const [size      ,       setSize] = useState(0);
+  const [age       ,        setAge] = useState(0);
   const [sex       ,        setSex] = useState('0');
 
   const [vacina    ,     setVacina] = useState('');
@@ -89,23 +87,86 @@ export default function RegisterPet() {
       mediaTypes: ImagePicker.MediaTypeOptions.Images
     });
 
+    var images = petImage.slice();
+
     if (imgPet.cancelled || !imgPet.uri) {
-      setPetImage0();
-      setPetImage1();
-      setPetImage2();
+      images[index] = '';
+      setPetImage(images)
       return;
     }
 
-    switch (index) {
-      case 0:
-        setPetImage0(imgPet);
-        break;
-      case 1:
-        setPetImage1(imgPet);
-        break;
-      case 2:
-        setPetImage2(imgPet);
-        break;
+    images[index] = imgPet
+    setPetImage(images)
+  }
+
+  function CreateImg(pet) {
+    let localUri = pet.uri;
+    let filename = localUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(filename);
+    let imageType = match ? `image/${match[1]}` : `image`;
+
+    return {
+      uri: pet.uri,
+      name: filename,
+      type: imageType
+    }
+  }
+
+  async function handleRegister() {
+
+    const userToken = await AsyncStorage.getItem('token');
+
+    // const img = {
+    //   CreateImg(petImage0),
+    //   CreateImg(petImage1),
+    //   CreateImg(petImage2)
+    // }
+
+    let localUri = petImage[0].uri;
+    let filename = localUri.split('/').pop();
+    let match = /\.(\w+)$/.exec(filename);
+    let imageType = match ? `image/${match[1]}` : `image`;
+
+    const img = {
+      uri: petImage[0].uri,
+      name: filename,
+      type: imageType
+    }
+
+    // const img = CreateImg(petImage0);
+
+    const data = new FormData();
+    data.append('localização'     ,     'local');
+    data.append('nome'            ,     petName);
+    data.append('img'             ,         img);
+    data.append('tipo'            ,  'cachorro');
+    data.append('sexo'            ,         sex);
+    data.append('idade'           ,         age);
+    data.append('tamanho'         ,        size);
+    data.append('peso'            ,      weight);
+    data.append('vacinação'       ,      vacina);
+    data.append('Treinado'        ,    treinado);
+    data.append('castrado'        ,    castrado);
+    data.append('vermifugado'     , vermifugado);
+    data.append('chipado'         ,     chipado);
+    data.append('caracteristicas' ,       about);
+    data.append('id_doador'       ,         '3');
+
+    try {
+      await api.post('api/pet', data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization': `Bearer ${userToken}`
+        }
+      });
+      console.log('Pet cadastrado feito com sucesso.');
+      goToPets();
+    }
+
+    catch (err) {
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
     }
   }
 
@@ -116,17 +177,17 @@ export default function RegisterPet() {
 
           <ImageArea>
             <PetImageArea
-              source={petImage0}
+              source={petImage[0]}
               onPress={() => UploadPhoto(0)}
               main={true}
             />
             <SubImageArea>
               <PetImageArea
-                source={petImage1}
+                source={petImage[1]}
                 onPress={() => UploadPhoto(1)}
               />
               <PetImageArea
-                source={petImage2}
+                source={petImage[2]}
                 onPress={() => UploadPhoto(2)}
               />
             </SubImageArea>
@@ -175,7 +236,7 @@ export default function RegisterPet() {
                 </PickerView>
 
                 <CustomInput
-                  placeholder='Idade'
+                  placeholder='Idade (anos)'
                   onChangeText={age => setAge(age)}
                   defaultValue={age}
                   length={30}
@@ -186,7 +247,7 @@ export default function RegisterPet() {
 
               <Line>
                 <CustomInput
-                  placeholder='Peso'
+                  placeholder='Peso (kg)'
                   onChangeText={weight => setWeight(weight)}
                   defaultValue={weight}
                   length={30}
@@ -194,7 +255,7 @@ export default function RegisterPet() {
                   numeric={true}
                 />
                 <CustomInput
-                  placeholder='Tamanho'
+                  placeholder='Tamanho (cm)'
                   onChangeText={size => setSize(size)}
                   defaultValue={size}
                   length={30}
@@ -259,7 +320,7 @@ export default function RegisterPet() {
                 text='Salvar'
                 colors={['#F17808','#FF9A00']}
                 radius={10}
-                onPress={() => {}}
+                onPress={handleRegister}
               />
             </Footer>
 

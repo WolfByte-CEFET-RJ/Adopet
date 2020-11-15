@@ -8,16 +8,17 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { Feather } from '@expo/vector-icons';
 
-import { ScrollView, CheckBox } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import BG from '../../../assets/images/RegisterPet/RegisterPetBG.png';
 
-import Button       from '../../../components/Button';
-import CustomInput  from '../../../components/CustomInput';
-import CustomPicker from '../../../components/CustomPicker';
-import Info         from '../../../components/Info';
-import PetTag       from '../../../components/PetTag';
-import PetType      from '../../../components/PetType';
+import Button         from '../../../components/Button';
+import CustomCheckBox from '../../../components/CustomCheckBox';
+import CustomInput    from '../../../components/CustomInput';
+import CustomPicker   from '../../../components/CustomPicker';
+import PetImageArea   from '../../../components/PetImageArea';
+import PetTag         from '../../../components/PetTag';
+import PetType        from '../../../components/PetType';
 
 import {
   Background,
@@ -25,20 +26,12 @@ import {
   Container,
   CheckBoxArea,
   CheckBoxLine,
-  CheckBoxItem,
-  CheckBoxText,
   Footer,
   FooterText,
   ImageArea,
-  ImagePet,
   Line,
-  MainImage,
-  MainImageText,
   PickerView,
-  SubImage,
   SubImageArea,
-  SubImagePet,
-  SubImageText,
   TagArea,
   Tags,
   TextArea,
@@ -52,6 +45,10 @@ export default function RegisterPet() {
   const [petImage0  , setPetImage0] = useState();
   const [petImage1  , setPetImage1] = useState();
   const [petImage2  , setPetImage2] = useState();
+
+  const [dog   ,  setDog] = useState(0);
+  const [cat   ,  setCat] = useState(0);
+  const [plus  , setPlus] = useState(0);
 
   const [petName   ,    setPetName] = useState('');
   const [about     ,      setAbout] = useState('');
@@ -112,32 +109,26 @@ export default function RegisterPet() {
     }
   }
 
-
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Background source={BG}>
         <Container>
 
           <ImageArea>
-            <MainImage onPress={() => UploadPhoto(0)}>
-              {petImage0 ?
-                <ImagePet source={petImage0} /> :
-                <MainImageText>Adicionar Foto</MainImageText>
-              }
-            </MainImage>
+            <PetImageArea
+              source={petImage0}
+              onPress={() => UploadPhoto(0)}
+              main={true}
+            />
             <SubImageArea>
-              <SubImage onPress={() => UploadPhoto(1)}>
-                {petImage1 ?
-                  <SubImagePet source={petImage1} /> :
-                  <SubImageText>Adicionar Foto</SubImageText>
-                }
-              </SubImage>
-              <SubImage onPress={() => UploadPhoto(2)}>
-                {petImage2 ?
-                  <SubImagePet source={petImage2} /> :
-                  <SubImageText>Adicionar Foto</SubImageText>
-                }
-              </SubImage>
+              <PetImageArea
+                source={petImage1}
+                onPress={() => UploadPhoto(1)}
+              />
+              <PetImageArea
+                source={petImage2}
+                onPress={() => UploadPhoto(2)}
+              />
             </SubImageArea>
           </ImageArea>
 
@@ -165,9 +156,9 @@ export default function RegisterPet() {
             <TypeArea>
               <Title>TIPO</Title>
               <Types>
-                <PetType name='dog'/>
-                <PetType name='cat'/>
-                <PetType name='plus'/>
+                <PetType name='dog' onPress={() => {setDog(!dog)}}/>
+                <PetType name='cat' onPress={() => {setCat(!cat)}}/>
+                <PetType name='plus' onPress={() => {setPlus(!plus)}}/>
               </Types>
             </TypeArea>
 
@@ -189,6 +180,7 @@ export default function RegisterPet() {
                   defaultValue={age}
                   length={30}
                   color={secundary}
+                  numeric={true}
                 />
               </Line>
 
@@ -199,6 +191,7 @@ export default function RegisterPet() {
                   defaultValue={weight}
                   length={30}
                   color={secundary}
+                  numeric={true}
                 />
                 <CustomInput
                   placeholder='Tamanho'
@@ -207,52 +200,43 @@ export default function RegisterPet() {
                   length={30}
                   color={secundary}
                   left={true}
+                  numeric={true}
                 />
               </Line>
             </TextArea>
 
             <CheckBoxArea>
               <CheckBoxLine>
-                <CheckBoxItem>
-                  <CheckBox
-                    value={treinado}
-                    onValueChange={setTreinado}
-                  />
-                  <CheckBoxText>TREINADO</CheckBoxText>
-                </CheckBoxItem>
-
-                <CheckBoxItem>
-                  <CheckBox
-                    value={castrado}
-                    onValueChange={setCastrado}
-                  />
-                  <CheckBoxText>CASTRADO</CheckBoxText>
-                </CheckBoxItem>
+                <CustomCheckBox
+                  value={treinado}
+                  onValueChange={setTreinado}
+                  text={'TREINADO'}
+                />
+                <CustomCheckBox
+                  value={castrado}
+                  onValueChange={setCastrado}
+                  text={'CASTRADO'}
+                />
               </CheckBoxLine>
 
               <CheckBoxLine>
-                <CheckBoxItem>
-                  <CheckBox
-                    value={vermifugado}
-                    onValueChange={setVermifugado}
-                  />
-                  <CheckBoxText>VERMIFUGADO</CheckBoxText>
-                </CheckBoxItem>
-
-                <CheckBoxItem>
-                  <CheckBox
-                    value={chipado}
-                    onValueChange={setChipado}
-                  />
-                  <CheckBoxText>CHIPADO</CheckBoxText>
-                </CheckBoxItem>
+                <CustomCheckBox
+                  value={vermifugado}
+                  onValueChange={setVermifugado}
+                  text={'VERMIFUGADO'}
+                />
+                <CustomCheckBox
+                  value={chipado}
+                  onValueChange={setChipado}
+                  text={'CHIPADO'}
+                />
               </CheckBoxLine>
 
             </CheckBoxArea>
 
             <Footer>
               <FooterText>
-                <Info
+                <CustomInput
                   placeholder='Vacinação'
                   onChangeText={vacina => setVacina(vacina)}
                   defaultValue={vacina}

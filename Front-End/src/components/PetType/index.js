@@ -6,7 +6,7 @@ import {
   Type,
 } from './styles';
 
-export default function PetType({name}) {
+export default function PetType({name, onPress}) {
   const data = {
     dog:  {icon: 'cat', color:'#FF6F59', background: '#FFE9E6'},
     cat:  {icon: 'dog', color:'#33C0FF', background: '#E5F7FF'},

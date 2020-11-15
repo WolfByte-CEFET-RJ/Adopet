@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 export const InputView = styled.View`
   flex: 1;
+  max-height: 50px;
 
   flex-direction: row;
   align-items: center;
@@ -13,7 +14,7 @@ export const InputView = styled.View`
 
   margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: ${props => `${props.left ? 20 : 0}px`};
+  margin-left: ${props => `${props.useLeft ? 10 : 0}px`};
 `
 
 export const InputText = styled.TextInput`

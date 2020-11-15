@@ -5,10 +5,12 @@ import {
   InputText
 } from './styles';
 
-export default function Info(props) {
+export default function CustomInput(props) {
   return (
     <>
-      <InputView>
+      <InputView
+          useLeft={props.left}
+      >
         <InputText
           placeholder={props.placeholder}
           secureTextEntry={props.password}

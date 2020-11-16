@@ -9,6 +9,7 @@ const newUserController = require('../controllers/newUserController')
 const passwordController = require('../controllers/passwordController')
 const petController = require('./../controllers/petController')
 const authController = require('./../controllers/authController')
+const profileController = require('./../controllers/ProfileController')
 
 const { uploadProfile, uploadPet } = require('./middleware/multerConfig') //é middleware multer para o upload de imagens
 const authMiddleware = require('./middleware/authToken') // é um middleware que autentica o token 
@@ -19,6 +20,7 @@ routes.post('/api/login', authController.login) //rota de login
 routes.post('/api/pet', uploadPet, authMiddleware, petController.create) //cria um post para anuncio de um pet
 routes.post('/api/requestpet', authMiddleware, petController.adopt) //criar uma solicitação de pet
 
+routes.get('/api/user/profile', profileController.profile) //mostras as informações de um usuario
 routes.get('/api/pets', authMiddleware, petController.index) //mostras todos os pets para doação
 routes.get('/api/myadopts', authMiddleware, petController.myAdopts) //mostra todos os animais que a pessoa mostrou interesse 
 routes.get('/api/mydonationsnotifications', authMiddleware, petController.myDonationsNotifications) //mostra todos os animais que tem alguem interessado para adotar
@@ -28,15 +30,7 @@ routes.put('/api/petadopted', authMiddleware, petController.adoptionAproved) //r
 
 routes.delete('/api/deletepet', authMiddleware, petController.delete) //deleta um pet do bd
 
-routes.post('/teste', uploadPet, async (req, res) => { //to, from, subject, message
-    // fs.readFile(path.dirname('') + '/templates/forgot-password-email.html', 'utf-8', (err, data) => {
-    //     if (err) throw err;
-    //     gmailApi.sendEmail('2000fellipe@gmail.com', 'Hello', data.replace('{{name}}', 'carlos'))
-    // }) 
-
-    
-
-    res.send('email time')
+routes.post('/teste', async (req, res) => { 
 
 })
 

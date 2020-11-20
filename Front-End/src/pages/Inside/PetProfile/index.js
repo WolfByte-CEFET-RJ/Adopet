@@ -15,10 +15,11 @@ import PetImage2 from '../../../assets/images/PetProfile/pet_example2.png';
 import PetImage3 from '../../../assets/images/PetProfile/pet_example3.png';
 import UserImageExample from '../../../assets/images/PetProfile/user_example.png';
 
-import Buttom from '../../../components/Button';
-import UserCard from '../../../components/UserCard';
-import PetGrid from '../../../components/PetGrid';
-import PetTag from '../../../components/PetTag';
+import Buttom       from '../../../components/Button';
+import UserCard     from '../../../components/UserCard';
+import PetGrid      from '../../../components/PetGrid';
+import PetTag       from '../../../components/PetTag';
+import UserInterest from '../../../components/UserInterest';
 
 import {
   AboutArea,
@@ -40,10 +41,12 @@ import {
   Tags,
   Title,
   UserArea,
+  UserInterestArea,
 } from './styles';
 
 export default function PetProfile() {
   const [favorite, setFavorite] = useState(false);
+  const [interests, setInterests] = useState([UserImageExample, UserImageExample]);
 
   const navigation = useNavigation();
   const route      = useRoute();
@@ -125,6 +128,10 @@ export default function PetProfile() {
                 text={'Depois de muitos merges na vida acabei vendo que era necessário fazer mais cursos de programação, por isso me vejo sem capacidades de cuidar do meu Pet e estou o doando.'}
               />
             </UserArea>
+
+            <UserInterestArea>
+              <UserInterest data={interests}/>
+            </UserInterestArea>
 
           </Body>
           <Footer>

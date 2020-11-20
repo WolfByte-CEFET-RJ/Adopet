@@ -104,6 +104,11 @@ export const Title = styled.Text`
   margin-bottom: 10px;
 `
 
+export const UserInterestArea = styled.View`
+  height: 80px;
+  width: 100%;
+`;
+
 export const FeaturesArea = styled.View`
   margin-bottom: 10px;
 `

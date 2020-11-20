@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import PetCard from '../../../components/PetCard';
 
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 
 import Dog from '../../../assets/images/UserProfile/dog.png';
 import Cat from '../../../assets/images/UserProfile/Gato.png';
@@ -69,8 +69,6 @@ export default function WantAdopt() {
   useEffect(() => {
     setPets(visiblePets);
   }, [])
-
-
 
   return(
     <Background source={ListBG}>

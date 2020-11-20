@@ -4,9 +4,6 @@ export const Pet = styled.View`
   width: 165px;
   height: 220px;
 
-  margin-right: 15px;
-  margin-left: 10px;
-
   align-items: center;
   justify-content: center;
 `;

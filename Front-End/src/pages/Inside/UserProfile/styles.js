@@ -75,3 +75,8 @@ export const Pets = styled.View`
 
   margin-bottom: 20px;
 `;
+
+export const PetArea = styled.View`
+  margin-right: 15px;
+  margin-left: 10px;
+`

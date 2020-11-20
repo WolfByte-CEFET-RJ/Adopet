@@ -12,14 +12,15 @@ import Cat from '../../../assets/images/UserProfile/Gato.png';
 import PetCard from '../../../components/PetCard';
 
 import {
+  About,
+  AboutArea,
   Background,
   Container,
   Exit,
+  PetArea,
   Pets,
   Title,
   Title2,
-  AboutArea,
-  About,
   UserInfo,
   UserState,
   UserName,
@@ -51,10 +52,18 @@ export default function UserProfile() {
           <Pets>
             <Title2>PETS</Title2>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              <PetCard image={Dog} name={'Polenta'}/>
-              <PetCard image={Cat} name={'Garfield'} adopted={1}/>
-              <PetCard image={Dog} name={'Polenta'}/>
-              <PetCard image={Cat} name={'Garfield'}/>
+              <PetArea>
+                <PetCard image={Dog} name={'Polenta'}/>
+              </PetArea>
+              <PetArea>
+                <PetCard image={Cat} name={'Garfield'} adopted={1}/>
+              </PetArea>
+              <PetArea>
+                <PetCard image={Dog} name={'Polenta'}/>
+              </PetArea>
+              <PetArea>
+                <PetCard image={Cat} name={'Garfield'}/>
+              </PetArea>
             </ScrollView>
           </Pets>
         </Container>

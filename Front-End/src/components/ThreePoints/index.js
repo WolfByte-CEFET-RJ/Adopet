@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons';
 
 import {
   Page,
   Point,
   Points
-} from './styles.js';
+} from './styles';
 
 export default function ThreePoints(props) {
   return (

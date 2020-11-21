@@ -13,44 +13,6 @@ export const Container = styled.View`
   margin-top: ${Constants.statusBarHeight + 40}px;
 `;
 
-export const UserInfo = styled.View`
-  align-items: center;
-`;
-
-export const UserName = styled.Text`
-  color: white;
-  font-size: 25px;
-  font-weight: bold;
-`;
-
-export const UserState = styled.Text`
-  color: white;
-  font-size: 16px;
-
-  margin-bottom: 10px;
-`;
-
-export const ImageArea = styled.View`
-  background: white;
-
-  width: 205px;
-  height: 205px;
-
-  border-radius: 100px;
-
-  margin-bottom: 10px;
-
-  align-items: center;
-  justify-content: center;
-`
-
-export const UserImage = styled.Image`
-  width: 200px;
-  height: 200px;
-
-  border-radius: 100px;
-`;
-
 export const AboutArea = styled.View`
   width: 100%;
   padding: 0 10px;

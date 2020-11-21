@@ -10,19 +10,15 @@ import Icon1 from '../../../assets/images/Profile/icon1.png';
 import Icon2 from '../../../assets/images/Profile/icon2.png';
 
 import OptionButton from '../../../components/OptionButton';
+import UserInfo     from '../../../components/UserInfo';
 
 import {
   About,
   AboutArea,
   Background,
   Container,
-  ImageArea,
   Options,
   Title,
-  UserImage,
-  UserInfo,
-  UserName,
-  UserState,
 } from './styles';
 
 export default function Profile() {
@@ -40,13 +36,11 @@ export default function Profile() {
     <Background source={BG}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Container>
-          <UserInfo>
-            <UserName>Carlos Alberto</UserName>
-            <UserState>Rio de Janeiro</UserState>
-            <ImageArea>
-              <UserImage source={UserImageExample} resizeMode="cover"/>
-            </ImageArea>
-          </UserInfo>
+          <UserInfo
+            name={'Carlos Alberto'}
+            city={'Rio de Janeiro'}
+            image={UserImageExample}
+          />
 
           <AboutArea>
             <Title>SOBRE</Title>

@@ -20,32 +20,6 @@ export const Exit = styled(Feather)`
   left: 10px;
 `
 
-export const UserInfo = styled.View`
-  align-items: center;
-`;
-
-export const UserImage = styled.Image`
-  width: 200px;
-  height: 200px;
-
-  border-radius: 100px;
-
-  margin-bottom: 15px;
-`;
-
-export const UserName = styled.Text`
-  color: white;
-  font-size: 25px;
-  font-weight: bold;
-`;
-
-export const UserState = styled.Text`
-  color: white;
-  font-size: 16px;
-
-  margin-bottom: 20px;
-`;
-
 export const AboutArea = styled.View`
   width: 100%;
   padding: 0 10px;

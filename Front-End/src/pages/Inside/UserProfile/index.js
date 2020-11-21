@@ -9,7 +9,8 @@ import UserImageExample from '../../../assets/images/UserProfile/userimage.png';
 import Dog from '../../../assets/images/UserProfile/dog.png';
 import Cat from '../../../assets/images/UserProfile/Gato.png';
 
-import PetCard from '../../../components/PetCard';
+import PetCard  from '../../../components/PetCard';
+import UserInfo from '../../../components/UserInfo';
 
 import {
   About,
@@ -21,10 +22,6 @@ import {
   Pets,
   Title,
   Title2,
-  UserInfo,
-  UserState,
-  UserName,
-  UserImage,
 } from './styles';
 
 export default function UserProfile() {
@@ -40,11 +37,12 @@ export default function UserProfile() {
             color={'#FFFFFF'}
             onPress={() => navigate.goBack()}
           />
-          <UserInfo>
-            <UserImage source={UserImageExample} resizeMode="cover"/>
-            <UserName>Carlos Alberto</UserName>
-            <UserState>Rio de Janeiro</UserState>
-          </UserInfo>
+          <UserInfo
+            name={'Carlos Alberto'}
+            city={'Rio de Janeiro'}
+            image={UserImageExample}
+            reverse={1}
+          />
           <AboutArea>
             <Title>SOBRE</Title>
             <About>Recentemente tive que me mudar para uma casa menor e estou tendo que doar meus pets.</About>

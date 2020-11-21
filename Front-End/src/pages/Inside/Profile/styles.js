@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import Constants from 'expo-constants';
-import { Feather } from '@expo/vector-icons';
 
 export const Background = styled.ImageBackground`
   flex: 1;
@@ -13,12 +12,6 @@ export const Container = styled.View`
 
   margin-top: ${Constants.statusBarHeight + 40}px;
 `;
-
-export const Exit = styled(Feather)`
-  position: absolute;
-  top: -10px;
-  left: 10px;
-`
 
 export const UserInfo = styled.View`
   align-items: center;
@@ -37,13 +30,25 @@ export const UserState = styled.Text`
   margin-bottom: 10px;
 `;
 
+export const ImageArea = styled.View`
+  background: white;
+
+  width: 205px;
+  height: 205px;
+
+  border-radius: 100px;
+
+  margin-bottom: 10px;
+
+  align-items: center;
+  justify-content: center;
+`
+
 export const UserImage = styled.Image`
   width: 200px;
   height: 200px;
 
   border-radius: 100px;
-
-  margin-bottom: 10px;
 `;
 
 export const AboutArea = styled.View`

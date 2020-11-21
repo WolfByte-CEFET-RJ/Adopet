@@ -16,7 +16,7 @@ import {
   AboutArea,
   Background,
   Container,
-  Exit,
+  ImageArea,
   Options,
   Title,
   UserImage,
@@ -32,21 +32,20 @@ export default function Profile() {
     navigation.navigate('RegisterPet');
   }
 
+  function goToConfig() {
+    navigation.navigate('Config');
+  }
+
   return(
     <Background source={BG}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Container>
-          <Exit
-            name={'chevron-left'}
-            size={30}
-            color={'#FFFFFF'}
-            onPress={() => navigate.goBack()}
-          />
-
           <UserInfo>
             <UserName>Carlos Alberto</UserName>
             <UserState>Rio de Janeiro</UserState>
-            <UserImage source={UserImageExample} resizeMode="cover"/>
+            <ImageArea>
+              <UserImage source={UserImageExample} resizeMode="cover"/>
+            </ImageArea>
           </UserInfo>
 
           <AboutArea>
@@ -65,6 +64,7 @@ export default function Profile() {
               background={'#FFFFFF'}
               image={Icon2}
               name={'Perfil'}
+              onPress={goToConfig}
             />
           </Options>
         </Container>

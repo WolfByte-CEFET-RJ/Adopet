@@ -13,7 +13,7 @@ import {
 
 export default function PetCard({image, name, adopted}) {
   return(
-    <Pet>
+    <Pet activeOpacity={0.8}>
       <AdoptedView opacity={adopted}>
         <AdoptedImage source={Collar}/>
         <AdoptedText>Pet Adotado!</AdoptedText>

@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-export const Pet = styled.View`
+export const Pet = styled.TouchableOpacity`
   width: 165px;
   height: 220px;
 

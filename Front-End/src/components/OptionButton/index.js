@@ -10,7 +10,7 @@ import {
 export default function OptionButton({background, image, name, onPress}) {
   return(
     <Option>
-      <OptionBackground background={background} onPress={onPress}>
+      <OptionBackground background={background} onPress={onPress} activeOpacity={0.9}>
         <OptionImage source={image}/>
       </OptionBackground>
       <OptionName>{name}</OptionName>

@@ -11,3 +11,12 @@ export const Type = styled.TouchableOpacity`
 
   elevation: 10;
 `
+
+export const Checked = styled.View`
+  position: absolute;
+
+  height: 80px;
+  width: 80px;
+
+  background: #2B2B2B22;
+`

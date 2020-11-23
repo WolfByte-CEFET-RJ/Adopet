@@ -108,7 +108,9 @@ export const TagArea = styled.View`
 export const Tags = styled.ScrollView`
   flex: 1;
 
-  margin-top: 10px;
+  padding: 0 10px;
+
+  margin: 10px -25px 0;
 
   flex-direction: row;
 `

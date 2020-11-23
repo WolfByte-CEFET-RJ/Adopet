@@ -20,6 +20,8 @@ import PetImageArea   from '../../../components/PetImageArea';
 import PetTag         from '../../../components/PetTag';
 import PetType        from '../../../components/PetType';
 
+const tagNames = ['docil', 'amigavel', 'brincalhao', 'calmo', 'timido', 'apegado'];
+
 import {
   Background,
   Body,
@@ -44,12 +46,11 @@ import {
 export default function RegisterPet() {
 
   const [petImage  , setPetImage] = useState(['','','']);
-  const [tagCheck  , setTagCheck] = useState([0,0,0,0,0,0])
+  const [tagCheck  , setTagCheck] = useState(Array(6).fill(0));
   const [tagLimit  , setTagLimit] = useState(0);
 
-  const [dog   ,  setDog] = useState(0);
-  const [cat   ,  setCat] = useState(0);
-  const [plus  , setPlus] = useState(0);
+  const [type  , setType] = useState('');
+  const [checkType, setCheckType] = useState(Array(3).fill(0));
 
   const [petName   ,    setPetName] = useState('');
   const [about     ,      setAbout] = useState('');
@@ -126,6 +127,15 @@ export default function RegisterPet() {
 
     tags[index] = !tags[index];
     setTagCheck([...tags]);
+  }
+
+  function CheckType(name, index) {
+    let types = Array(3).fill(0);
+    setType(name);
+    types[index] = 1;
+
+    setCheckType([...types]);
+    console.log(types);
   }
 
   async function handleRegister() {
@@ -233,9 +243,9 @@ export default function RegisterPet() {
             <TypeArea>
               <Title>TIPO</Title>
               <Types>
-                <PetType name='dog' onPress={() => {setDog(!dog)}}/>
-                <PetType name='cat' onPress={() => {setCat(!cat)}}/>
-                <PetType name='plus' onPress={() => {setPlus(!plus)}}/>
+                <PetType name='dog'  value={checkType[0]} onPress={() => {CheckType('dog', 0)}}/>
+                <PetType name='cat'  value={checkType[1]} onPress={() => {CheckType('cat', 1)}}/>
+                <PetType name='plus' value={checkType[2]} onPress={() => {CheckType('plus', 2)}}/>
               </Types>
             </TypeArea>
 
@@ -326,12 +336,15 @@ export default function RegisterPet() {
               <TagArea>
                 <Title>CARACTERISTICAS DO PET <Yellow value={tagLimit}>{tagLimit}/3</Yellow></Title>
                 <Tags horizontal={true} showsHorizontalScrollIndicator={false}>
-                  <PetTag tag={'docil'} onPress={() => {CheckTags(0)}} check={tagCheck[0]}/>
-                  <PetTag tag={'amigavel'} onPress={() => {CheckTags(1)}} check={tagCheck[1]}/>
-                  <PetTag tag={'brincalhao'} onPress={() => {CheckTags(2)}} check={tagCheck[2]}/>
-                  <PetTag tag={'calmo'} onPress={() => {CheckTags(3)}} check={tagCheck[3]}/>
-                  <PetTag tag={'timido'} onPress={() => {CheckTags(4)}} check={tagCheck[4]}/>
-                  <PetTag tag={'apegado'} onPress={() => {CheckTags(5)}} check={tagCheck[5]}/>
+                  {
+                    tagNames.map((tagName, index) => (
+                      <PetTag
+                        key={index}
+                        tag={tagName}
+                        onPress={() => {CheckTags(index)}}
+                        check={tagCheck[index]}/>
+                    ))
+                  }
                 </Tags>
               </TagArea>
 

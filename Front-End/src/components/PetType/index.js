@@ -3,10 +3,11 @@ import React from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 import {
+  Checked,
   Type,
 } from './styles';
 
-export default function PetType({name, onPress}) {
+export default function PetType({name, onPress, value}) {
   const data = {
     dog:  {icon: 'cat', color:'#FF6F59', background: '#FFE9E6'},
     cat:  {icon: 'dog', color:'#33C0FF', background: '#E5F7FF'},
@@ -14,8 +15,9 @@ export default function PetType({name, onPress}) {
   }
 
   return (
-    <Type background={data[name].background}>
+    <Type background={data[name].background} activeOpacity={0.9} onPress={onPress}>
       <FontAwesome5 name={data[name].icon} size={60} color={data[name].color}/>
+      {value ? <Checked/> : <></>}
     </Type>
   );
 }

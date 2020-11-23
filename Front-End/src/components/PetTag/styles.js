@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
+import { FontAwesome } from '@expo/vector-icons';
 
-export const Tag = styled.View`
+export const Tag = styled.TouchableOpacity`
   background: ${props => props.background};
 
-  height: 25px;
+  height: 35px;
 
   align-items: center;
   justify-content: center;
@@ -18,4 +19,14 @@ export const TagText = styled.Text`
   color: ${props => props.color};
 
   margin: 0 10px;
+`
+
+export const Paw = styled(FontAwesome)`
+  position: absolute;
+  right: -10px;
+  top: -2px;
+
+  transform: rotate(25deg);
+
+  z-index: 10;
 `

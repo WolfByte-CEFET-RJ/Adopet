@@ -38,11 +38,14 @@ import {
   Title,
   TypeArea,
   Types,
+  Yellow,
 } from './styles';
 
 export default function RegisterPet() {
 
   const [petImage  , setPetImage] = useState(['','','']);
+  const [tagCheck  , setTagCheck] = useState([0,0,0,0,0,0])
+  const [tagLimit  , setTagLimit] = useState(0);
 
   const [dog   ,  setDog] = useState(0);
   const [cat   ,  setCat] = useState(0);
@@ -110,6 +113,19 @@ export default function RegisterPet() {
       name: filename,
       type: imageType
     }
+  }
+
+  function CheckTags(index) {
+    let tags = [...tagCheck];
+
+    console.log(tags);
+
+    if ((tags[index] == 0) && (tagLimit >= 3)) return;
+    console.log('entrou')
+    tags[index] ? setTagLimit(tagLimit - 1) : setTagLimit(tagLimit + 1)
+
+    tags[index] = !tags[index];
+    setTagCheck([...tags]);
   }
 
   async function handleRegister() {
@@ -308,14 +324,14 @@ export default function RegisterPet() {
               </FooterText>
 
               <TagArea>
-                <Title>CARACTERISTICAS DO PET</Title>
+                <Title>CARACTERISTICAS DO PET <Yellow value={tagLimit}>{tagLimit}/3</Yellow></Title>
                 <Tags horizontal={true} showsHorizontalScrollIndicator={false}>
-                  <PetTag tag={'docil'}/>
-                  <PetTag tag={'amigavel'}/>
-                  <PetTag tag={'brincalhao'}/>
-                  <PetTag tag={'calmo'}/>
-                  <PetTag tag={'timido'}/>
-                  <PetTag tag={'apegado'}/>
+                  <PetTag tag={'docil'} onPress={() => {CheckTags(0)}} check={tagCheck[0]}/>
+                  <PetTag tag={'amigavel'} onPress={() => {CheckTags(1)}} check={tagCheck[1]}/>
+                  <PetTag tag={'brincalhao'} onPress={() => {CheckTags(2)}} check={tagCheck[2]}/>
+                  <PetTag tag={'calmo'} onPress={() => {CheckTags(3)}} check={tagCheck[3]}/>
+                  <PetTag tag={'timido'} onPress={() => {CheckTags(4)}} check={tagCheck[4]}/>
+                  <PetTag tag={'apegado'} onPress={() => {CheckTags(5)}} check={tagCheck[5]}/>
                 </Tags>
               </TagArea>
 

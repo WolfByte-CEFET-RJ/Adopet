@@ -112,3 +112,7 @@ export const Tags = styled.ScrollView`
 
   flex-direction: row;
 `
+
+export const Yellow = styled.Text`
+  color: ${props => props.value == 3 ? '#F4C724' : 'white' };
+`

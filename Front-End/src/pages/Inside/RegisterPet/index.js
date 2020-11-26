@@ -132,7 +132,7 @@ export default function RegisterPet() {
   function CheckType(name, index) {
     let types = Array(3).fill(0);
     setType(name);
-    types[index] = 1;
+    types[index] = !CheckType[index];
 
     setCheckType([...types]);
     console.log(types);
@@ -257,7 +257,7 @@ export default function RegisterPet() {
                     name={'Sexo'}
                     selectedValue={sex}
                     onValueChange={sex => {setSex(sex)}}
-                    values={['macho', 'fêmea']}
+                    values={['Macho', 'Fêmea']}
                   />
                 </PickerView>
 

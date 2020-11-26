@@ -18,5 +18,5 @@ export const Checked = styled.View`
   height: 80px;
   width: 80px;
 
-  background: #2B2B2B22;
+  background: #2B2B2B29;
 `

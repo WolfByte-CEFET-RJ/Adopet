@@ -50,3 +50,6 @@ export const PetArea = styled.View`
   position: relative;
   top: ${props => `${!(props.index % 2) ? 30 : 0 }px`};
 `;
+
+export const Body = styled.FlatList`
+`

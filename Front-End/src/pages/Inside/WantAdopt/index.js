@@ -7,8 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 
 import PetCard from '../../../components/PetCard';
 
-import { FlatList } from 'react-native';
-
 import Dog from '../../../assets/images/UserProfile/dog.png';
 import Cat from '../../../assets/images/UserProfile/Gato.png';
 import Bird from '../../../assets/images/WantAdopt/Bird.png';
@@ -16,6 +14,7 @@ import Duck from '../../../assets/images/WantAdopt/Pato.png';
 
 import {
   Background,
+  Body,
   Container,
   Header,
   PetArea,
@@ -39,15 +38,13 @@ export default function WantAdopt() {
       return;
     };
 
-    // const findName = pets.map((item) => item.search(name))
-    // const selectedPets = findName.map((item) => {item != -1 ? })
-    // console.log(selectedPets);
-    setVisiblePets([])
+    const findName = pets.filter((item) => item.name.indexOf(name) != -1);
+    setVisiblePets(findName)
 
   }, [name])
 
   useEffect(() => {
-    setVisiblePets([
+    const names = [
       {name:'Polenta',          image: Dog,  adopted: 0},
       {name:'Duck Tales',       image: Duck, adopted: 0},
       {name:'Garfield',         image: Cat,  adopted: 1},
@@ -63,11 +60,10 @@ export default function WantAdopt() {
       {name:'Duck Tales',       image: Duck, adopted: 0},
       {name:'Garfield',         image: Cat,  adopted: 0},
       {name:'Festa em Ipanema', image: Bird, adopted: 0},
-    ])
-  }, [])
+    ]
 
-  useEffect(() => {
-    setPets(visiblePets);
+    setVisiblePets(names);
+    setPets(names);
   }, [])
 
   return(
@@ -86,7 +82,7 @@ export default function WantAdopt() {
           </SearchArea>
         </Header>
 
-        <FlatList
+        <Body
           data={visiblePets}
           keyExtractor={( _, index) => String(index)}
           numColumns={2}
@@ -94,7 +90,7 @@ export default function WantAdopt() {
             <PetArea index={index}>
               <PetCard
                 image={item.image}
-                name={item.name.charAt(0).toUpperCase() + item.name.slice(1)}
+                name={item.name}
                 adopted={item.adopted}
               />
             </PetArea>

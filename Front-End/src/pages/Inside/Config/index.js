@@ -56,7 +56,7 @@ export default function Config() {
             <Option activeOpacity={0.8}>
               <OptionText>Configurações</OptionText>
             </Option>
-            <Option activeOpacity={0.8}>
+            <Option activeOpacity={0.8} onPress={() => goTo('Tutorial')}>
               <OptionText>Ajuda</OptionText>
             </Option>
             <Option activeOpacity={0.8}>

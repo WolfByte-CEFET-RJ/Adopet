@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
-import { Feather } from '@expo/vector-icons';
 import ListBG from '../../../assets/images/WantAdopt/ListBG.png'
 
 import { useNavigation } from '@react-navigation/native';
 
 import PetCard from '../../../components/PetCard';
+import Search from '../../../components/Search';
 
 import Dog from '../../../assets/images/UserProfile/dog.png';
 import Cat from '../../../assets/images/UserProfile/Gato.png';
@@ -18,8 +18,6 @@ import {
   Container,
   Header,
   PetArea,
-  SearchArea,
-  SearchName,
   Title
 } from './styles';
 
@@ -31,17 +29,6 @@ export default function WantAdopt() {
   const [visiblePets, setVisiblePets] = useState([]);
 
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (!name) {
-      setVisiblePets(pets);
-      return;
-    };
-
-    const findName = pets.filter((item) => item.name.indexOf(name) != -1);
-    setVisiblePets(findName)
-
-  }, [name])
 
   useEffect(() => {
     const names = [
@@ -72,14 +59,12 @@ export default function WantAdopt() {
         <Header>
           <Title>Animais para doação</Title>
 
-          <SearchArea>
-            <SearchName
-              placeholder={"Pesquise seu pet"}
-              onChangeText={name => setName(name)}
-              maxLength={20}
-            />
-            <Feather name="search" size={25} color={'#12947F'}/>
-          </SearchArea>
+          <Search
+            onChangeText={name => setName(name)}
+            itens={pets}
+            item={name}
+            function={setVisiblePets}
+          />
         </Header>
 
         <Body
@@ -99,5 +84,4 @@ export default function WantAdopt() {
       </Container>
     </Background>
   )
-
 }

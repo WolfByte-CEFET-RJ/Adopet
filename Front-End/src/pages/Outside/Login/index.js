@@ -34,9 +34,10 @@ export default function Login(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation= useNavigation();
-  function IrparaHome(){
-    navigation.navigate('MainTab');
+  const navigation = useNavigation();
+
+  function goTo(screen){
+    navigation.navigate(screen);
   }
 
   async function handleLogin() {
@@ -44,7 +45,6 @@ export default function Login(){
       email,
       password,
     }
-    console.log(data)
 
     let isEmpty = 0;
     Object.values(data).map(item => {
@@ -68,7 +68,7 @@ export default function Login(){
         console.log('Login não Salvo!')
       }
 
-      IrparaHome();
+      goTo('MainTab');
 
     } catch (err) {
       alert(err.response.data)

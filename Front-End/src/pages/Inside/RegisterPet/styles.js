@@ -15,6 +15,14 @@ export const Container = styled.View`
   margin: 0 25px;
 `
 
+export const Back = styled.View`
+  position: absolute;
+  top: 35px;
+  left: 10px;
+
+  z-index: 10;
+`;
+
 export const ImageArea = styled.View`
   width: 100%;
 

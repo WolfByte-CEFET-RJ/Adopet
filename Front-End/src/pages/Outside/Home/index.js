@@ -18,17 +18,15 @@ import {
 
 export default function Home() {
 
-  const navigation= useNavigation();
-  function IrparaLogin(){
-    navigation.navigate('Login');
-  }
-  function IrparaRegister(){
-    navigation.navigate('Register')
+  const navigation = useNavigation();
+
+  function goTo(screen) {
+    navigation.navigate(screen);
   }
 
   return (
     <Background source={BG}>
-    <StatusBar backgroundColor={'#ffffffef'}/>
+      <StatusBar backgroundColor={'#ffffffef'}/>
       <Container>
 
         <TextInicial>
@@ -42,14 +40,14 @@ export default function Home() {
         <Buttons>
 
           <Button
-            onPress={() => {IrparaRegister()}}
+            onPress={() => {goTo('Register')}}
             text='Cadastro'
             colors={['#F17808','#FF8A00']}
             radius={10}
           />
 
           <Button
-            onPress={() => {IrparaLogin()}}
+            onPress={() => {goTo('Login')}}
             text='Login'
             colors={['#12947F','#0AB599']}
             radius={10}

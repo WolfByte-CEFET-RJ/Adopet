@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { FontAwesome5 } from '@expo/vector-icons';
+
 import { useNavigation } from '@react-navigation/native';
 
 import Constants from 'expo-constants';
@@ -23,6 +25,7 @@ import PetType        from '../../../components/PetType';
 const tagNames = ['docil', 'amigavel', 'brincalhao', 'calmo', 'timido', 'apegado'];
 
 import {
+  Back,
   Background,
   Body,
   Container,
@@ -199,6 +202,14 @@ export default function RegisterPet() {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <Background source={BG}>
+        <Back>
+          <FontAwesome5
+            name='arrow-left'
+            size={30}
+            color='#FFFFFF'
+            onPress={() => {navigation.goBack()}}
+          />
+        </Back>
         <Container>
 
           <ImageArea>

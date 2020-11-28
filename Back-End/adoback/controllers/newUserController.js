@@ -13,7 +13,7 @@ module.exports = {
             return res.status(400).send(error.details[0].message)
         }
 
-        const { fullName, email, password, local, local_coords, phone, type } = req.body 
+        const { fullName, email, password, local, local_coords, phone, type, about} = req.body 
 
         if(type !== 'user' && type !== 'ong')
             res.status(400).send('user type is invalid')
@@ -36,6 +36,7 @@ module.exports = {
                     hash_password,
                     local,
                     local_coords, 
+                    about,
                     phone
                 })
 
@@ -69,6 +70,7 @@ function validateOng(user) {
         local: Joi.string().max(60).required(),
         local_coords: Joi.string().max(100).required(),
         phone: Joi.string().length(13).required(),
+        about: Joi.string().required(),
         type: Joi.string().min(3).max(4).required(),
     }
     return Joi.validate(user, schema)

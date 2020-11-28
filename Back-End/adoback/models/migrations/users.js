@@ -9,6 +9,7 @@ exports.up = (knex) => {
       table.string('phone', 13).notNullable(),
       table.string('local', 60).notNullable(),
       table.string('local_coords', 100).notNullable(),
+      table.string('about'),
       table.timestamp('created').defaultTo(knex.fn.now()),
       table.string('reset_password_token'),
       table.timestamp('reset_password_expires')

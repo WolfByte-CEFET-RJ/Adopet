@@ -24,18 +24,19 @@ import {
 export default function Profile() {
   const navigation = useNavigation();
 
-  function goToRegisterPet() {
-    navigation.navigate('RegisterPet');
-  }
-
+ 
   function goToConfig() {
     navigation.navigate('Config');
+  }
+
+   function PetList(){
+    navigation.navigate('PetList');
   }
 
   return(
     <Background source={BG}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Container>
+        <Container>    
           <UserInfo
             name={'Carlos Alberto'}
             city={'Rio de Janeiro'}
@@ -52,7 +53,8 @@ export default function Profile() {
               background={'#F17808'}
               image={Icon1}
               name={'Pets'}
-              onPress={goToRegisterPet}
+              //onPress={goToRegisterPet}
+              onPress ={PetList}
             />
             <OptionButton
               background={'#FFFFFF'}

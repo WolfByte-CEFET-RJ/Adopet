@@ -6,6 +6,7 @@ export const Pet = styled.TouchableOpacity`
 
   align-items: center;
   justify-content: center;
+  margin-bottom: 20px;
 `;
 
 export const PetImage = styled.Image`

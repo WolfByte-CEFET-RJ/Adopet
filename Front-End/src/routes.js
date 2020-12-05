@@ -20,6 +20,7 @@ import IHome           from './pages/Inside/IHome';
 import Chat            from './pages/Inside/Chat';
 import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
+import PetList         from './pages/Inside/PetList';
 
 import PetProfile      from './pages/Inside/PetProfile';
 import UserProfile     from './pages/Inside/UserProfile';
@@ -50,7 +51,7 @@ export default function Routes() {
         <AppStack.Screen name='PasswordRecover' component={PasswordRecover} />
         <AppStack.Screen name='Tutorial' component={Tutorial} />
         <AppStack.Screen name='MainTab' component={MainTab} />
-
+        <AppStack.Screen name='PetList' component={PetList} />
         <AppStack.Screen name='PetProfile' component={PetProfile} />
         <AppStack.Screen name='UserProfile' component={UserProfile} />
         <AppStack.Screen name='RegisterPet' component={RegisterPet} />

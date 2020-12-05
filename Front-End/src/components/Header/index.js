@@ -10,12 +10,13 @@ import {
 export default function Header(props) {
   return(
     <TextInicial>
-      <Title>{props.title}</Title>
+      <Title color={props.white}>{props.title}</Title>
       <Strong
         margin={props.margin}
+        color={props.white}
       >{props.strong}</Strong>
 
-      <Description>{props.description}</Description>
+      <Description color={props.white}>{props.description}</Description>
     </TextInicial>
   );
 }

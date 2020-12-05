@@ -22,6 +22,7 @@ import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 import PetList         from './pages/Inside/PetList';
 
+import AddPet      from './pages/Inside/AddPet';
 import PetProfile      from './pages/Inside/PetProfile';
 import UserProfile     from './pages/Inside/UserProfile';
 import RegisterPet     from './pages/Inside/RegisterPet';
@@ -56,6 +57,7 @@ export default function Routes() {
         <AppStack.Screen name='UserProfile' component={UserProfile} />
         <AppStack.Screen name='RegisterPet' component={RegisterPet} />
         <AppStack.Screen name='Config' component={Config} />
+        <AppStack.Screen name='AddPet' component={AddPet} />
 
       </AppStack.Navigator>
 

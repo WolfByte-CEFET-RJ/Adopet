@@ -22,7 +22,7 @@ import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 import PetList         from './pages/Inside/PetList';
 
-import AddPet      from './pages/Inside/AddPet';
+import AddPet          from './pages/Inside/AddPet';
 import PetProfile      from './pages/Inside/PetProfile';
 import UserProfile     from './pages/Inside/UserProfile';
 import RegisterPet     from './pages/Inside/RegisterPet';

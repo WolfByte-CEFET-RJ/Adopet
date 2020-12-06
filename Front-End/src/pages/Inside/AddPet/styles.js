@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Constants from 'expo-constants';
 
 export const Background= styled.ImageBackground`
   flex: 1;
@@ -6,20 +7,25 @@ export const Background= styled.ImageBackground`
 
 export const Container= styled.SafeAreaView`
   flex: 1;
+  padding-top: ${Constants.statusBarHeight + 20}px;
 `;
 
 export const Back= styled.View`
-  width: 60px;
-  padding: 50px 0px 0px 20px;
-  height: 100px;
+  position: absolute;
+  top: 35px;
+  left: 10px;
+
+  z-index: 10;
 `;
 
 export const HeaderIcon= styled.View`
-  padding: 0px 0px 0px 20px;
-  height: 100px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Icon= styled.Image`
+  margin-bottom: 8%;
 `;
 
 export const TextInicial= styled.View`
@@ -30,7 +36,9 @@ export const TextInicial= styled.View`
 export const Button = styled.TouchableOpacity`
   justify-content: space-between;
   align-items: center;
-  height: 140px;
+  position: absolute;
+  bottom: 5%;
+  width: 100%;
 `;
 
 export const AddButton = styled.Image`

@@ -25,7 +25,7 @@ import {
   Skip,
 } from './styles';
 
-export default function Tutorial() {
+export default function AboutUs() {
 
   const navigation= useNavigation();
 

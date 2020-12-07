@@ -1,6 +1,8 @@
 const express = require('express')
 const routes = express.Router()
 
+const geolocation = require('geolocation-utils')
+
 const gmailApi = require('./../Google api/gGmail')
 const fs = require('fs')
 const path = require('path')
@@ -38,7 +40,18 @@ routes.delete('/api/pets/delete', authMiddleware, petController.delete) //deleta
 
 //teste
 routes.post('/teste', async (req, res) => { 
+    const locations = [
+        {latitude: 51.03, longitude: 4.05},
+        {latitude: 52.03, longitude: 4.05},
+        {latitude: 51.03, longitude: 3.05}
+    ]
 
+    if(geolocation.insideCircle(locations, {longitude: 4, latitude: 51}, 10000))
+        console.log('dentro da area')
+    else 
+        console.log('fora da area')
+
+        res.send('ok')
 })
 
 module.exports = routes

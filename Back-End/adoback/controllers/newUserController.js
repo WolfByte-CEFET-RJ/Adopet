@@ -35,7 +35,7 @@ module.exports = {
                     email,
                     hash_password,
                     local,
-                    local_coords, 
+                    local_coords: JSON.stringify(local_coords), 
                     about,
                     phone
                 })

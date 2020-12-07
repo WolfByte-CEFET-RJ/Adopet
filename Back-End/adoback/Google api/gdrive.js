@@ -30,7 +30,7 @@ function imageUpload(fileName, filePath, folder, callback) {
             if (err) throw err
           })
           //retorna o link da imagem no drive
-          resolve('https://drive.google.com/thumbnail?id='+file.data.id) 
+          resolve(file.data.id) 
         }
       });
 })

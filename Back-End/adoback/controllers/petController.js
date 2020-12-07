@@ -2,6 +2,7 @@ const connection = require('./../models/connection')
 const Joi = require('joi')
 const crypto = require('crypto')
 const { imageUpload } = require('./../Google api/gdrive')
+const { insideCircle } = require('geolocation-utils')
 
 module.exports = {
     async create(req, res) {
@@ -18,14 +19,14 @@ module.exports = {
         if (req.files) {
             var imagem = [req.files.length - 1]
             for (var i = 0; i < req.files.length; i++) {
-                imagem[i] = await imageUpload(id+id_doador+ i, req.files[i].path, 'pet').then()
+                imagem[i] = await imageUpload(id + id_doador + i, req.files[i].path, 'pet').then()
                     .catch((error) => res.send(error))
             }
         } else var imagem = null
 
         try {
             await connection('pets').insert({
-                id, localização, imagem: JSON.stringify(imagem), id_doador, nome, tipo, sexo, idade, tamanho, peso, vacinação,
+                id, localização: JSON.stringify(localização), imagem: JSON.stringify(imagem), id_doador, nome, tipo, sexo, idade, tamanho, peso, vacinação,
                 Treinado, castrado, vermifugado, chipado, caracteristicas
             })
         } catch (error) {
@@ -39,15 +40,40 @@ module.exports = {
     },
 
     async index(req, res) {
-        try {
-            const pets = await connection('pets').where('adotado', 0).select(['pets.id_doador',
-                'pets.imagem','pets.localização', 'pets.nome', 'pets.tipo',
-                'pets.sexo', 'pets.idade', 'tamanho', 'pets.vacinação',
-                'pets.Treinado', 'pets.castrado', 'pets.vermifugado',
-                'pets.chipado', 'pets.caracteristicas'])
-            res.status(200).json(pets)
-        } catch (error) {
-            return res.status(400).send(error)
+        const userId = req.headers.userid
+        if (!userId) {
+            return res.status(400).send('userId is required')
+        }
+
+        const user = await connection('users').where('id', userId).select(['users.local_coords']).first()
+        if (!user) 
+            res.status(404).send('User not Found')
+        else {
+            try {
+                const pets = await connection('pets').where('adotado', 0).select(['pets.id_doador',
+                    'pets.imagem', 'pets.localização', 'pets.nome', 'pets.tipo',
+                    'pets.sexo', 'pets.idade', 'tamanho', 'pets.vacinação',
+                    'pets.Treinado', 'pets.castrado', 'pets.vermifugado',
+                    'pets.chipado', 'pets.caracteristicas'])
+
+                let petList = []
+
+                const fistSplit = user.local_coords.split(':')
+                const userCoords = {latitude: parseFloat(fistSplit[1].split(',',1)), longitude: parseFloat(fistSplit[2].split('}',1))}
+
+                pets.forEach((pet) => {
+                        const splitPet = pet.localização.split(':')
+                        const petCoords = {latitude: parseFloat(splitPet[1].split(',',1)), 
+                        longitude: parseFloat(splitPet[2].split('}',1))}
+                        
+                        if(insideCircle(petCoords,userCoords, 10000))
+                            petList.push(pet)
+                })
+
+                res.status(200).json(petList)
+            } catch (error) {
+                return res.status(400).send(error)
+            }
         }
 
     },

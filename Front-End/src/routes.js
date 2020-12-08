@@ -28,6 +28,7 @@ import UserProfile     from './pages/Inside/UserProfile';
 import RegisterPet     from './pages/Inside/RegisterPet';
 import Config          from './pages/Inside/Config';
 import AboutUs         from './pages/Inside/AboutUs';
+import FeedBack        from './pages/Inside/FeedBack';
 
 function MainTab() {
   return (
@@ -60,6 +61,7 @@ export default function Routes() {
         <AppStack.Screen name='Config' component={Config} />
         <AppStack.Screen name='AddPet' component={AddPet} />
         <AppStack.Screen name='AboutUs' component={AboutUs} />
+        <AppStack.Screen name='FeedBack' component={FeedBack} />
 
       </AppStack.Navigator>
 

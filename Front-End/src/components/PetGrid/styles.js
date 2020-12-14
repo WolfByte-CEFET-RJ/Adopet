@@ -28,4 +28,5 @@ export const ItemTitle = styled.Text`
 
 export const ItemText = styled.Text`
   font-size: 12px;
+  text-align: center;
 `

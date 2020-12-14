@@ -87,24 +87,24 @@ export default function RegisterOng() {
     }
   }, [])
 
-  // useEffect(() => {
-  //   async function loadPosition() {
-  //     const { status } = await Location.requestPermissionsAsync();
+  useEffect(() => {
+    async function loadPosition() {
+      const { status } = await Location.requestPermissionsAsync();
 
-  //     if (status !== 'granted') {
-  //       Alert.alert('Por favor', 'Precisamos de sua permissão para obter a localização');
-  //       return;
-  //     }
+      if (status !== 'granted') {
+        Alert.alert('Por favor', 'Precisamos de sua permissão para obter a localização');
+        return;
+      }
 
-  //     const location = await Location.getCurrentPositionAsync();
+      const location = await Location.getCurrentPositionAsync();
 
-  //     const { latitude, longitude } = location.coords;
+      const { latitude, longitude } = location.coords;
 
-  //     setCoords(`{\"latitude\":\"${latitude}\", \"longitude\":\"${longitude}\"}`);
-  //   }
+      setCoords(`{\'latitude\':${latitude}, \'longitude\':${longitude}}`);
+    }
 
-  //   loadPosition();
-  // }, []);
+    loadPosition();
+  }, []);
 
   useEffect(() => {
     axios
@@ -187,7 +187,7 @@ export default function RegisterOng() {
     data.append('phone'       ,    phone);
     data.append('about'       ,    about);
     data.append('local'       ,    local);
-    data.append('local_coords',  "Coord");
+    data.append('local_coords',   coords);
     data.append('type'        ,     type);
     data.append('img'         ,      img);
 

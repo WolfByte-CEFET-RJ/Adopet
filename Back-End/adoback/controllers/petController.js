@@ -70,7 +70,10 @@ module.exports = {
                             petList.push(pet)
                 })
 
-                res.status(200).json(petList)
+                if (petList)
+                    res.status(200).json(petList)
+                else 
+                    res.status(404).send('Pets not found.')
             } catch (error) {
                 return res.status(400).send(error)
             }

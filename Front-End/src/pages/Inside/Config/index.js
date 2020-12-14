@@ -16,6 +16,7 @@ import {
   Container,
   ExitArea,
   ExitText,
+  Line,
   Options,
   Option,
   OptionText,

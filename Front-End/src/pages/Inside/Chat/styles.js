@@ -50,8 +50,13 @@ export const Adopt = styled.Text`
 
 export const ListView = styled.View`
   flex-direction: row;
-  margin: 0px 5px;
+
+  width: 100%;
+
   align-items: center;
+  justify-content: space-around;
+
+  margin: 0px 5px;
 `;
 
 export const Donate = styled(Adopt)`

@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const SearchArea = styled.View`
-  width: 100%;
-  height: 50px;
+  width: ${props => props.little ? '150px' : '100%'};
+  height: ${props => props.little ? '40px' : '50px'};
 
-  flex-direction: row;
+  flex-direction: ${props => props.little ? 'row-reverse' : 'row'};
   align-items: center;
 
-  border-radius: 10px;
-  background: #E5E4E5;
+  border-radius: ${props => props.little ? '15px' : '10px'};;
+  background: ${props => props.little ? '#52B0A1' : '#E5E4E5'};
 
   elevation: 5;
 

@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import api from '../../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -6,13 +9,10 @@ import { ScrollView, View } from 'react-native';
 
 import Swiper from 'react-native-swiper';
 
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, Feather } from '@expo/vector-icons';
 
 import ProfileBG from '../../../assets/images/Profile/ProfileBG.png'
 
-import PetImage from '../../../assets/images/PetProfile/pet_example.png';
-import PetImage2 from '../../../assets/images/PetProfile/pet_example2.png';
-import PetImage3 from '../../../assets/images/PetProfile/pet_example3.png';
 import UserImageExample from '../../../assets/images/PetProfile/user_example.png';
 
 import Buttom       from '../../../components/Button';
@@ -24,6 +24,7 @@ import UserInterest from '../../../components/UserInterest';
 import {
   AboutArea,
   AboutText,
+  Back,
   Background,
   Body,
   ButtonView,
@@ -47,15 +48,14 @@ import {
 export default function PetProfile() {
   const [favorite, setFavorite] = useState(false);
   const [interests, setInterests] = useState([UserImageExample, UserImageExample]);
+  const [user     , setUser] = useState({fullname: '', img_profile: '', about: ''});
+  const [userData , setUserData] = useState({});
 
   const navigation = useNavigation();
   const route      = useRoute();
   const data       = route.params.petSelected;
   const userId     = data.id_doador;
-
-  function goToUserProfile() {
-    navigation.navigate('UserProfile', { userId })
-  }
+  const interest   = route.params.interest;
 
   const petInfos = [{title: 'TIPO DE ANIMAL', text: data.tipo.toUpperCase()},
                     {title: 'IDADE',          text: `${data.idade} ANOS`},
@@ -67,11 +67,46 @@ export default function PetProfile() {
                     {title: 'VERMIFUGADO',    text: data.vermifugado ? 'SIM' : 'NÃO'},
                     {title: 'CHIPADO',        text: data.chipado ? 'SIM' : 'NÃO'}]
 
+  function goToUserProfile() {
+    navigation.navigate('UserProfile', { userData })
+  }
+
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  async function loadUser() {
+
+    const userToken = await AsyncStorage.getItem('token');
+
+    const response = await api.get('/api/user/profile', {
+      headers: {
+        'userId': `${userId}`,
+        'authorization': `Bearer ${userToken}`
+      }
+    })
+
+    setUser(response.data.user);
+    setUserData(response);
+  }
+
+  useEffect(loadUser, [])
+
   return (
     <Background source={ProfileBG}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Container>
+
           <PetImageArea>
+            <Back>
+              <Feather
+                name='chevron-left'
+                size={40}
+                color='#FFFF'
+                onPress={() => {navigation.goBack()}}
+              />
+            </Back>
+
             <Swiper
               style={{height: 350}}
               dot={<Dots active={'#000'} />}
@@ -79,15 +114,15 @@ export default function PetProfile() {
               paginationStyle={{top: null, right: 15, left: null, bottom: 15}}
               autoplay={true}
             >
-              <SwipeImage source={PetImage} resizeMode="cover"/>
-              <SwipeImage source={PetImage2} resizeMode="cover"/>
-              <SwipeImage source={PetImage3} resizeMode="cover"/>
+              {
+                <SwipeImage source={{uri: `https://drive.google.com/thumbnail?id=${data.imagem.split('"')[1]}`}} resizeMode="cover"/>
+              }
             </Swiper>
 
             <PetInfoArea>
               <PetTextArea>
-                <PetName>{data.nome}</PetName>
-                <PetInfo>{`${data.idade} anos, ${data.localização}`}</PetInfo>
+                <PetName>{capitalize(data.nome)}</PetName>
+                <PetInfo>{`${data.idade} anos`}</PetInfo>
               </PetTextArea>
               <FontAwesome
                 name={favorite ? 'heart' : 'heart-o'}
@@ -102,7 +137,7 @@ export default function PetProfile() {
           <Body>
             <AboutArea>
               <Title>SOBRE</Title>
-              <AboutText>{data.caracteristicas}</AboutText>
+              <AboutText>{`${capitalize(data.caracteristicas)}.`}</AboutText>
             </AboutArea>
 
             <TagArea>
@@ -123,15 +158,20 @@ export default function PetProfile() {
               <Title>SOBRE O DONO</Title>
               <UserCard
                 onPress={goToUserProfile}
-                image={UserImageExample}
-                name={'Eric Merge'}
-                text={'Depois de muitos merges na vida acabei vendo que era necessário fazer mais cursos de programação, por isso me vejo sem capacidades de cuidar do meu Pet e estou o doando.'}
+                image={{uri: `https://drive.google.com/thumbnail?id=${user.img_profile}`}}
+                name={user.fullname}
+                text={`${capitalize(user.about)}.`}
               />
             </UserArea>
 
-            <UserInterestArea>
-              <UserInterest data={interests}/>
-            </UserInterestArea>
+            {
+              interest ?
+                <UserInterestArea>
+                  <UserInterest data={interests}/>
+                </UserInterestArea>
+              :
+              <></>
+            }
 
           </Body>
           <Footer>

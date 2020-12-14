@@ -9,7 +9,7 @@ import {
   UserState,
 } from './styles';
 
-export default function UserInfo({name, city, image, reverse}) {
+export default function UserInfo({name, image, uri, city, reverse}) {
   return (
     <Info reverse={reverse}>
       <TextArea>
@@ -17,7 +17,10 @@ export default function UserInfo({name, city, image, reverse}) {
         <UserState>{city}</UserState>
       </TextArea>
       <ImageArea>
-        <UserImage source={image} resizeMode="cover"/>
+        <UserImage
+          source={uri ? {uri: `https://drive.google.com/thumbnail?id=${uri}`} : image}
+          resizeMode="cover"
+        />
       </ImageArea>
     </Info>
   );

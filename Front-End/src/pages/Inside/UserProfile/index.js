@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { ScrollView } from 'react-native';
 
@@ -26,6 +26,13 @@ import {
 
 export default function UserProfile() {
   const navigate = useNavigation();
+  const route = useRoute();
+  const user = route.params.userData.data.user;
+  const pets = route.params.userData.data.pets;
+
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return(
     <Background source={BG}>
@@ -38,30 +45,29 @@ export default function UserProfile() {
             onPress={() => navigate.goBack()}
           />
           <UserInfo
-            name={'Carlos Alberto'}
-            city={'Rio de Janeiro'}
-            image={UserImageExample}
+            name={capitalize(user.fullname)}
+            city={user.local}
+            uri={user.img_profile}
             reverse={1}
           />
           <AboutArea>
             <Title>SOBRE</Title>
-            <About>Recentemente tive que me mudar para uma casa menor e estou tendo que doar meus pets.</About>
+            <About>{`${capitalize(user.about)}.`}</About>
           </AboutArea>
           <Pets>
             <Title2>PETS</Title2>
             <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-              <PetArea>
-                <PetCard image={Dog} name={'Polenta'}/>
-              </PetArea>
-              <PetArea>
-                <PetCard image={Cat} name={'Garfield'} adopted={1}/>
-              </PetArea>
-              <PetArea>
-                <PetCard image={Dog} name={'Polenta'}/>
-              </PetArea>
-              <PetArea>
-                <PetCard image={Cat} name={'Garfield'}/>
-              </PetArea>
+              {
+                pets.map((pet) => (
+                  <PetArea key={pet.imagem}>
+                    <PetCard
+                      uri={pet.imagem.split('"')[1]}
+                      name={capitalize(pet.nome)}
+                      adopted={pet.adotado}
+                    />
+                  </PetArea>
+                ))
+              }
             </ScrollView>
           </Pets>
         </Container>

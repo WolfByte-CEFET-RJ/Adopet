@@ -10,7 +10,8 @@ export const Pet = styled.TouchableOpacity`
 `;
 
 export const PetImage = styled.Image`
-  flex: 1;
+  width: 100%;
+  height: 100%;
 
   border-radius: 10px;
 `;

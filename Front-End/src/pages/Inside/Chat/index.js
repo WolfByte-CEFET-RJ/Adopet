@@ -72,6 +72,7 @@ export default function Chat() {
               itens={pets}
               item={name}
               function={setVisiblePets}
+              little={true}
             />
           </ListView>
 

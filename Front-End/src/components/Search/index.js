@@ -20,13 +20,14 @@ export default function Search(props) {
   }, [props.item])
 
   return(
-    <SearchArea>
+    <SearchArea little={props.little}>
       <SearchName
-        placeholder={"Pesquise seu pet"}
+        little={props.little}
+        placeholder={props.little ? '' : "Pesquise seu pet"}
         onChangeText={props.onChangeText}
         maxLength={20}
       />
-      <Feather name="search" size={25} color={'#12947F'}/>
+      <Feather name="search" size={25} color={props.little ? '#ffffff' : '#12947F'}/>
     </SearchArea>
   );
 }

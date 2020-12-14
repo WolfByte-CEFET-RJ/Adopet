@@ -24,7 +24,8 @@ module.exports = {
                 return res.status(400).send('Incorrect email or password.');
             }
             const token = jwt.sign({ _id: user._id }, secret);
-            res.send(token);
+            const id = user.id;
+            res.json({id, token});
         } 
     }
 }

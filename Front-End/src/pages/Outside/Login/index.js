@@ -59,14 +59,10 @@ export default function Login(){
     }
 
     try {
-      const token = await api.post('/api/login', data)
+      const response = await api.post('/api/user/login', data)
 
-      await AsyncStorage.setItem('token', token.data)
-      if (keepConnect) {
-        console.log('Login Salvo!')
-      } else {
-        console.log('Login não Salvo!')
-      }
+      await AsyncStorage.setItem('token', response.data.token)
+      await AsyncStorage.setItem('id', response.data.id)
 
       goTo('MainTab');
 

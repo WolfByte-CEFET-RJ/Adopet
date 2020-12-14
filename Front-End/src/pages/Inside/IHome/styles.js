@@ -11,17 +11,6 @@ export const Container= styled.SafeAreaView`
   margin-top: ${Constants.statusBarHeight + 10}px;
 `;
 
-export const Header = styled.View`
-  width: 100%;
-
-  flex-direction: row;
-
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 10px;
-`
-
 export const Body = styled.View`
   flex: 1;
 

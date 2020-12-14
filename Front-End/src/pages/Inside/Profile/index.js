@@ -1,16 +1,18 @@
 import React from 'react';
 
 import { useNavigation } from '@react-navigation/native';
+import api               from '../../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
+import { ScrollView }    from 'react-native';
 
-import { ScrollView } from 'react-native';
+import BG                from '../../../assets/images/Profile/ProfileBG.png';
+import UserImageExample  from '../../../assets/images/Profile/user.png';
+import Icon1             from '../../../assets/images/Profile/icon1.png';
+import Icon2             from '../../../assets/images/Profile/icon2.png';
 
-import BG from '../../../assets/images/Profile/ProfileBG.png';
-import UserImageExample from '../../../assets/images/Profile/user.png';
-import Icon1 from '../../../assets/images/Profile/icon1.png';
-import Icon2 from '../../../assets/images/Profile/icon2.png';
+import OptionButton      from '../../../components/OptionButton';
+import UserInfo          from '../../../components/UserInfo';
 
-import OptionButton from '../../../components/OptionButton';
-import UserInfo     from '../../../components/UserInfo';
 
 import {
   About,
@@ -29,7 +31,25 @@ export default function Profile() {
     navigation.navigate('Config');
   }
 
-   function PetList(){
+  async function loadUser() {
+
+    const userToken = await AsyncStorage.getItem('token');
+    const userId = await AsyncStorage.getItem('Id');
+
+    const response = await api.get('/api/user/profile', {
+      headers: {
+        'userId': `${userId}`,
+        'authorization': `Bearer ${userToken}`
+      }
+    })
+    return(response.data.pets.length())
+  }
+
+  function PetList(){
+    const pets = loadUser()
+    if(pets==0) {
+    navigation.navigate('AddPet');
+    } else 
     navigation.navigate('PetList');
   }
 

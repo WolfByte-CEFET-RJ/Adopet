@@ -50,7 +50,7 @@ module.exports = {
             res.status(404).send('User not Found')
         else {
             try {
-                const pets = await connection('pets').where('adotado', 0).select(['pets.id_doador',
+                const pets = await connection('pets').where('adotado', 0).select(['pets.id', 'pets.id_doador',
                     'pets.imagem', 'pets.localização', 'pets.nome', 'pets.tipo',
                     'pets.sexo', 'pets.idade', 'tamanho', 'pets.vacinação',
                     'pets.Treinado', 'pets.castrado', 'pets.vermifugado',
@@ -98,19 +98,28 @@ module.exports = {
     },
 
     async adopt(req, res) {
+        const userId = req.headers.userid
+        if (!userId) {
+            return res.status(400).send('userId is required')
+        }
+
+        const user = await connection('users').where('id', userId).select(['users.local_coords']).first()
+        if (!user) 
+            return res.status(404).send('User not Found')
+        
         const { error } = validateAdopt(req.body)
         if (error) {
             return res.status(400).send(error.details[0].message)
         }
 
-        const { id_pet, id_doador, id_adotante } = req.body
+        const { id_pet, id_doador } = req.body
         const id = crypto.randomBytes(16).toString('HEX')
 
         await connection('adoption').insert({
             id,
             id_pet,
             id_doador,
-            id_adotante
+            id_adotante: userId
         })
             .then(response => {
                 res.status(200).json({
@@ -236,8 +245,7 @@ function validatePetID(pet) {
 function validateAdopt(pet) {
     const schema = {
         id_pet: Joi.string().required(),
-        id_doador: Joi.string().required(),
-        id_adotante: Joi.string().required()
+        id_doador: Joi.string().required()
     }
 
     return Joi.validate(pet, schema)

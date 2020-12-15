@@ -26,7 +26,7 @@ import {
 export default function Profile() {
   const navigation = useNavigation();
 
- 
+
   function goToConfig() {
     navigation.navigate('Config');
   }
@@ -49,14 +49,14 @@ export default function Profile() {
     const pets = loadUser()
     if(pets==0) {
     navigation.navigate('AddPet');
-    } else 
+    } else
     navigation.navigate('PetList');
   }
 
   return(
     <Background source={BG}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Container>    
+        <Container>
           <UserInfo
             name={'Carlos Alberto'}
             city={'Rio de Janeiro'}

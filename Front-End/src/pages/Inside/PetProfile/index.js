@@ -50,11 +50,12 @@ export default function PetProfile() {
   const [interests, setInterests] = useState([UserImageExample, UserImageExample]);
   const [user     , setUser] = useState({fullname: '', img_profile: '', about: ''});
   const [userData , setUserData] = useState({});
+  const [token    ,    setToken] = useState('');
 
   const navigation = useNavigation();
   const route      = useRoute();
   const data       = route.params.petSelected;
-  const userId     = data.id_doador;
+  const id_doador  = data.id_doador;
   const interest   = route.params.interest;
 
   const petInfos = [{title: 'TIPO DE ANIMAL', text: data.tipo.toUpperCase()},
@@ -78,16 +79,38 @@ export default function PetProfile() {
   async function loadUser() {
 
     const userToken = await AsyncStorage.getItem('token');
+    setToken(userToken);
 
     const response = await api.get('/api/user/profile', {
       headers: {
-        'userId': `${userId}`,
+        'userId': `${id_doador}`,
         'authorization': `Bearer ${userToken}`
       }
     })
 
     setUser(response.data.user);
     setUserData(response);
+  }
+
+  async function handleRequest() {
+    setFavorite(!favorite);
+
+    const userId = await AsyncStorage.getItem('id');
+
+    try {
+      await api.post('/api/pets/requestpet', {id_pet: data.id, id_doador}, {
+        headers: {
+          'userId': `${userId}`,
+          'authorization': `Bearer ${token}`
+        }
+      })
+    }
+    catch (err) {
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
+    }
+
   }
 
   useEffect(loadUser, [])
@@ -129,7 +152,7 @@ export default function PetProfile() {
                 size={50}
                 color={favorite ? "#F17808" : "#fff"}
                 style={{marginBottom:20}}
-                onPress={() => setFavorite(!favorite)}
+                onPress={handleRequest}
               />
             </PetInfoArea>
 

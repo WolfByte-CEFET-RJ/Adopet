@@ -36,8 +36,10 @@ export default function Login(){
 
   const navigation = useNavigation();
 
-  function goTo(screen){
-    navigation.navigate(screen);
+  function goToMainTab(){
+    navigation.reset({
+      routes:[{name:'MainTab'}]
+    })
   }
 
   async function handleLogin() {
@@ -64,7 +66,7 @@ export default function Login(){
       await AsyncStorage.setItem('token', response.data.token)
       await AsyncStorage.setItem('id', response.data.id)
 
-      goTo('MainTab');
+      goToMainTab();
 
     } catch (err) {
       alert(err.response.data)

@@ -14,7 +14,7 @@ export default function Search(props) {
       return;
     };
 
-    const findName = props.itens.filter((item) => item.name.indexOf(props.item) != -1);
+    const findName = props.itens.filter((item) => item.name.toLowerCase().indexOf(props.item.toLowerCase()) != -1);
     props.function(findName)
 
   }, [props.item])

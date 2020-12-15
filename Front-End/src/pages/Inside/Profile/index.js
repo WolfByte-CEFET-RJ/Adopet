@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import api               from '../../../services/api';
@@ -13,7 +13,6 @@ import Icon2             from '../../../assets/images/Profile/icon2.png';
 import OptionButton      from '../../../components/OptionButton';
 import UserInfo          from '../../../components/UserInfo';
 
-
 import {
   About,
   AboutArea,
@@ -24,6 +23,9 @@ import {
 } from './styles';
 
 export default function Profile() {
+
+  const [pets, setPets] = useState(0);
+
   const navigation = useNavigation();
 
 
@@ -34,23 +36,24 @@ export default function Profile() {
   async function loadUser() {
 
     const userToken = await AsyncStorage.getItem('token');
-    const userId = await AsyncStorage.getItem('Id');
+    const userId = await AsyncStorage.getItem('id');
 
-    const response = await api.get('/api/user/profile', {
+    const response = await api.get('api/user/profile', {
       headers: {
         'userId': `${userId}`,
         'authorization': `Bearer ${userToken}`
       }
     })
-    return(response.data.pets.length())
+    setPets(response.data.pets.length)
   }
 
   function PetList(){
-    const pets = loadUser()
+    loadUser();
+
     if(pets==0) {
-    navigation.navigate('AddPet');
+      navigation.navigate('AddPet');
     } else
-    navigation.navigate('PetList');
+      navigation.navigate('PetList');
   }
 
   return(

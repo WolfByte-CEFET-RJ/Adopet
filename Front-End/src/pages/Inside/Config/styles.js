@@ -34,7 +34,7 @@ export const Option = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
 
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 `
 
 export const Line = styled.View`

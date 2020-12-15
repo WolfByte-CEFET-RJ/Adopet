@@ -37,9 +37,10 @@ export default function Login(){
   const navigation = useNavigation();
 
   function goToMainTab(){
-    navigation.reset({
-      routes:[{name:'MainTab'}]
-    })
+    // navigation.reset({
+    //   routes:[{name:'MainTab'}]
+    // })
+    navigation.navigate('MainTab')
   }
 
   async function handleLogin() {

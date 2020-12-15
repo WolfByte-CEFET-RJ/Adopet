@@ -89,16 +89,20 @@ export default function PetProfile() {
     })
 
     setUser(response.data.user);
-    setUserData(response);
+    setUserData(response.data);
   }
 
   async function handleRequest() {
     setFavorite(!favorite);
 
     const userId = await AsyncStorage.getItem('id');
+    const Ids = {
+      id_pet: data.id,
+      id_doador
+    }
 
     try {
-      await api.post('/api/pets/requestpet', {id_pet: data.id, id_doador}, {
+      await api.post('/api/pets/requestpet', Ids, {
         headers: {
           'userId': `${userId}`,
           'authorization': `Bearer ${token}`
@@ -113,7 +117,7 @@ export default function PetProfile() {
 
   }
 
-  useEffect(loadUser, [])
+  useEffect(() => {loadUser()}, [])
 
   return (
     <Background source={ProfileBG}>

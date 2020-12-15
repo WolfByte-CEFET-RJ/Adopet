@@ -27,8 +27,8 @@ import {
 export default function UserProfile() {
   const navigate = useNavigation();
   const route = useRoute();
-  const user = route.params.userData.data.user;
-  const pets = route.params.userData.data.pets;
+  const user = route.params.userData.user;
+  const pets = route.params.userData.pets;
 
   function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -61,6 +61,7 @@ export default function UserProfile() {
                 pets.map((pet) => (
                   <PetArea key={pet.imagem}>
                     <PetCard
+                      activeOpacity={1}
                       uri={pet.imagem.split('"')[1]}
                       name={capitalize(pet.nome)}
                       adopted={pet.adotado}

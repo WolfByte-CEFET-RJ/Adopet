@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { View } from 'react-native';
+
 import api from '../../../services/api';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -30,6 +32,9 @@ export default function IHome() {
   const [loading    ,     setLoading] = useState(false);
   const [count      ,       setCount] = useState(0);
   const [petPage    ,     setPetPage] = useState(1);
+  const [token      ,       setToken] = useState('');
+  const [userId     ,      setUserId] = useState('');
+
 
   const navigation = useNavigation();
 
@@ -44,16 +49,19 @@ export default function IHome() {
   }
 
   async function loadPets() {
-    if (loading) return;
+    if (loading)
     setLoading(true);
 
     const userToken = await AsyncStorage.getItem('token');
-    const userId    = await AsyncStorage.getItem('id');
+    const id    = await AsyncStorage.getItem('id');
+
+    setUserId(id);
+    setToken(userToken);
 
     const response = await api.get('/api/pets/index', {
       // params: {page: petPage},
       headers: {
-        'userId': `${userId}`,
+        'userId': `${id}`,
         'authorization': `Bearer ${userToken}`
       }
     })
@@ -75,7 +83,32 @@ export default function IHome() {
     }
   }
 
-  useEffect(loadPets, [])
+  async function handleRequest() {
+
+    const Ids = {
+      id_pet: petSelected.id,
+      id_doador: petSelected.id_doador
+    }
+
+    try {
+      await api.post('/api/pets/requestpet', Ids, {
+        headers: {
+          'userId': `${userId}`,
+          'authorization': `Bearer ${token}`
+        }
+      })
+
+      NextPet();
+    }
+    catch (err) {
+      alert(err.response.data)
+      console.log(err.response.status)
+      console.log(err.response.data)
+    }
+
+  }
+
+  useEffect(() => {loadPets()}, [])
 
   return(
     <Background source={IHomeBG}>
@@ -91,13 +124,13 @@ export default function IHome() {
                 <TextClick>Clique na foto para mais informações!</TextClick>
               </Info>
             </Pet> :
-            <></>
+            <View style={{height: 450, width: 300}}/>
           }
           <ButtonArea>
             <Next onPress={NextPet} activeOpacity={0.8}>
               <Feather name={'x'} size={35} color={'#FF0000'}/>
             </Next>
-            <Adopt activeOpacity={0.8}>
+            <Adopt onPress={handleRequest} activeOpacity={0.8}>
               <Feather name={'heart'} size={35} color={'#00FF00'}/>
             </Adopt>
           </ButtonArea>

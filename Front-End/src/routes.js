@@ -16,8 +16,10 @@ import RegisterOng     from './pages/Outside/RegisterOng';
 import PasswordRecover from './pages/Outside/PasswordRecover';
 import Tutorial        from './pages/Outside/Tutorial';
 
+
 import IHome           from './pages/Inside/IHome';
 import Chat            from './pages/Inside/Chat';
+import ChatInside      from './pages/Inside/InsideChat';
 import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 import PetList         from './pages/Inside/PetList';
@@ -47,6 +49,7 @@ export default function Routes() {
 
       <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
 
+        <AppStack.Screen name='ChatInside' component={ChatInside} />
         <AppStack.Screen name='Home' component={Home} />
         <AppStack.Screen name='Login' component={Login} />
         <AppStack.Screen name='Register' component={Register} />

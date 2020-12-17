@@ -12,6 +12,7 @@ const passwordController = require('../controllers/passwordController')
 const petController = require('./../controllers/petController')
 const authController = require('./../controllers/authController')
 const profileController = require('./../controllers/ProfileController')
+const adoptionsController = require('./../controllers/adoptionsController')
 
 const { uploadProfile, uploadPet } = require('./middleware/multerConfig') //é middleware multer para o upload de imagens
 const authMiddleware = require('./middleware/authToken') // é um middleware que autentica o token 
@@ -28,13 +29,13 @@ routes.put('/api/user/updateProfile', authMiddleware, profileController.updatePr
 
 //Rotas dos pets
 routes.post('/api/pets/create', uploadPet, authMiddleware, petController.create) //cria um post para anuncio de um pet
-routes.post('/api/pets/requestpet', authMiddleware, petController.adopt) //criar uma solicitação de pet
+routes.post('/api/pets/requestpet', authMiddleware, adoptionsController.adopt) //criar uma solicitação de pet
 
 routes.get('/api/pets/index', authMiddleware, petController.index) //mostras todos os pets para doação
-routes.get('/api/pets/myadopts', authMiddleware, petController.myAdopts) //mostra todos os animais que a pessoa mostrou interesse 
-routes.get('/api/pets/mydonationsnotifications', authMiddleware, petController.myDonationsNotifications) //mostra todos os animais que tem alguem interessado para adotar
+routes.get('/api/pets/myadopts', authMiddleware, adoptionsController.myAdopts) //mostra todos os animais que a pessoa mostrou interesse 
+routes.get('/api/pets/mydonationsnotifications', authMiddleware, adoptionsController.myDonationsNotifications) //mostra todos os animais que tem alguem interessado para adotar
 
-routes.put('/api/pets/adopted', authMiddleware, petController.adoptionAproved) //rota de confirmação de adoção, é feita pelo doador 
+routes.put('/api/pets/adopted', authMiddleware, adoptionsController.adoptionAproved) //rota de confirmação de adoção, é feita pelo doador 
 
 routes.delete('/api/pets/delete', authMiddleware, petController.delete) //deleta um pet do bd
 

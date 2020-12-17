@@ -1,18 +1,36 @@
 const connection = require('./../models/connection')
 const Joi = require('joi')
 const crypto = require('crypto')
+const fs = require('fs')
 const { imageUpload } = require('./../Google api/gdrive')
 const { insideCircle } = require('geolocation-utils')
+const { reject } = require('lodash')
+const { resolve } = require('path')
 
 module.exports = {
     async create(req, res) {
+        const userId = req.headers.userid
+        if (!userId) {
+            return res.status(400).send('userId is required')
+        }
+
         const { error } = validatePet(req.body) //validação da requisição
         if (error) {
+            for (var i = 0; i < req.files.length; i++)
+                Deleteimg(req.files[i].path)
             return res.status(400).send(error.details[0].message);
         }
 
-        const { localização, id_doador, nome, tipo, sexo, idade, tamanho, peso, vacinação, Treinado,
+        const { localização, nome, tipo, sexo, idade, tamanho, peso, vacinação, Treinado,
             castrado, vermifugado, chipado, caracteristicas } = req.body
+
+        try { 
+            await userExist(userId)
+        } catch (erro) {
+            for (var i = 0; i < req.files.length; i++)
+                Deleteimg(req.files[i].path)
+            return res.status(404).send(erro)
+        }
 
         const id = crypto.randomBytes(12).toString('HEX') //criação de id aleatório
 
@@ -26,7 +44,7 @@ module.exports = {
 
         try {
             await connection('pets').insert({
-                id, localização: JSON.stringify(localização), imagem: JSON.stringify(imagem), id_doador, nome, tipo, sexo, idade, tamanho, peso, vacinação,
+                id, localização: JSON.stringify(localização), imagem: JSON.stringify(imagem), id_doador: userId, nome, tipo, sexo, idade, tamanho, peso, vacinação,
                 Treinado, castrado, vermifugado, chipado, caracteristicas
             })
         } catch (error) {
@@ -70,10 +88,11 @@ module.exports = {
                             petList.push(pet)
                 })
 
-                if (petList)
-                    res.status(200).json(petList)
+                if (!petList)
+                    return res.status(404).send('Pets not found.')
                 else 
-                    res.status(404).send('Pets not found.')
+                    return res.status(200).json(petList)
+
             } catch (error) {
                 return res.status(400).send(error)
             }
@@ -82,133 +101,28 @@ module.exports = {
     },
 
     async delete(req, res) {
+        const userId = req.headers.userid
+        if (!userId) {
+            return res.status(400).send('userId is required')
+        } 
+
+        try {
+            await userExist(userId)
+        } catch (erro) {
+            return res.status(404).send(erro)
+        }
+
         const { error } = validatePetID(req.body)
         if (error) {
             return res.status(400).send(error.details[0].message);
         }
 
         try {
-            await connection('pets').where('id', req.body.id).del()
-            res.status(200).json({
-                status: 'pets delete successfully'
-            })
+            await connection('pets').where({id : req.body.id_pet, id_doador : userId}).del()
+            res.status(200).send('pets delete successfully')
         } catch (error) {
             return res.status(400).send(error)
         }
-    },
-
-    async adopt(req, res) {
-        const userId = req.headers.userid
-        if (!userId) {
-            return res.status(400).send('userId is required')
-        }
-
-        const user = await connection('users').where('id', userId).select(['users.local_coords']).first()
-        if (!user) 
-            return res.status(404).send('User not Found')
-        
-        const { error } = validateAdopt(req.body)
-        if (error) {
-            return res.status(400).send(error.details[0].message)
-        }
-
-        const { id_pet, id_doador } = req.body
-        const id = crypto.randomBytes(16).toString('HEX')
-
-        await connection('adoption').insert({
-            id,
-            id_pet,
-            id_doador,
-            id_adotante: userId
-        })
-            .then(response => {
-                res.status(200).json({
-                    message: 'successful request'
-                })
-            })
-            .catch(error => {
-                res.status(505).json({
-                    message: error
-                })
-            })
-    },
-
-    async myAdopts(req, res) {
-        const id_adotante = req.headers.id
-
-        const myadopts = await connection('adoption').join('pets', 'pets.id', '=', 'adoption.id_pet')
-            .where('id_adotante', id_adotante)
-            .select([
-                'adoption.id_pet',
-                'pets.imagem',
-                'pets.nome',
-                'pets.tipo'
-            ])
-
-        if (!myadopts) {
-            res.status(500).send({
-                message: 'no solicitations'
-            })
-        }
-
-        res.status(200).json(myadopts)
-    },
-
-    async myDonationsNotifications(req, res) {
-        const id_doador = req.headers.id
-
-        const mydonations = await connection('adoption').join('pets', 'pets.id', '=', 'adoption.id_pet')
-            .join('users', 'users.id', '=', 'adoption.id_adotante')
-            .where('id_doador', id_doador).select([
-                'adoption.pet_id',
-                'pets.imagem',
-                'pets.nome',
-                'pets.tipo',
-                'users.fullName'
-            ])
-
-        if (!mydonations) {
-            res.status(500).send({
-                message: 'no solicitations'
-            })
-        }
-
-        res.status(200).json(mydonations)
-    },
-
-    async adoptionAproved(req, res) {
-        const { error } = validateAdopt(req.body)
-        if (error) {
-            return res.status(400).send(error.details[0].message)
-        }
-
-        const id = crypto.randomBytes(16).toString('HEX')
-        const { id_pet, id_adotante, id_doador } = req.body
-
-        await connection('pets').where('id', id_pet).update({ adotado: 1 })
-            .catch(erro => {
-                return res.status(500).send(erro)
-            })
-
-        await connection('adoption').where('id_pet', id_pet).del()
-            .catch(erro => {
-                return res.status(500).send(erro)
-            })
-
-        await connection('adopted').insert({
-            id,
-            id_pet,
-            id_adotante,
-            id_doador
-        })
-            .then(response => {
-                return res.status(200).send({
-                    message: 'Parabens seu pet foi adotado'
-                })
-            })
-            .catch(erro => {
-                return res.status(500).send(erro)
-            })
     }
 }
 
@@ -216,7 +130,6 @@ module.exports = {
 function validatePet(pet) {
     const schema = {
         localização: Joi.string().required(),
-        id_doador: Joi.string().required(),
         nome: Joi.string().min(2).max(60).required(),
         tipo: Joi.string().min(2).max(60).required(),
         sexo: Joi.string().length(5).required(),
@@ -236,17 +149,25 @@ function validatePet(pet) {
 
 function validatePetID(pet) {
     const schema = {
-        id: Joi.string().length(24).required()
+        id_pet: Joi.string().length(24).required()
     }
 
     return Joi.validate(pet, schema)
 }
 
-function validateAdopt(pet) {
-    const schema = {
-        id_pet: Joi.string().required(),
-        id_doador: Joi.string().required()
-    }
+function userExist(id) {
+    return new Promise ( async (resolve, reject) => { 
+        const user = await connection('users').where('id', id).select(['users.fullName']).first()
+        if (!user) 
+            reject('User no Found')
+        else 
+            resolve(true)
+    })
+}
 
-    return Joi.validate(pet, schema)
+//funções 
+function Deleteimg(filePath) { //apaga a imagem que foi upada na pasta uploads no caso de erro no cadastro
+    fs.unlink(filePath, () => (err) => { 
+        if (err) throw err
+      })
 }

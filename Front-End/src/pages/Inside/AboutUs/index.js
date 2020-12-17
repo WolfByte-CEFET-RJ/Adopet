@@ -1,86 +1,63 @@
 import React from 'react';
 
-import BG1 from '../../../assets/images/UserProfile/BG.png';
-import BG2 from '../../../assets/images/UserProfile/BG.png';
-import BG3 from '../../../assets/images/UserProfile/BG.png';
-
-import Img1 from '../../../assets/images/Tutorials/Dedinho.png';
-import Img2 from '../../../assets/images/Tutorials/chatTutorial2.png';
-import Img3 from '../../../assets/images/Tutorials/catTutorial3.png';
-
 import { useNavigation } from '@react-navigation/native';
 
-import Swiper from 'react-native-swiper';
-import ThreePoints from '../../../components/ThreePoints';
+import BG from '../../../assets/images/Config/BG.png';
+import Team from '../../../assets/images/AboutUs/Team.png';
+
+import { Feather } from '@expo/vector-icons';
 
 import {
-  AdopetTitle,
+  AdopetTeam,
+  Background,
+  Back,
   Body,
   Container,
-  Content,
-  Icon,
-  ConatinerPoints,
-  NextPage,
-  ImageBG,
-  Skip,
+  ImageView,
+  Line,
+  Options,
+  Option,
+  OptionText,
+  Text,
+  Version,
 } from './styles';
 
-export default function Tutorial() {
+export default function AboutUs() {
 
-  const navigation= useNavigation();
+  const navigation = useNavigation();
 
-  function Pular(){
-    navigation.navigate('MainTab');
+  function goBack() {
+    navigation.goBack();
   }
 
-  const tutorialInfo = [
-    {
-      BG: BG1,
-      image: Img1,
-      title: 'Arraste para o lado\n e selecione os seus\n pets favoritos',
-      point: [1,0,0]
-    },
-    {
-      BG: BG2,
-      image: Img2,
-      title: 'Converse Com o dono \n para buscar seu \nnovo pet!',
-      point: [0,1,0]
-    },
-    {
-      BG: BG3,
-      image: Img3,
-      title: 'Pronto! Está preparado \n para conhecer o seu \n mais novo amigo?',
-      point: [0,0,1]
-    }
-  ]
-
   return (
-    <Container>
-      <Swiper
-        showsPagination={false}
-      >
-        {tutorialInfo.map((info, index) => (
-          <Content key={index}>
-            <ImageBG source={info.BG}/>
-            <Skip onPress={Pular}>Pular</Skip>
+    <Background source={BG}>
+      <Container>
+        <Back>
+          <Feather
+            name='chevron-left'
+            size={30}
+            color='#FFFF'
+            onPress={() => {navigation.goBack()}}
+          />
+        </Back>
 
-            <Body>
-              <Icon source={info.image}/>
+        <Body>
+          <Options>
+            <Option activeOpacity={0.8}>
+              <Line/>
+              <OptionText>Sobre Nós</OptionText>
+            </Option>
+          </Options>
+          <ImageView>
+            <AdopetTeam source={Team}/>
+            <Text>Lorem ipsum dolor sit amet, {'\n'} consectetur adipiscing elit. In {'\n'} commodo pharetra netus non {'\n'} purus tempor ac ultricies.</Text>
+          </ImageView>
+        </Body>
 
-              <AdopetTitle>{info.title}</AdopetTitle>
+        <Version>Versão 1.0</Version>
 
-              <ConatinerPoints>
-                <ThreePoints
-                  points={info.point}
-                  color={'#12947F'}
-                  radius={20}
-                />
-              <NextPage>{index == 2 ? 'Vamos lá!' : 'Próximo'}</NextPage>
-              </ConatinerPoints>
-            </Body>
-          </Content>
-        ))}
-      </Swiper>
-    </Container>
+      </Container>
+    </Background>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import ListBG from '../../../assets/images/UserProfile/BG.png'
+import BG from '../../../assets/images/Chat/BG.png'
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -16,11 +16,15 @@ import Duck from '../../../assets/images/WantAdopt/Pato.png';
 import {
   Adopt,
   Background,
+  BottomAdopt,
+  BottomDonate,
   Body,
   Container,
   Donate,
   Header,
   HeaderTitle,
+  ListView,
+  Message,
   PetArea,
   Title
 } from './styles';
@@ -39,17 +43,6 @@ export default function Chat() {
       {name:'Polenta',          image: Dog,  adopted: 0},
       {name:'Duck Tales',       image: Duck, adopted: 0},
       {name:'Garfield',         image: Cat,  adopted: 1},
-      {name:'Polenta',          image: Dog,  adopted: 0},
-      {name:'Duck Tales',       image: Duck, adopted: 1},
-      {name:'Garfield',         image: Cat,  adopted: 0},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
-      {name:'Polenta',          image: Dog,  adopted: 1},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 0},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
-      {name:'Polenta',          image: Dog,  adopted: 1},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 0},
       {name:'Festa em Ipanema', image: Bird, adopted: 0},
     ]
 
@@ -58,32 +51,40 @@ export default function Chat() {
   }, [])
 
   return(
-    <Background source={ListBG}>
+    <Background source={BG}>
       <Container>
         <Header>
-          <HeaderTitle>
             <Title source={Icon}></Title>
-            <Adopt>Quero Adotar</Adopt>
-            <Donate>Quero Doar</Donate>
+          <HeaderTitle>
+            <BottomAdopt>
+              <Adopt>Quero Adotar</Adopt>
+            </BottomAdopt>
+            <BottomDonate>
+              <Donate>Quero Doar</Donate>
+            </BottomDonate>
           </HeaderTitle>
 
-          <Search
-            onChangeText={name => setName(name)}
-            itens={pets}
-            item={name}
-            function={setVisiblePets}
-          />
+          <ListView>
+            <Message>Mensagem</Message>
+
+            <Search
+              onChangeText={name => setName(name)}
+              itens={pets}
+              item={name}
+              function={setVisiblePets}
+              little={true}
+            />
+          </ListView>
+
         </Header>
 
         <Body
           data={visiblePets}
           keyExtractor={( _, index) => String(index)}
-          numColumns={2}
           renderItem={ ({item, index}) => (
             <PetArea index={index}>
               <PetCard
                 image={item.image}
-                name={item.name}
                 adopted={item.adopted}
               />
             </PetArea>

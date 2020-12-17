@@ -36,8 +36,11 @@ export default function Login(){
 
   const navigation = useNavigation();
 
-  function goTo(screen){
-    navigation.navigate(screen);
+  function goToMainTab(){
+    // navigation.reset({
+    //   routes:[{name:'MainTab'}]
+    // })
+    navigation.navigate('MainTab')
   }
 
   async function handleLogin() {
@@ -59,16 +62,12 @@ export default function Login(){
     }
 
     try {
-      const token = await api.post('/api/login', data)
+      const response = await api.post('/api/user/login', data)
 
-      await AsyncStorage.setItem('token', token.data)
-      if (keepConnect) {
-        console.log('Login Salvo!')
-      } else {
-        console.log('Login não Salvo!')
-      }
+      await AsyncStorage.setItem('token', response.data.token)
+      await AsyncStorage.setItem('id', response.data.id)
 
-      goTo('MainTab');
+      goToMainTab();
 
     } catch (err) {
       alert(err.response.data)

@@ -24,8 +24,8 @@ export default function AddPet(){
 
   const navigation = useNavigation();
 
-  function goTo(isOng){
-    navigation.navigate('RegisterOng', { isOng });
+  function goToRegisterPet(){
+    navigation.navigate('RegisterPet');
   }
 
   return (
@@ -55,8 +55,8 @@ export default function AddPet(){
           />
         </TextInicial>
 
-        <Button>
-          <AddButton source={Add} onPress={()=>{}}/>
+        <Button activeOpacity={0.9} onPress={goToRegisterPet}>
+          <AddButton source={Add}/>
         </Button>
 
       </Container>

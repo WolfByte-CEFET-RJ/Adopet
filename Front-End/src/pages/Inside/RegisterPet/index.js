@@ -122,10 +122,8 @@ export default function RegisterPet() {
   function CheckTags(index) {
     let tags = [...tagCheck];
 
-    console.log(tags);
-
     if ((tags[index] == 0) && (tagLimit >= 3)) return;
-    console.log('entrou')
+
     tags[index] ? setTagLimit(tagLimit - 1) : setTagLimit(tagLimit + 1)
 
     tags[index] = !tags[index];
@@ -138,12 +136,12 @@ export default function RegisterPet() {
     types[index] = !CheckType[index];
 
     setCheckType([...types]);
-    console.log(types);
   }
 
   async function handleRegister() {
 
     const userToken = await AsyncStorage.getItem('token');
+    const userId    = await AsyncStorage.getItem('id');
 
     // const img = {
     //   CreateImg(petImage0),
@@ -165,10 +163,10 @@ export default function RegisterPet() {
     // const img = CreateImg(petImage0);
 
     const data = new FormData();
-    data.append('localização'     ,     'local');
+    data.append('localização'     ,     `{\'latitude\':12301982.23, \'longitude\':1231239.54}`);
     data.append('nome'            ,     petName);
     data.append('img'             ,         img);
-    data.append('tipo'            ,  'cachorro');
+    data.append('tipo'            ,        type);
     data.append('sexo'            ,         sex);
     data.append('idade'           ,         age);
     data.append('tamanho'         ,        size);
@@ -179,10 +177,10 @@ export default function RegisterPet() {
     data.append('vermifugado'     , vermifugado);
     data.append('chipado'         ,     chipado);
     data.append('caracteristicas' ,       about);
-    data.append('id_doador'       ,         '3');
-
+    data.append('id_doador'       ,      userId);
+console.log(data);
     try {
-      await api.post('api/pet', data, {
+      await api.post('api/pets/create', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'authorization': `Bearer ${userToken}`
@@ -254,9 +252,9 @@ export default function RegisterPet() {
             <TypeArea>
               <Title>TIPO</Title>
               <Types>
-                <PetType name='dog'  value={checkType[0]} onPress={() => {CheckType('dog', 0)}}/>
-                <PetType name='cat'  value={checkType[1]} onPress={() => {CheckType('cat', 1)}}/>
-                <PetType name='plus' value={checkType[2]} onPress={() => {CheckType('plus', 2)}}/>
+                <PetType name='dog'  value={checkType[0]} onPress={() => {CheckType('cachorro', 0)}}/>
+                <PetType name='cat'  value={checkType[1]} onPress={() => {CheckType('gato', 1)}}/>
+                <PetType name='plus' value={checkType[2]} onPress={() => {CheckType('outro', 2)}}/>
               </Types>
             </TypeArea>
 

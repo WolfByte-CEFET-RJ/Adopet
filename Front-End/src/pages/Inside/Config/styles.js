@@ -30,13 +30,26 @@ export const Options = styled.View`
 
 export const Option = styled.TouchableOpacity`
   width: auto;
+
+  flex-direction: row;
+  align-items: center;
+
+  margin-bottom: 35px;
+`
+
+export const Line = styled.View`
+  position: relative;
+  right: 20px;
+
+  height: 40px;
+  width: 5px;
+
+  background: #FB9A21;
 `
 
 export const OptionText = styled.Text`
   font-size: 20px;
   color: white;
-
-  margin-bottom: 40px;
 `
 
 export const ExitArea = styled.TouchableOpacity`

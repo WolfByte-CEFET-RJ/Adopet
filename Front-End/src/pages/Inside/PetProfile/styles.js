@@ -12,6 +12,13 @@ export const Container = styled.View`
   padding-top: ${Constants.statusBarHeight}px;
 `
 
+export const Back = styled.View`
+  position: absolute;
+  top: 15px;
+
+  z-index: 10;
+`;
+
 export const PetImageArea = styled.View`
   background: white;
 

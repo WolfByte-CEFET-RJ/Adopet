@@ -22,7 +22,6 @@ export const TitlePets = styled.Text`
 `;
 
 export const Div = styled.View`
-
   margin-left: 10px;
 `;
 export const IconAddPet = styled.Image`

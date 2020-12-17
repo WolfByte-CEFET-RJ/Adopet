@@ -16,8 +16,10 @@ import RegisterOng     from './pages/Outside/RegisterOng';
 import PasswordRecover from './pages/Outside/PasswordRecover';
 import Tutorial        from './pages/Outside/Tutorial';
 
+
 import IHome           from './pages/Inside/IHome';
 import Chat            from './pages/Inside/Chat';
+import ChatInside      from './pages/Inside/InsideChat';
 import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
 import PetList         from './pages/Inside/PetList';
@@ -27,6 +29,8 @@ import PetProfile      from './pages/Inside/PetProfile';
 import UserProfile     from './pages/Inside/UserProfile';
 import RegisterPet     from './pages/Inside/RegisterPet';
 import Config          from './pages/Inside/Config';
+import AboutUs         from './pages/Inside/AboutUs';
+import FeedBack        from './pages/Inside/FeedBack';
 
 function MainTab() {
   return (
@@ -45,6 +49,7 @@ export default function Routes() {
 
       <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
 
+        <AppStack.Screen name='ChatInside' component={ChatInside} />
         <AppStack.Screen name='Home' component={Home} />
         <AppStack.Screen name='Login' component={Login} />
         <AppStack.Screen name='Register' component={Register} />
@@ -58,6 +63,8 @@ export default function Routes() {
         <AppStack.Screen name='RegisterPet' component={RegisterPet} />
         <AppStack.Screen name='Config' component={Config} />
         <AppStack.Screen name='AddPet' component={AddPet} />
+        <AppStack.Screen name='AboutUs' component={AboutUs} />
+        <AppStack.Screen name='FeedBack' component={FeedBack} />
 
       </AppStack.Navigator>
 

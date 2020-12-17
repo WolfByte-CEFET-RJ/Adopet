@@ -16,6 +16,7 @@ import {
   Container,
   ExitArea,
   ExitText,
+  Line,
   Options,
   Option,
   OptionText,
@@ -59,10 +60,10 @@ export default function Config() {
             <Option activeOpacity={0.8} onPress={() => goTo('Tutorial')}>
               <OptionText>Ajuda</OptionText>
             </Option>
-            <Option activeOpacity={0.8}>
+            <Option activeOpacity={0.8} onPress={() => goTo('FeedBack')}>
               <OptionText>FeedBack</OptionText>
             </Option>
-            <Option activeOpacity={0.8}>
+            <Option activeOpacity={0.8} onPress={() => goTo('AboutUs')}>
               <OptionText>Sobre Nós</OptionText>
             </Option>
           </Options>

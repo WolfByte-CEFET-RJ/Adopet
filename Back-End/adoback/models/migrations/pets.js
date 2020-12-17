@@ -1,7 +1,7 @@
 exports.up = (knex) => {
     return knex.schema.createTable('pets', (table) => {
         table.string('id').primary(),
-        table.json('localização').notNullable(),
+        table.string('localização').notNullable(),
         table.string('id_doador').notNullable(),
         table.json('imagem'),
         table.string('nome', 60).notNullable(),

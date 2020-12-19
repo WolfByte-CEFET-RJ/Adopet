@@ -4,6 +4,9 @@ import ListBG from '../../../assets/images/WantAdopt/ListBG.png'
 
 import { useNavigation } from '@react-navigation/native';
 
+import api from '../../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import PetCard from '../../../components/PetCard';
 import Search from '../../../components/Search';
 
@@ -30,28 +33,23 @@ export default function WantAdopt() {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const names = [
-      {name:'Polenta',          image: Dog,  adopted: 0},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 1},
-      {name:'Polenta',          image: Dog,  adopted: 0},
-      {name:'Duck Tales',       image: Duck, adopted: 1},
-      {name:'Garfield',         image: Cat,  adopted: 0},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
-      {name:'Polenta',          image: Dog,  adopted: 1},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 0},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
-      {name:'Polenta',          image: Dog,  adopted: 1},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 0},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
-    ]
+  async function loadPets() {
 
-    setVisiblePets(names);
-    setPets(names);
-  }, [])
+    const userToken = await AsyncStorage.getItem('token');
+    const id    = await AsyncStorage.getItem('id');
+
+    // const response = await api.get('/api/pets/myadopts', {
+    //   headers: {
+    //     'userId': `${id}`,
+    //     'authorization': `Bearer ${userToken}`
+    //   }
+    // })
+
+    setVisiblePets(response.data);
+    setPets(response.data);
+  }
+
+  useEffect(() => { loadPets() }, [])
 
   return(
     <Background source={ListBG}>

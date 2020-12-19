@@ -114,6 +114,8 @@ export const Title = styled.Text`
 export const UserInterestArea = styled.View`
   height: 80px;
   width: 100%;
+
+  margin: 10px;
 `;
 
 export const FeaturesArea = styled.View`

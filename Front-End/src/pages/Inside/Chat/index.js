@@ -26,7 +26,10 @@ import {
   ListView,
   Message,
   PetArea,
-  Title
+  Title,
+  PetsName,
+  NamePet,
+  DescPet,
 } from './styles';
 
 export default function Chat() {
@@ -41,9 +44,6 @@ export default function Chat() {
   useEffect(() => {
     const names = [
       {name:'Polenta',          image: Dog,  adopted: 0},
-      {name:'Duck Tales',       image: Duck, adopted: 0},
-      {name:'Garfield',         image: Cat,  adopted: 1},
-      {name:'Festa em Ipanema', image: Bird, adopted: 0},
     ]
 
     setVisiblePets(names);
@@ -77,19 +77,25 @@ export default function Chat() {
           </ListView>
 
         </Header>
+        <PetsName>
+          <Body
+            data={visiblePets}
+            keyExtractor={( _, index) => String(index)}
+            renderItem={ ({item, index}) => (
+              <PetArea index={index}>
+                <PetCard
+                  image={item.image}
+                  adopted={item.adopted}
+                  little={true}
+                  activeOpacity={0.5}
+                />
+              </PetArea>
+            )}
+          />
+          <NamePet>Polenta</NamePet>
+          <DescPet>2 anos, Rio de Janeiro, Brasil</DescPet>
 
-        <Body
-          data={visiblePets}
-          keyExtractor={( _, index) => String(index)}
-          renderItem={ ({item, index}) => (
-            <PetArea index={index}>
-              <PetCard
-                image={item.image}
-                adopted={item.adopted}
-              />
-            </PetArea>
-          )}
-        />
+        </PetsName>
       </Container>
     </Background>
   )

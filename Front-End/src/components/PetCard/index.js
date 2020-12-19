@@ -11,10 +11,10 @@ import {
   PetName,
 } from './styles';
 
-export default function PetCard({image, uri, name, adopted, onPress, activeOpacity}) {
+export default function PetCard({image, uri, name, adopted, onPress, activeOpacity,little}) {
 
   return(
-    <Pet activeOpacity={activeOpacity ? activeOpacity : 0.8} onPress={onPress}>
+    <Pet activeOpacity={activeOpacity ? activeOpacity : 0.8} onPress={onPress} little={little}>
       <AdoptedView opacity={adopted}>
         <AdoptedImage source={Collar}/>
         <AdoptedText>Pet Adotado!</AdoptedText>

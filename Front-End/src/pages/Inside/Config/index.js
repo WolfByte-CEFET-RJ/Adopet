@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Feather } from '@expo/vector-icons';
 
@@ -25,7 +25,12 @@ import {
 
 export default function Config() {
 
+  const [user, setUser] = useState({fullname: '', img_profile: '', local: ''});
+
   const navigation = useNavigation();
+  const route      = useRoute();
+
+  useEffect(() => { setUser(route.params.user) }, [])
 
   function goBack() {
     navigation.goBack();
@@ -40,9 +45,9 @@ export default function Config() {
       <Container>
         <Version>Versão 1.0</Version>
         <HeaderConfig
-          name={'Carlos Alberto'}
-          city={'Rio de Janeiro'}
-          image={UserExample}
+          name={user.fullname}
+          city={user.local}
+          image={{uri: `https://drive.google.com/thumbnail?id=${user.img_profile}`}}
           onPress={goBack}
         />
 

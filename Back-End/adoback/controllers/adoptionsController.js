@@ -60,6 +60,49 @@ module.exports = {
             })
     },
 
+    async deleteAdopt(req, res) {
+        const userId = req.headers.userid
+        if (!userId) 
+            return res.status(400).send('userId is required')
+        
+        //validação de usuario
+        try {
+            await userExist(userId)
+        } catch (erro) {
+            return res.status(404).send(erro)
+        }
+
+        const { error } = validateAdopt(req.body)
+        if (error) 
+            return res.status(400).send(error.details[0].message)
+
+        const { id_pet, id_doador } = req.body
+        
+        if(userId === id_doador)
+            return res.status(404).send('it is not possible')
+
+        //validação do doador
+        try {
+            await userExist(id_doador)
+        } catch { 
+            return res.status(404).send('donor not Found')
+        }
+
+        const pet = await connection('pets').where('id', id_pet).select(['pets.id_doador']).first()
+        if(!pet)
+            return res.status(404).send('Pet not Found')
+
+        if(pet.id_doador !== id_doador)
+            return res.status(400).send('This pet is not from this user')
+
+        try {
+            await connection('adoption').where({id_pet, id_doador, id_adotante: userId}).del()
+            res.status(200).send('adoption request canceled')
+        } catch (erro) {
+            res.status(500).send(erro)
+        }
+    },
+
     async myAdopts(req, res) {
         const userId = req.headers.userid
         if (!userId) 
@@ -69,17 +112,16 @@ module.exports = {
             .where('id_adotante', userId)
             .select([
                 'adoption.id_pet',
-                'pet.id_doador',
+                'pets.id_doador',
                 'pets.imagem',
                 'pets.nome',
                 'pets.tipo'
             ])
 
-        if (!myadopts) {
-            res.status(404).send('no solicitations')
-        }
-
-        res.status(200).json(myadopts)
+        if (!myadopts) 
+            return res.status(404).send('no solicitations')
+        else 
+            return res.status(200).json(myadopts)
     },
 
     async myDonationsNotifications(req, res) {

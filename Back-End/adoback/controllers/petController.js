@@ -4,8 +4,9 @@ const crypto = require('crypto')
 const fs = require('fs')
 const { imageUpload } = require('./../Google api/gdrive')
 const { insideCircle } = require('geolocation-utils')
-const { reject } = require('lodash')
+const { reject, forIn } = require('lodash')
 const { resolve } = require('path')
+const Knex = require('knex')
 
 module.exports = {
     async create(req, res) {
@@ -68,7 +69,11 @@ module.exports = {
             res.status(404).send('User not Found')
         else {
             try {
-                const pets = await connection('pets').where('adotado', 0).select(['pets.id', 'pets.id_doador',
+                const {page = 1} = req.query
+                const [count] = await connection('pets').count()
+
+                const pets = await connection('pets').where('adotado', 0).limit(20)
+                .offset((page - 1) * 20).select(['pets.id', 'pets.id_doador',
                     'pets.imagem', 'pets.localização', 'pets.nome', 'pets.tipo',
                     'pets.sexo', 'pets.idade', 'tamanho', 'pets.vacinação',
                     'pets.Treinado', 'pets.castrado', 'pets.vermifugado',
@@ -83,15 +88,17 @@ module.exports = {
                         const splitPet = pet.localização.split(':')
                         const petCoords = {latitude: parseFloat(splitPet[1].split(',',1)), 
                         longitude: parseFloat(splitPet[2].split('}',1))}
-                        
-                        if(insideCircle(petCoords,userCoords, 10000))
+
+                        if(insideCircle(petCoords,userCoords, 10000) && pet.id_doador !== userId)
                             petList.push(pet)
                 })
 
                 if (!petList)
                     return res.status(404).send('Pets not found.')
-                else 
+                else {
+                    res.header('X-total-count',count['count(*)'])
                     return res.status(200).json(petList)
+                }
 
             } catch (error) {
                 return res.status(400).send(error)

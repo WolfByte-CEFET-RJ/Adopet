@@ -2,10 +2,7 @@ const express = require('express')
 const routes = express.Router()
 
 const geolocation = require('geolocation-utils')
-
-const gmailApi = require('./../Google api/gGmail')
-const fs = require('fs')
-const path = require('path')
+const {celebrate, Segments, Joi} = require('celebrate')
 
 const newUserController = require('../controllers/newUserController')
 const passwordController = require('../controllers/passwordController')
@@ -31,12 +28,15 @@ routes.put('/api/user/updateProfile', authMiddleware, profileController.updatePr
 routes.post('/api/pets/create', uploadPet, authMiddleware, petController.create) //cria um post para anuncio de um pet
 routes.post('/api/pets/requestpet', authMiddleware, adoptionsController.adopt) //criar uma solicitação de pet
 
-routes.get('/api/pets/index', authMiddleware, petController.index) //mostras todos os pets para doação
+routes.get('/api/pets/index', celebrate({ [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number()}
+)}),authMiddleware, petController.index) //mostras todos os pets para doação
 routes.get('/api/pets/myadopts', authMiddleware, adoptionsController.myAdopts) //mostra todos os animais que a pessoa mostrou interesse 
 routes.get('/api/pets/mydonationsnotifications', authMiddleware, adoptionsController.myDonationsNotifications) //mostra todos os animais que tem alguem interessado para adotar
 
 routes.put('/api/pets/adopted', authMiddleware, adoptionsController.adoptionAproved) //rota de confirmação de adoção, é feita pelo doador 
 
+routes.delete('/api/pets/deleterequestpet', authMiddleware, adoptionsController.deleteAdopt) //deleta uma solicitação de pet
 routes.delete('/api/pets/delete', authMiddleware, petController.delete) //deleta um pet do bd
 
 //teste

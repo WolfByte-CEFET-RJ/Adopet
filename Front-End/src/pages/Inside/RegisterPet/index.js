@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { FontAwesome5 } from '@expo/vector-icons';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -73,6 +73,33 @@ export default function RegisterPet() {
   const [secundary ,  setSecundary] = useState('#12947F');
 
   const navigation = useNavigation();
+  const route      = useRoute()
+  const pet    = route.params.data;
+
+  useEffect(() => {
+    if (pet) {
+      // setPetImage(pet.imagem);
+      setType(pet.tipo);
+      if (pet.tipo == 'cachorro') {
+        setCheckType([1,0,0]);
+      } else if (pet.tipo == 'gato') {
+        setCheckType([0,1,0]);
+      } else {
+        setCheckType([0,0,1]);
+      }
+      setPetName(pet.nome);
+      setAbout(pet.caracteristicas);
+      // setWeight(pet);
+      setSize(pet.tamanho);
+      setAge(pet.idade.toString());
+      setSex(pet.sexo);
+      setVacina(pet.vacinação);
+      setTreinado(pet.Treinado ? true : false);
+      setCastrado(pet.castrado ? true : false);
+      setVermifugado(pet.vermifugado ? true : false);
+      setChipado(pet.chipado ? true : false);
+    }
+  }, [])
 
   function goToPets() {
     navigation.reset({

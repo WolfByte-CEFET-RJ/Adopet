@@ -18,7 +18,7 @@ export const UserBt = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
 
-  margin-right: 20px;
+  margin: 0 10px;
 `;
 
 export const User = styled.Image`
@@ -29,5 +29,3 @@ export const User = styled.Image`
 
   margin-right: 15px;
 `;
-
-

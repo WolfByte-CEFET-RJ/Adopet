@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import api               from '../../../services/api';
@@ -25,12 +25,17 @@ import {
 export default function Profile() {
 
   const [pets, setPets] = useState(0);
+  const [petsLength, setPetsLength] = useState(0);
+  const [user, setUser] = useState({fullname: '', img_profile: '', about: '', local: ''});
 
   const navigation = useNavigation();
 
-
   function goToConfig() {
-    navigation.navigate('Config');
+    navigation.navigate('Config', { user });
+  }
+
+  function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   async function loadUser() {
@@ -44,31 +49,33 @@ export default function Profile() {
         'authorization': `Bearer ${userToken}`
       }
     })
-    setPets(response.data.pets.length)
+    setPetsLength(response.data.pets.length)
+    setPets(response.data.pets)
+    setUser(response.data.user)
   }
 
   function PetList(){
-    loadUser();
-
-    if(pets==0) {
+    if(petsLength==0) {
       navigation.navigate('AddPet');
     } else
-      navigation.navigate('PetList');
+      navigation.navigate('PetList', {pets});
   }
+
+  useEffect(() => { loadUser() }, [])
 
   return(
     <Background source={BG}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Container>
           <UserInfo
-            name={'Carlos Alberto'}
-            city={'Rio de Janeiro'}
-            image={UserImageExample}
+            name={user.fullname}
+            city={user.local}
+            image={{uri: `https://drive.google.com/thumbnail?id=${user.img_profile}`}}
           />
 
           <AboutArea>
             <Title>SOBRE</Title>
-            <About>Recentemente tive que me mudar para uma casa menor e estou tendo que doar meus pets.</About>
+            <About>{capitalize(user.about)}.</About>
           </AboutArea>
 
           <Options>
@@ -76,7 +83,6 @@ export default function Profile() {
               background={'#F17808'}
               image={Icon1}
               name={'Pets'}
-              //onPress={goToRegisterPet}
               onPress ={PetList}
             />
             <OptionButton

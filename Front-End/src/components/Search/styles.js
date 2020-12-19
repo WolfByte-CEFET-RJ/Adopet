@@ -20,7 +20,7 @@ export const SearchArea = styled.View`
 
 export const SearchName = styled.TextInput`
   flex: 1;
-  color: white;
+  color: ${props => props.little ? 'white' : 'black'};
   font-size: 16px;
   margin-left: ${props => props.little ? '5px' : '0'};
 `

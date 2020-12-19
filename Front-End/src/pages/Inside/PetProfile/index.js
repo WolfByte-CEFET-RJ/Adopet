@@ -14,6 +14,7 @@ import { FontAwesome, Feather } from '@expo/vector-icons';
 import ProfileBG from '../../../assets/images/Profile/ProfileBG.png'
 
 import UserImageExample from '../../../assets/images/PetProfile/user_example.png';
+import UserImageExample2  from '../../../assets/images/Profile/user.png';
 
 import Buttom       from '../../../components/Button';
 import UserCard     from '../../../components/UserCard';
@@ -47,7 +48,7 @@ import {
 
 export default function PetProfile() {
   const [favorite, setFavorite] = useState(false);
-  const [interests, setInterests] = useState([UserImageExample, UserImageExample]);
+  const [interests, setInterests] = useState([UserImageExample2, UserImageExample2]);
   const [user     , setUser] = useState({fullname: '', img_profile: '', about: ''});
   const [userData , setUserData] = useState({});
   const [token    ,    setToken] = useState('');
@@ -56,7 +57,7 @@ export default function PetProfile() {
   const route      = useRoute();
   const data       = route.params.petSelected;
   const id_doador  = data.id_doador;
-  const interest   = route.params.interest;
+  const mypet      = route.params.mypet;
 
   const petInfos = [{title: 'TIPO DE ANIMAL', text: data.tipo.toUpperCase()},
                     {title: 'IDADE',          text: `${data.idade} ANOS`},
@@ -70,6 +71,10 @@ export default function PetProfile() {
 
   function goToUserProfile() {
     navigation.navigate('UserProfile', { userData })
+  }
+
+  function goToRegisterPet() {
+    navigation.navigate('RegisterPet', { data })
   }
 
   function capitalize(string) {
@@ -151,13 +156,17 @@ export default function PetProfile() {
                 <PetName>{capitalize(data.nome)}</PetName>
                 <PetInfo>{`${data.idade} anos`}</PetInfo>
               </PetTextArea>
-              <FontAwesome
-                name={favorite ? 'heart' : 'heart-o'}
-                size={50}
-                color={favorite ? "#F17808" : "#fff"}
-                style={{marginBottom:20}}
-                onPress={handleRequest}
-              />
+              {
+                mypet == 0 ?
+                <FontAwesome
+                  name={favorite ? 'heart' : 'heart-o'}
+                  size={50}
+                  color={favorite ? "#F17808" : "#fff"}
+                  style={{marginBottom:20}}
+                  onPress={handleRequest}
+                /> :
+                <></>
+              }
             </PetInfoArea>
 
           </PetImageArea>
@@ -181,23 +190,21 @@ export default function PetProfile() {
               <PetGrid data={petInfos}/>
             </FeaturesArea>
 
-            <UserArea>
-              <Title>SOBRE O DONO</Title>
-              <UserCard
-                onPress={goToUserProfile}
-                image={{uri: `https://drive.google.com/thumbnail?id=${user.img_profile}`}}
-                name={user.fullname}
-                text={`${capitalize(user.about)}.`}
-              />
-            </UserArea>
-
             {
-              interest ?
+              mypet ?
                 <UserInterestArea>
                   <UserInterest data={interests}/>
                 </UserInterestArea>
               :
-              <></>
+              <UserArea>
+                <Title>SOBRE O DONO</Title>
+                <UserCard
+                  onPress={goToUserProfile}
+                  image={{uri: `https://drive.google.com/thumbnail?id=${user.img_profile}`}}
+                  name={user.fullname}
+                  text={`${capitalize(user.about)}.`}
+                />
+              </UserArea>
             }
 
           </Body>
@@ -215,10 +222,10 @@ export default function PetProfile() {
             }
 
             <Buttom
-              text='Ver outros Animais'
+              text={mypet ? 'Editar Pet' : 'Ver outros Animais'}
               colors={['#F17808','#FF9A00']}
               radius={10}
-              onPress={() => navigation.goBack()}
+              onPress={() => {mypet ? goToRegisterPet() : navigation.goBack()}}
             />
           </Footer>
         </Container>

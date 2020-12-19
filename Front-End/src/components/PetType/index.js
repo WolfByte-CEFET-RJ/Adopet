@@ -9,8 +9,8 @@ import {
 
 export default function PetType({name, onPress, value}) {
   const data = {
-    dog:  {icon: 'cat', color:'#FF6F59', background: '#FFE9E6'},
-    cat:  {icon: 'dog', color:'#33C0FF', background: '#E5F7FF'},
+    dog:  {icon: 'dog', color:'#FF6F59', background: '#FFE9E6'},
+    cat:  {icon: 'cat', color:'#33C0FF', background: '#E5F7FF'},
     plus: {icon: 'plus', color:'#FF9933', background: '#FFF2E5'}
   }
 

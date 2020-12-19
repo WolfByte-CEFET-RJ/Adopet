@@ -40,7 +40,7 @@ export default function IHome() {
 
   function goPetProfile() {
     if (pets) {
-      navigation.navigate('PetProfile', { petSelected, interest: 0 });
+      navigation.navigate('PetProfile', { petSelected, mypet: 0 });
     }
   }
 

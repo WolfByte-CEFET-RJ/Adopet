@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import Constants from 'expo-constants';
-import { BottomTabBar } from '@react-navigation/bottom-tabs';
 
 export const Background = styled.ImageBackground`
   flex: 1;
@@ -55,8 +54,6 @@ export const ListView = styled.View`
 
   align-items: center;
   justify-content: space-around;
-
-  margin: 0px 5px;
 `;
 
 export const Donate = styled(Adopt)`
@@ -65,5 +62,21 @@ export const Donate = styled(Adopt)`
 export const PetArea = styled.View`
 `;
 
+export const PetsName = styled.TouchableOpacity`
+  flex-direction: row;
+  background: red;
+  width: 100%;
+`;
+
 export const Body = styled.FlatList`
+  margin-left: 30px;
+`;
+
+export const NamePet = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+export const DescPet = styled.Text`
+  font-size: 10px;
 `;

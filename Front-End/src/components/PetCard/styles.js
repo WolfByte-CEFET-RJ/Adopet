@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
 export const Pet = styled.TouchableOpacity`
-  width: 165px;
-  height: 220px;
+  width: ${props => props.little ? '110px' : '165px'};
+  height: ${props => props.little ? '110px' : '220px'};
 
   align-items: center;
   justify-content: center;

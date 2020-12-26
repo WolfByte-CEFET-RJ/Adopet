@@ -21,7 +21,7 @@ var messages = document.getElementById("messages");
     let span = document.createElement("span");
     var messages = document.getElementById("messages");
     messages.appendChild(li).append(data.message);
-    messages.appendChild(span).append("by " + "anonymous" + ": " + "just now");
+    // messages.appendChild(span).append("by " + "anonymous" + ": " + "just now");
     console.log("Hello bingo!");
   });
 })();
@@ -38,7 +38,7 @@ var messages = document.getElementById("messages");
         messages.appendChild(li).append(data.message);
         messages
           .appendChild(span)
-          .append("by " + data.sender + ": " + formatTimeAgo(data.createdAt));
+          // .append("by " + data.sender + ": " + formatTimeAgo(data.createdAt));
       });
     });
 })();

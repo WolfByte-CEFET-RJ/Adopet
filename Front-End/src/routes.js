@@ -19,6 +19,7 @@ import Tutorial        from './pages/Outside/Tutorial';
 
 import IHome           from './pages/Inside/IHome';
 import Chat            from './pages/Inside/Chat';
+import DonateChat      from './pages/Inside/Chat/DonateChat';
 import ChatInside      from './pages/Inside/InsideChat';
 import WantAdopt       from './pages/Inside/WantAdopt';
 import Profile         from './pages/Inside/Profile';
@@ -39,6 +40,7 @@ function MainTab() {
       <Tab.Screen name="Chat" component={Chat} />
       <Tab.Screen name="WantAdopt" component={WantAdopt} />
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="DonateChat" component={DonateChat} />
     </Tab.Navigator>
   );
 }
@@ -49,6 +51,7 @@ export default function Routes() {
 
       <AppStack.Navigator headerMode='none' initialRouteName='Home' screenOptions={{ headerShown: false}}>
 
+        <AppStack.Screen name='DonateChat' component={DonateChat} />
         <AppStack.Screen name='ChatInside' component={ChatInside} />
         <AppStack.Screen name='Home' component={Home} />
         <AppStack.Screen name='Login' component={Login} />

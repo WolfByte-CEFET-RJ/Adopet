@@ -42,8 +42,8 @@ export default function Chat() {
 
   const navigation = useNavigation();
 
-  function goTo(isOng){
-    navigation.navigate('RegisterOng', { isOng });
+  function goTo(isDonate){
+    navigation.navigate('DonateChat', { isDonate });
   }
 
   async function loadPets() {
@@ -70,11 +70,11 @@ export default function Chat() {
         <Header>
             <Title source={Icon}></Title>
           <HeaderTitle>
-            <BottomAdopt>
+            <BottomAdopt onPress={() => {navigation.goBack()}}>
               <Adopt>Quero Adotar</Adopt>
             </BottomAdopt>
-            <BottomDonate>
-              <Donate onPress={() => {navigation.goBack()}}>Quero Doar</Donate>
+            <BottomDonate onPress={() => {goTo(false)}}>
+              <Donate>Quero Doar</Donate>
             </BottomDonate>
           </HeaderTitle>
 

@@ -69,14 +69,4 @@ export const PetsName = styled.TouchableOpacity`
 `;
 
 export const Body = styled.FlatList`
-  margin-left: 30px;
-`;
-
-export const NamePet = styled.Text`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-export const DescPet = styled.Text`
-  font-size: 10px;
 `;

@@ -4,6 +4,9 @@ import BG from '../../../assets/images/Chat/BG.png'
 
 import { useNavigation } from '@react-navigation/native';
 
+import api from '../../../services/api';
+import AsyncStorage from '@react-native-community/async-storage';
+
 import PetCard from '../../../components/PetCard';
 import Search from '../../../components/Search';
 
@@ -28,8 +31,6 @@ import {
   PetArea,
   Title,
   PetsName,
-  NamePet,
-  DescPet,
 } from './styles';
 
 export default function Chat() {
@@ -41,14 +42,27 @@ export default function Chat() {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const names = [
-      {name:'Polenta',          image: Dog,  adopted: 0},
-    ]
+  function goTo(isOng){
+    navigation.navigate('RegisterOng', { isOng });
+  }
 
-    setVisiblePets(names);
-    setPets(names);
-  }, [])
+  async function loadPets() {
+
+    const userToken = await AsyncStorage.getItem('token');
+    const id    = await AsyncStorage.getItem('id');
+
+    // const response = await api.get('/api/pets/myadopts', {
+    //   headers: {
+    //     'userId': `${id}`,
+    //     'authorization': `Bearer ${userToken}`
+    //   }
+    // })
+
+    setVisiblePets(response.data);
+    setPets(response.data);
+  }
+
+  useEffect(() => { loadPets() }, [])
 
   return(
     <Background source={BG}>
@@ -60,7 +74,7 @@ export default function Chat() {
               <Adopt>Quero Adotar</Adopt>
             </BottomAdopt>
             <BottomDonate>
-              <Donate>Quero Doar</Donate>
+              <Donate onPress={() => {navigation.goBack()}}>Quero Doar</Donate>
             </BottomDonate>
           </HeaderTitle>
 
@@ -81,20 +95,17 @@ export default function Chat() {
           <Body
             data={visiblePets}
             keyExtractor={( _, index) => String(index)}
+            numColumns={2}
             renderItem={ ({item, index}) => (
               <PetArea index={index}>
                 <PetCard
                   image={item.image}
+                  name={item.name}
                   adopted={item.adopted}
-                  little={true}
-                  activeOpacity={0.5}
                 />
               </PetArea>
             )}
           />
-          <NamePet>Polenta</NamePet>
-          <DescPet>2 anos, Rio de Janeiro, Brasil</DescPet>
-
         </PetsName>
       </Container>
     </Background>

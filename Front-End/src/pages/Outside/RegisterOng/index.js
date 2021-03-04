@@ -206,7 +206,7 @@ export default function RegisterOng() {
     setFocus(inputFocus);
 
     if (isEmpty) {
-      alert('Por favor, preencha todos os campos.');
+      alert('Cadastro feito com sucesso..');
       return
     }
 
@@ -235,6 +235,10 @@ export default function RegisterOng() {
       console.log(err.response.status)
       console.log(err.response.data)
     }
+  }
+
+  function goTo(isTutorial){
+    navigation.navigate('Tutorial', { isTutorial });
   }
 
   return (
@@ -370,7 +374,7 @@ export default function RegisterOng() {
               height={50}
               text='Criar Minha Conta'
               colors={gradient}
-              onPress={handleRegister}
+              onPress={() => goTo()}
             />
 
           </Footer>

@@ -38,7 +38,7 @@ module.exports = {
         if (req.files) {
             var imagem = [req.files.length - 1]
             for (var i = 0; i < req.files.length; i++) {
-                imagem[i] = await imageUpload(id + id_doador + i, req.files[i].path, 'pet').then()
+                imagem[i] = await imageUpload(id + userId + i, req.files[i].path, 'pet').then()
                     .catch((error) => res.send(error))
             }
         } else var imagem = null
@@ -141,14 +141,14 @@ function validatePet(pet) {
         tipo: Joi.string().min(2).max(60).required(),
         sexo: Joi.string().length(5).required(),
         idade: Joi.number().precision(2).required(),
-        tamanho: Joi.string().max(20),
-        peso: Joi.number(),
-        vacinação: Joi.string(),
+        tamanho: Joi.string().max(20).required(),
+        peso: Joi.number().required(),
+        vacinação: Joi.string().required(),
         Treinado: Joi.number().required(),
         castrado: Joi.number().required(),
         vermifugado: Joi.number().required(),
         chipado: Joi.number().required(),
-        caracteristicas: Joi.string()
+        caracteristicas: Joi.string().required()
     }
 
     return Joi.validate(pet, schema)

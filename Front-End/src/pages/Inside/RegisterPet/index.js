@@ -187,10 +187,12 @@ export default function RegisterPet() {
       type: imageType
     }
 
+    const localização = `latitude: 51.03, longitude: 3.05`;
+
     // const img = CreateImg(petImage0);
 
     const data = new FormData();
-    data.append('localização'     ,     `{\'latitude\':12301982.23, \'longitude\':1231239.54}`);
+    data.append('localização'     ,     localização);
     data.append('nome'            ,     petName);
     data.append('img'             ,         img);
     data.append('tipo'            ,        type);
@@ -204,13 +206,13 @@ export default function RegisterPet() {
     data.append('vermifugado'     , vermifugado);
     data.append('chipado'         ,     chipado);
     data.append('caracteristicas' ,       about);
-    data.append('id_doador'       ,      userId);
 console.log(data);
     try {
       await api.post('api/pets/create', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'authorization': `Bearer ${userToken}`
+          'authorization': `Bearer ${userToken}`,
+          'userId': `${userId}`
         }
       });
       console.log('Pet cadastrado feito com sucesso.');

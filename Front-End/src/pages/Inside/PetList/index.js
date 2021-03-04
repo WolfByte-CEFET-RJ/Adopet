@@ -18,6 +18,7 @@ import { ScrollView } from 'react-native'
 import {
   AnimalList,
   Background,
+  BottomAddPet,
   Div,
   IconAddPet,
   InputArea,
@@ -97,8 +98,10 @@ export default function WantAdopt() {
           </Div>
 
           <TitlePets> Pets </TitlePets>
+          <BottomAddPet onPress={goToRegisterPet}>
+             <IconAddPet source={AddPet}/>
+          </BottomAddPet>
 
-          <IconAddPet source={AddPet} onPress={goToRegisterPet}/>
         </TopContainer>
 
         <InputArea>

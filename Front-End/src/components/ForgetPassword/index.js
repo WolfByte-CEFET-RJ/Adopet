@@ -32,7 +32,7 @@ export default function ForgetPassword(props){
     }
 
     try {
-      await api.post('/api/forgetpassword', {email})
+      await api.post('/api/user/forgetpassword', {email})
       console.log('Alteração de senha enviada, verifique seu e-mail.')
       props.fechar();
 

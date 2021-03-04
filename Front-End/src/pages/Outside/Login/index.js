@@ -37,9 +37,9 @@ export default function Login(){
   const navigation = useNavigation();
 
   function goToMainTab(){
-    // navigation.reset({
-    //   routes:[{name:'MainTab'}]
-    // })
+    navigation.reset({
+      routes:[{name:'MainTab'}]
+    })
     navigation.navigate('MainTab')
   }
 
@@ -65,6 +65,7 @@ export default function Login(){
       const response = await api.post('/api/user/login', data)
 
       await AsyncStorage.setItem('token', response.data.token)
+      console.log(response.data.token)
       await AsyncStorage.setItem('id', response.data.id)
 
       goToMainTab();

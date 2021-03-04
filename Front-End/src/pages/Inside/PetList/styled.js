@@ -21,6 +21,9 @@ export const Div = styled.View`
   margin-left: 10px;
 `;
 
+export const BottomAddPet = styled.TouchableOpacity`
+`;
+
 export const IconAddPet = styled.Image`
   width: 50px;
   height: 50px;
